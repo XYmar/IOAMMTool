@@ -30,6 +30,10 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <script src="http://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
   </head>
   <body>
   <!-- navbar -->
@@ -165,16 +169,24 @@
           <div class="arrow"></div>
           <div class="arrow_border"></div>
         </div>
-        <a id="index.html">
+        <router-link to="/">
           <i class="icon-home"></i>
           <span>Home</span>
-        </a>
+        </router-link>
+        <!-- <a id="index.html">
+          <i class="icon-home"></i>
+          <span>Home</span>
+        </a> -->
       </li>
       <li>
-        <a href="chart-showcase.html">
+        <router-link to="/chart-showcase">
           <i class="icon-signal"></i>
           <span>Charts</span>
-        </a>
+        </router-link>
+        <!-- <a href="chart-showcase.html">
+          <i class="icon-signal"></i>
+          <span>Charts</span>
+        </a> -->
       </li>
       <li>
         <a class="dropdown-toggle" href="#">
@@ -248,13 +260,73 @@
         </ul>
       </li>
     </ul>
+
+
+    <router-view></router-view>
   </div>
 
   <!-- main container -->
   <div class="content">
-    <div id="app"></div>
+    <div id="app">
+      
+    </div>
+
+    
+      <template id="home">
+        <div>首页</div>
+      </template>
+      <template id="chart-showcase">
+          <div>新闻</div>
+      </template>
+    
+    <!-- <template id="home">
+        <div>首页</div>
+      </template>
+      <template id="chart-showcase">
+          <div>新闻</div>
+      </template> -->
+
+      <!-- settings changer -->
+        <!-- <div class="skins-nav">
+            <a href="#" class="skin first_nav selected">
+                <span class="icon"></span><span class="text">Default skin</span>
+            </a>
+            <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
+                <span class="icon"></span><span class="text">Dark skin</span>
+            </a>
+        </div> -->
 
   </div>
+
+
+  <script type="text/javascript">
+        // 1. 定义（路由）组件。
+        const Home = { template: '#' };
+        const Charts = { template: '#chart-showcase' };
+
+
+        // 2. 定义路由
+        const routes = [
+             { path: '/', component: Home },
+            
+             { path: '/news', component: Charts}
+        ]
+
+        // 3. 创建 router 实例，然后传 `routes` 配置
+        const router = new VueRouter({
+            routes // （缩写）相当于 routes: routes
+        })
+
+
+        // 4. 创建和挂载根实例。
+        // 记得要通过 router 配置参数注入路由，
+        // 从而让整个应用都有路由功能
+        const app = new Vue({
+          router
+        }).$mount('#sidebar-nav')
+
+        // 现在，应用已经启动了！
+    </script>
 
   </body>
 </html>
