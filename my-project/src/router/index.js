@@ -3,11 +3,15 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import xy1 from '@/pages/xy1'
 import xy2 from '@/pages/xy2'
+import Axios from 'axios'
 
+/* eslint-disable */
+Axios.defaults.baseURL = 'http://192.168.0.116:8080/'  //路径提取出来，简化代码
 Vue.use(Router)
+Vue.prototype.$axios = Axios;
 
 export default new Router({
-  /* eslint-disable */
+  
   routes: [
     {
       path: '/',

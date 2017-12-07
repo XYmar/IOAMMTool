@@ -6,24 +6,7 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-/* eslint-disable */
-//Vue.use(VueRouter)
-
-// 1. 定义（路由）组件。
-
-// 2. 定义路由
-/* eslint-disable */
-/*const routes = [
-    { path: '/pages/xy1', component: xy1},
-    { path: '/pages/xy2', component: xy2}
-]
-
-// 3. 创建 router 实例，然后传 `routes` 配置
-const router = new VueRouter({
-	// eslint-disable-next-line
-	routes
-})*/
-
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
