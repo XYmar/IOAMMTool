@@ -38,6 +38,27 @@
 .users-list .pagination {
   margin-top: 25px; }
 
+
+.table ul.actions {
+    margin: 5px 0 0 0;
+    padding: 0;
+    float: right; }
+    .table ul.actions li {
+      display: inline;
+      padding: 5px 6px 0px 3px; }
+      .table ul.actions li.last {
+        border: 0 none; }
+    .table ul.actions i {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity .1s linear;
+      -moz-transition: opacity .1s linear;
+      -webkit-transition: opacity .1s linear;
+      -o-transition: opacity .1s linear; }
+      .table ul.actions i:hover {
+        opacity: 1; }
+
+
 /* responsive */
 @media (max-width: 767px) {
   .ui-dropdown .dialog .body {
