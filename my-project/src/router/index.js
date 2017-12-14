@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import xy1 from '@/pages/xy1'
-import xy2 from '@/pages/xy2'
+import users from '@/pages/users'
+import components from '@/pages/components'
+import addComponent from '@/pages/addComponent'
 import addUser from '@/pages/addUser'
 import Axios from 'axios'
 
@@ -12,7 +13,7 @@ Vue.use(Router)
 Vue.prototype.$axios = Axios;
 
 export default new Router({
-  
+
   routes: [
     {
       path: '/',
@@ -20,22 +21,33 @@ export default new Router({
       component: HelloWorld,
       children: [
         {
-          path: '/xy1', 
-          name: 'xy1',
-          component: xy1
+          path: '/users',
+          name: 'users',
+          component: users
         },
         {
-          path: '/xy2', 
-          name: 'xy2',
-          component: xy2
+          path: '/components',
+          name: 'components',
+          component: components
         },
         {
-          path: '/addUser', 
+          path: '/addUser',
           name: 'addUser',
           component: addUser
+        },
+        {
+          path: '/addComponent',
+          name: 'addComponent',
+          component: addComponent
         }
       ]
     }
-    
   ]
 })
+
+
+
+
+
+
+
