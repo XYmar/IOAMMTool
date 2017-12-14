@@ -7,8 +7,8 @@ import addComponent from '@/pages/addComponent'
 import addUser from '@/pages/addUser'
 // import launchtree from '@/pages/launchtree'
 // import treeMenu from '@/pages/treeMenu'
-import  devices from '@/pages/devices'
-import  addDevice from '@/pages/addDevice'
+import devices from '@/pages/devices'
+import addDevice from '@/pages/addDevice'
 import Axios from 'axios'
 
 /* eslint-disable */

@@ -29,12 +29,12 @@
 
                             <div class="span12 field-box">
                                 <label>IP:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="password" name="add-ip"/>
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="password" name="add-des"/>
                             </div>
 
                             <!--<div class="span7 field-box actions">-->
@@ -64,8 +64,9 @@
             addUser: function (){
                 var qs = require('qs');
                 this.$axios.post('users',qs.stringify({
-                    "username": $("input[name='add-name']").val(),
-                    "password": $("input[name='add-password']").val()
+                    "name": $("input[name='add-name']").val(),
+                    "ip": $("input[name='add-ip']").val(),
+                    "description": $("input[name='add-des']").val()
                 }),{
                     /*params:{  //get请求在第二个位置，post在第三个位置
                      ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'

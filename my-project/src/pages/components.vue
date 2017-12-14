@@ -140,9 +140,7 @@ export default{
             }
         },created(){
             this.$axios.get('components',{
-                params:{  //get请求在第二个位置，post在第三个位置
-                    latest:'true'
-                },
+                
                 //设置头
                 headers:{
                     'content-type':'application/x-www-form-urlencoded'
