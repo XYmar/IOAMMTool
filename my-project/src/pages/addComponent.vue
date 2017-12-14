@@ -37,10 +37,10 @@
                           <input class="span9" type="password" name="add-password"/>
                         </div>
 
-                          <div class="span12 field-box">
+                          <!-- <div class="span12 field-box">
                             <label>大小:</label>
                             <input class="span9" type="password" name="add-password"/>
-                          </div>
+                          </div> -->
 
                             <div class="span7 field-box actions">
                                 <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>

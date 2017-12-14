@@ -72,23 +72,31 @@
 							<th class="span3 sortable">
 								<span class="line"></span>版本
 							</th>
-							<th class="span3">
+							<!-- <th class="span3">
 								<span class="line"></span>大小
-							</th>
+							</th> -->
 							<th class="span3">
 								<span class="line"></span>描述
 							</th>
+							<th class="span3">
+								<span class="line"></span>操作
+							</th>
+
 						</tr>
 						</thead>
 						<tbody>
 						<!-- row -->
-						<tr class="first" v-for="(user,index) in users" :key="index">
+						<tr class="first" v-for="(component,index) in components" :key="index">
 							<td>
-								{{user.username}}
+								{{component.name}}
 							</td>
 							<td class="description">
-								{{user.password}}
+								{{component.version}}
 							</td>
+							<td class="description">
+								{{component.description}}
+							</td>
+							
 							<td>
 								<span class="label label-success">Active</span>
 								<ul class="actions">
@@ -118,10 +126,40 @@
 		</div>
 		<hr/>
 		<div>
-			{{users}}
+			{{components}}
 		</div>
 	</div>
 </template>
+
+<script>
+export default{
+        /* eslint-disable */
+        data(){
+            return{
+                components:[]
+            }
+        },created(){
+            this.$axios.get('components',{
+                params:{  //get请求在第二个位置，post在第三个位置
+                    latest:'true'
+                },
+                //设置头
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    username: 'admin',
+                    password: 'admin'
+                }
+            }).then(res=>{
+                this.components = res.data.data
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        }
+    }
 </script>
 <style>
 
