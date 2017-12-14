@@ -133,9 +133,9 @@
             <div class="arrow"></div>
             <div class="arrow_border"></div>
           </div>
-          <router-link to="/xy1">
+          <router-link to="/users">
             <i class="icon-home"></i>
-            <span>XY1</span>
+            <span>users</span>
           </router-link>
           <!-- <a id="index.html">
             <i class="icon-home"></i>
@@ -143,9 +143,9 @@
           </a> -->
         </li>
         <li>
-          <router-link to="/xy2">
+          <router-link to="/components">
             <i class="icon-signal"></i>
-            <span>XY2</span>
+            <span>componets</span>
           </router-link>
           <!-- <a href="chart-showcase.html">
             <i class="icon-signal"></i>
@@ -228,8 +228,8 @@
 
     <!-- main container -->
     <div class="content">
-        <!-- 路由出口 -->
-        <router-view></router-view>
+      <!-- 路由出口 -->
+      <router-view></router-view>
 
     </div>
   </div>
@@ -237,13 +237,13 @@
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
+  export default {
+    name: 'HelloWorld',
+    data () {
+      return {
+      }
     }
   }
-}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
