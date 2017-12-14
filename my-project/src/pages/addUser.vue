@@ -81,6 +81,7 @@ export default{
                 alert("请重新输入用户名！");
             })
         	}
+
         }
     }
 </script>
