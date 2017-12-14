@@ -5,6 +5,10 @@ import users from '@/pages/users'
 import components from '@/pages/components'
 import addComponent from '@/pages/addComponent'
 import addUser from '@/pages/addUser'
+// import launchtree from '@/pages/launchtree'
+// import treeMenu from '@/pages/treeMenu'
+import  devices from '@/pages/devices'
+import  addDevice from '@/pages/addDevice'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -39,7 +43,27 @@ export default new Router({
           path: '/addComponent',
           name: 'addComponent',
           component: addComponent
-        }
+        },
+          // {
+          //     path: '/launchtree',
+          //     name: 'launchtree',
+          //     component: launchtree
+          // },
+          // {
+          //     path: '/treeMenu',
+          //     name: 'treeMenu',
+          //     component: treeMenu
+          // },
+          {
+              path: '/devices',
+              name: 'devices',
+              component: devices
+          },
+          {
+              path: '/addDevice',
+              name: 'addDevice',
+              component: addDevice
+          }
       ]
     }
   ]

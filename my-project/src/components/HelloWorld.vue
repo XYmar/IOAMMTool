@@ -153,6 +153,16 @@
           </a> -->
         </li>
         <li>
+          <router-link to="/devices">
+            <i class="icon-signal"></i>
+            <span>devices</span>
+          </router-link>
+          <!-- <a href="chart-showcase.html">
+            <i class="icon-signal"></i>
+            <span>Charts</span>
+          </a> -->
+        </li>
+        <li>
           <a class="dropdown-toggle" href="#">
             <i class="icon-group"></i>
             <span>Users</span>

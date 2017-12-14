@@ -45,7 +45,7 @@
 							</div>
 						</div>
 
-						<router-link to="/addComponent" class="btn-flat success pull-right">
+						<router-link to="/treeMenu" class="btn-flat success pull-right">
 							<span>&#43;</span>
 							新增
 						</router-link>
