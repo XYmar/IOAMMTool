@@ -63,7 +63,7 @@
 
                 <!-- Users table -->
                 <div class="row-fluid table">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="table_value">
                         <thead>
                         <tr>
                             <th class="span4 sortable">
@@ -75,11 +75,15 @@
                             <th class="span3">
                                 <span class="line"></span>设备详情
                             </th>
+                            <th class="span3">
+                                <span class="line"></span>操作
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
                         <!-- row -->
                         <tr class="first" v-for="(device,index) in devices" :key="index">
+                            <td style="display:none">{{device.id}}</td>
                             <td>
                                 {{device.name}}
                             </td>
@@ -88,6 +92,18 @@
                             </td>
                             <td class="description">
                                 {{device.description}}
+                            </td>
+                            <td>
+                                <span class="label label-success">Active</span>
+                                <ul class="actions">
+                                    <li>
+                                        <router-link to="/modifyDevice">修改</router-link>
+                                    </li>
+                                    <li class="last">
+                                        <!-- <router-link to="/devices" @click="deleteDevice">删除</router-link>  -->
+                                        <input type="button" class="btn-glow primary" value="删除" @click="deleteDevice($event)"/>
+                                    </li>
+                                </ul>
                             </td>
                            
                         </tr>
@@ -141,6 +157,41 @@ export default{
                 console.log(err);
             })
 
+        },
+        methods: {
+
+            deleteDevice: function (event){
+                //alert("A");
+                var e = event || window.event;
+                //alert("B");
+                var target = e.target || e.srcElement;
+                if (target.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
+                    //alert("C");
+                    var rowIndex = target.parentNode.parentNode.parentNode.parentNode.rowIndex;
+                    alert(rowIndex);
+                    var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+                    alert(id);
+                    var qs = require('qs');
+                    this.$axios.delete('devices/'+id,{
+                        
+                        //设置头
+                        headers:{
+                            'content-type':'application/x-www-form-urlencoded'
+                        },
+                        auth: {
+                            username: 'admin',
+                            password: 'admin'
+                        }
+                    }).then(res=>{
+                        //this.users = res.data.data
+                        //console.log(res);
+                        this.$router.replace({ path: '/devices'})
+                    }).catch(err=>{
+                        alert("删除失败！");
+                    })
+                }
+                
+            }
         }
     }
 </script>
