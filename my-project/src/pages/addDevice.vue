@@ -29,12 +29,16 @@
 
                             <div class="span12 field-box">
                                 <label>IP:</label>
+
                                 <input class="span9" type="text" name="add-ip"/>
+
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述:</label>
+
                                 <input class="span9" type="text" name="add-des"/>
+
                             </div>
 
                             <div class="span7 field-box actions">

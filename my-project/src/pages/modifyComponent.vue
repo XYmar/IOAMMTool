@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div id="pad-wrapper" class="new-user">
                 <div class="row-fluid header">
-                    <h3>创建一个新组件</h3>
+                    <h3>编辑组件信息</h3>
                 </div>
 
                 <div class="row-fluid form-wrapper">
@@ -29,21 +29,23 @@
 
                             <div class="span12 field-box">
                                 <label>版本:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="text" name="add-version"/>
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述信息:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="text" name="add-describle"/>
                             </div>
 
                             <div class="span12 field-box">
                                 <label>大小:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="text" name="add-size"/>
                             </div>
 
                             <div class="span7 field-box actions">
-                                <input type="button" class="btn-glow primary" value="修改" style="width: 100px;" @click="addUser"/>
+
+                                <input type="button" class="btn-glow primary" value="保存" style="width: 100px;" @click="addUser"/>
+
                             </div>
                             </form>
                         </div>

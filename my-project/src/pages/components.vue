@@ -45,19 +45,16 @@
 							</div>
 						</div>
 
-						<router-link to="/treeMenu" class="btn-flat success pull-right">
+						<router-link to="/addComponent" class="btn-flat success pull-right">
 							<span>&#43;</span>
 							新增
 						</router-link>
 
-						<!--<router-link to="/deletComponent" class="btn-flat success pull-right ">-->
-							<!--<span>&#43;</span>-->
-							<!--删除-->
-						<!--</router-link>-->
-						<!-- <router-link to="/xy1">
-                            <i class="icon-home"></i>
-                            <span>XY1</span>
-                        </router-link> -->
+            <router-link to="/modifyComponent" class="btn-flat success pull-right">
+              <span>&#43;</span>
+              编辑
+            </router-link>
+
 					</div>
 				</div>
 

@@ -5,10 +5,11 @@ import users from '@/pages/users'
 import components from '@/pages/components'
 import addComponent from '@/pages/addComponent'
 import addUser from '@/pages/addUser'
-// import launchtree from '@/pages/launchtree'
-// import treeMenu from '@/pages/treeMenu'
-import devices from '@/pages/devices'
-import addDevice from '@/pages/addDevice'
+import treeMenu from '@/pages/treeMenu'
+import  devices from '@/pages/devices'
+import  addDevice from '@/pages/addDevice'
+import  modifyDevice from  '@/pages/modifyDevice'
+import  modifyComponent from '@/pages/modifyComponent'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -18,60 +19,59 @@ Vue.prototype.$axios = Axios;
 
 export default new Router({
 
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      children: [
+    routes: [
         {
-          path: '/users',
-          name: 'users',
-          component: users
-        },
-        {
-          path: '/components',
-          name: 'components',
-          component: components
-        },
-        {
-          path: '/addUser',
-          name: 'addUser',
-          component: addUser
-        },
-        {
-          path: '/addComponent',
-          name: 'addComponent',
-          component: addComponent
-        },
-          // {
-          //     path: '/launchtree',
-          //     name: 'launchtree',
-          //     component: launchtree
-          // },
-          // {
-          //     path: '/treeMenu',
-          //     name: 'treeMenu',
-          //     component: treeMenu
-          // },
-          {
-              path: '/devices',
-              name: 'devices',
-              component: devices
-          },
-          {
-              path: '/addDevice',
-              name: 'addDevice',
-              component: addDevice
-          }
-      ]
-    }
-  ]
+            path: '/',
+            name: 'HelloWorld',
+            component: HelloWorld,
+            children: [
+                {
+                    path: '/users',
+                    name: 'users',
+                    component: users
+                },
+                {
+                    path: '/components',
+                    name: 'components',
+                    component: components
+                },
+                {
+                    path: '/addUser',
+                    name: 'addUser',
+                    component: addUser
+                },
+                {
+                    path: '/addComponent',
+                    name: 'addComponent',
+                    component: addComponent
+                },
+
+                {
+                    path: '/treeMenu',
+                    name: 'treeMenu',
+                    component: treeMenu
+                },
+                {
+                    path: '/devices',
+                    name: 'devices',
+                    component: devices
+                },
+                {
+                path: '/addDevice',
+                name: 'addDevice',
+                component: addDevice
+              },
+              {
+                path: '/modifyDevice',
+                name: 'modifyDevice',
+                component: modifyDevice
+              },
+              {
+                path: '/modifyComponent',
+                name: 'modifyComponent',
+                component: modifyComponent
+              }
+            ]
+        }
+    ]
 })
-
-
-
-
-
-
-
