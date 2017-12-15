@@ -29,12 +29,16 @@
 
                             <div class="span12 field-box">
                                 <label>IP:</label>
-                                <input class="span9" type="text" name="add-IP"/>
+
+                                <input class="span9" type="text" name="add-ip"/>
+
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述:</label>
-                                <input class="span9" type="text" name="add-describle"/>
+
+                                <input class="span9" type="text" name="add-des"/>
+
                             </div>
 
                             <div class="span7 field-box actions">
@@ -63,9 +67,10 @@
         methods: {
             addUser: function (){
                 var qs = require('qs');
-                this.$axios.post('users',qs.stringify({
-                    "username": $("input[name='add-name']").val(),
-                    "password": $("input[name='add-password']").val()
+                this.$axios.post('devices',qs.stringify({
+                    "name": $("input[name='add-name']").val(),
+                    "ip": $("input[name='add-ip']").val(),
+                    "description": $("input[name='add-des']").val()
                 }),{
                     /*params:{  //get请求在第二个位置，post在第三个位置
                      ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'
@@ -81,7 +86,7 @@
                 }).then(res=>{
                     //this.users = res.data.data
                     //console.log(res);
-                    this.$router.replace({ path: '/xy1'})
+                    this.$router.replace({ path: '/devices'})
                 })
                     .catch(err=>{
                         alert("请重新输入用户名！");

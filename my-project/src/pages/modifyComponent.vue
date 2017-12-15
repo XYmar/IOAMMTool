@@ -43,7 +43,9 @@
                             </div>
 
                             <div class="span7 field-box actions">
+
                                 <input type="button" class="btn-glow primary" value="保存" style="width: 100px;" @click="addUser"/>
+
                             </div>
                             </form>
                         </div>

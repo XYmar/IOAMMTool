@@ -32,6 +32,7 @@
                                 <input class="span9" type="text" name="add-version"/>
                             </div>
 
+
                             <div class="span12 field-box">
                                 <label>描述信息:</label>
                                 <input class="span9" type="text" name="add-describle"/>

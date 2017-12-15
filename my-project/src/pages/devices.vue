@@ -79,21 +79,17 @@
                         </thead>
                         <tbody>
                         <!-- row -->
-                        <tr class="first" v-for="(user,index) in users" :key="index">
+                        <tr class="first" v-for="(device,index) in devices" :key="index">
                             <td>
-                                <!--{{user.username}}-->
+                                {{device.name}}
                             </td>
-
+                            <td>
+                               {{device.ip}}     
+                            </td>
                             <td class="description">
-                                <!--{{user.password}}-->
+                                {{device.description}}
                             </td>
-                            <td>
-                                <!--<span class="label label-success">Active</span>-->
-                                <!--<ul class="actions">-->
-                                    <!--<li><a href="#">修改</a></li>-->
-                                    <!--<li class="last"><a href="#">删除</a></li>-->
-                                <!--</ul>-->
-                            </td>
+                           
                         </tr>
                         <!-- row -->
 
@@ -116,11 +112,38 @@
         </div>
         <hr/>
         <div>
-            {{users}}
+            {{devices}}
         </div>
     </div>
 </template>
 
+<script>
+export default{
+        /* eslint-disable */
+        data(){
+            return{
+                devices:[]
+            }
+        },created(){
+            this.$axios.get('devices',{
+                //设置头
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    username: 'admin',
+                    password: 'admin'
+                }
+            }).then(res=>{
+                this.devices = res.data.data
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+
+        }
+    }
+</script>
 <style>
 
 </style>
