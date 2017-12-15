@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="span7 field-box actions">
-                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
+                                <input type="button" class="btn-glow primary" value="修改" style="width: 100px;" @click="addUser"/>
                             </div>
                             </form>
                         </div>

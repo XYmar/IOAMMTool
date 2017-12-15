@@ -29,17 +29,17 @@
 
                             <div class="span12 field-box">
                                 <label>IP:</label>
-                                <input class="span9" type="password" name="add-ip"/>
+                                <input class="span9" type="text" name="add-ip"/>
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述:</label>
-                                <input class="span9" type="password" name="add-des"/>
+                                <input class="span9" type="text" name="add-des"/>
                             </div>
 
-                            <!--<div class="span7 field-box actions">-->
-                                <!--<input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>-->
-                            <!--</div>-->
+                            <div class="span7 field-box actions">
+                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
+                            </div>
 
                             </form>
                         </div>
@@ -63,7 +63,7 @@
         methods: {
             addUser: function (){
                 var qs = require('qs');
-                this.$axios.post('users',qs.stringify({
+                this.$axios.post('devices',qs.stringify({
                     "name": $("input[name='add-name']").val(),
                     "ip": $("input[name='add-ip']").val(),
                     "description": $("input[name='add-des']").val()
@@ -82,7 +82,7 @@
                 }).then(res=>{
                     //this.users = res.data.data
                     //console.log(res);
-                    this.$router.replace({ path: '/xy1'})
+                    this.$router.replace({ path: '/devices'})
                 })
                     .catch(err=>{
                         alert("请重新输入用户名！");
