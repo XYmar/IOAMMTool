@@ -29,17 +29,17 @@
 
                             <div class="span12 field-box">
                                 <label>IP:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="text" name="add-IP"/>
                             </div>
 
                             <div class="span12 field-box">
                                 <label>描述:</label>
-                                <input class="span9" type="password" name="add-password"/>
+                                <input class="span9" type="text" name="add-describle"/>
                             </div>
 
-                            <!--<div class="span7 field-box actions">-->
-                                <!--<input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>-->
-                            <!--</div>-->
+                            <div class="span7 field-box actions">
+                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
+                            </div>
 
                             </form>
                         </div>

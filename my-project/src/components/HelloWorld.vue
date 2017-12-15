@@ -157,11 +157,17 @@
             <i class="icon-signal"></i>
             <span>devices</span>
           </router-link>
-          <!-- <a href="chart-showcase.html">
-            <i class="icon-signal"></i>
-            <span>Charts</span>
-          </a> -->
         </li>
+
+        <li>
+          <router-link to="/treeMenu">
+            <i class="icon-signal"></i>
+            <span>fx</span>
+          </router-link>
+        </li>
+
+
+
         <li>
           <a class="dropdown-toggle" href="#">
             <i class="icon-group"></i>

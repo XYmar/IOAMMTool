@@ -49,6 +49,11 @@
                             <span>&#43;</span>
                             新增
                         </router-link>
+
+                        <router-link to="/modifyDevice" class="btn-flat success pull-right">
+                            <span>&#43;</span>
+                            编辑
+                        </router-link>
                         <!-- <router-link to="/xy1">
                             <i class="icon-home"></i>
                             <span>XY1</span>

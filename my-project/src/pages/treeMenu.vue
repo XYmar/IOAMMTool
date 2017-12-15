@@ -1,92 +1,48 @@
-<template>
-    <div class="tree-menu">
-        <ul v-for="menuItem in theModel">
-            <my-tree :model="menuItem"></my-tree>
-        </ul>
-    </div>
-</template>
+<!--<template>-->
+    <!--<vue-drag-tree :model='data' :current-highlight='true' :default-text='"New A Girl"' :hover-color='"lightblue"' :highlight-color='green'></vue-drag-tree>-->
+<!--</template>-->
+<!--<script>-->
+    <!--export default{-->
+        <!--data(){-->
+            <!--return{-->
+                <!--data:{-->
+                    <!--name: 'Root',-->
+                    <!--id: 0,-->
+                    <!--children: [-->
+                        <!--{-->
+                            <!--name: 'Node 1-1',-->
+                            <!--id: 1,-->
+                            <!--children: [-->
+                                <!--{-->
+                                    <!--name: 'Node 2-1',-->
+                                    <!--id: 2-->
+                                <!--}-->
+                            <!--]-->
+                        <!--},-->
+                        <!--{-->
+                            <!--name: 'Node 1-2',-->
+                            <!--id: 3-->
+                        <!--}-->
+                    <!--]-->
+                <!--}-->
+            <!--}-->
+        <!--},-->
+        <!--methods: {-->
+            <!--assignData(data) {-->
+                <!--// data is a json object that node infomation was exchanged inside.You need to assign to finish the last step of exchange.-->
 
-<script>
-    var myData = [
-        {
-            'id': '1',
-            'menuName': '基础管理',
-            'menuCode': '10',
-            'children': [
-                {
-                    'menuName': '用户管理',
-                    'menuCode': '11'
-                },
-                {
-                    'menuName': '角色管理',
-                    'menuCode': '12',
-                    'children': [
-                        {
-                            'menuName': '管理员',
-                            'menuCode': '121'
-                        },
-                        {
-                            'menuName': 'CEO',
-                            'menuCode': '122'
-                        },
-                        {
-                            'menuName': 'CFO',
-                            'menuCode': '123'
-                        },
-                        {
-                            'menuName': 'COO',
-                            'menuCode': '124'
-                        },
-                        {
-                            'menuName': '普通人',
-                            'menuCode': '124'
-                        }
-                    ]
-                },
-                {
-                    'menuName': '权限管理',
-                    'menuCode': '13'
-                }
-            ]
-        },
-        {
-            'id': '2',
-            'menuName': '商品管理',
-            'menuCode': ''
-        },
-        {
-            'id': '3',
-            'menuName': '订单管理',
-            'menuCode': '30',
-            'children': [
-                {
-                    'menuName': '订单列表',
-                    'menuCode': '31'
-                },
-                {
-                    'menuName': '退货列表',
-                    'menuCode': '32',
-                    'children': []
-                }
-            ]
-        },
-        {
-            'id': '4',
-            'menuName': '商家管理',
-            'menuCode': '',
-            'children': []
-        }
-    ];
+                <!--// If you have not use vuex or something similar, you can just assign data to this.data-->
+                <!--this.data = data-->
 
-    import myTree from './pages/launchtree.vue'
-    export default {
-        components: {
-            myTree
-        },
-        data() {
-            return {
-                theModel: myData
-            }
-        }
-    }
-</script>
+                <!--// If you have used vuex or something similar, you need to write assign code by yourselft.-->
+                <!--// vuex as an example:-->
+                <!--// updateData function is a mutation of vuex.-->
+
+                <!--// this.updateData(data)-->
+            <!--},-->
+            <!--curNodeClicked(model,component) {-->
+                <!--// information of the node clicked just now.-->
+            <!--},-->
+        <!--}-->
+    <!--}-->
+    <!--<script>-->
