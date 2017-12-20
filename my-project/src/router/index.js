@@ -10,6 +10,7 @@ import devices from '@/pages/devices'
 import addDevice from '@/pages/addDevice'
 import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
+import deploy from '@/pages/deploy'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -70,6 +71,11 @@ export default new Router({
                 path: '/modifyComponent',
                 name: 'modifyComponent',
                 component: modifyComponent
+              },
+              {
+                path: '/deploy',
+                name: 'deploy',
+                component: deploy
               }
             ]
         }

@@ -66,14 +66,15 @@
 </template>
 
 <script>
+/* eslint-disable */
+import devices from '@/pages/devices'
 export default{
-        /* eslint-disable */
+
         data(){
             return{
                 devices:[]
             }
-            message: $("input[name='edit-id']").val()
-        },created(){
+        },/*created(){
             this.$axios.get('devices',{
                 //设置头
                 headers:{
@@ -90,8 +91,42 @@ export default{
                 console.log(err);
             })
 
-        },
+        },*/
         methods: {
+
+          modifyDevice: function (event){
+                alert("A");
+                var e = event || window.event;
+                //alert("B");
+                var target = e.target || e.srcElement;
+                if (target.parentNode.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
+                    //alert("C");
+                    var rowIndex = target.parentNode.parentNode.parentNode.parentNode.parentNode.rowIndex;
+                    //alert(rowIndex);
+                    var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+                    alert(id);
+                    var qs = require('qs');
+                    this.$axios.get('devices/'+id,
+                      {
+                          //设置头
+                          headers:{
+                              'content-type':'application/x-www-form-urlencoded'
+                          },
+                          auth: {
+                              username: 'admin',
+                              password: 'admin'
+                          }
+                      }).then(res=>{
+                          console.log(res);
+                      })
+                      .catch(err=>{
+                          console.log(err);
+                      })
+                }
+                
+            },
+
+
             editDevice: function (){
                 var id = $("input[name='edit-id']").val();
                 alert(id);

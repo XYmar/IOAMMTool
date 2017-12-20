@@ -97,7 +97,9 @@
                                 <span class="label label-success">Active</span>
                                 <ul class="actions">
                                     <li>
-                                        <router-link to="/modifyDevice">修改</router-link>
+                                        <router-link to="/modifyDevice">
+                                         <input type="button" class="btn-glow primary" value="修改" @click="modifyDevice($event)"/>
+                                        </router-link>
                                     </li>
                                     <li class="last">
                                         <!-- <router-link to="/devices" @click="deleteDevice">删除</router-link>  -->
@@ -134,8 +136,10 @@
 </template>
 
 <script>
+/* eslint-disable */
+import modifyDevice from '@/pages/modifyDevice'
 export default{
-        /* eslint-disable */
+        
         data(){
             return{
                 devices:[]
@@ -191,7 +195,39 @@ export default{
                     })
                 }
                 
-            }
+            }/*,
+
+            modifyDevice: function (event){
+                alert("A");
+                var e = event || window.event;
+                //alert("B");
+                var target = e.target || e.srcElement;
+                if (target.parentNode.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
+                    //alert("C");
+                    var rowIndex = target.parentNode.parentNode.parentNode.parentNode.parentNode.rowIndex;
+                    //alert(rowIndex);
+                    var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+                    alert(id);
+                    var qs = require('qs');
+                    this.$axios.get('devices/'+id,
+                      {
+                          //设置头
+                          headers:{
+                              'content-type':'application/x-www-form-urlencoded'
+                          },
+                          auth: {
+                              username: 'admin',
+                              password: 'admin'
+                          }
+                      }).then(res=>{
+                          console.log(res);
+                      })
+                      .catch(err=>{
+                          console.log(err);
+                      })
+                }
+                
+            }*/
         }
     }
 </script>
