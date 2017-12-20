@@ -32,7 +32,7 @@
                                     <div class="span10">
 
                                         <div class='drag-content span12'>
-                                        	<div class="choice span3">
+                                        	<div class="choice span3" style="min-height: 300px;">
                                         		<div class="devices">
                                         			<h4>设备</h4>
                                         			<br/>
@@ -47,7 +47,7 @@
                                         		</div>
                                         	</div>
 
-                                        	<div class="move" @drop='drop($event)' @dragover='allowDrop($event)'>
+                                        	<div class="move span9" style="min-height: 300px;" @drop='drop($event)' @dragover='allowDrop($event)'>
 
                                         	</div>
 										  <!-- <div class='project-content'>
@@ -284,7 +284,10 @@ allowDrop:function(event){
 }
 .choice {
     border-right: 2px solid rgba(204, 204, 204, 1);
-    min-height: 350px;
+
+}
+.move{
+	min-height: 350px;
 }
 
 
