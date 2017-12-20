@@ -173,6 +173,13 @@
           </router-link>
         </li>
 
+        <li>
+          <router-link to="/ztree">
+            <i class="icon-move"></i>
+            <span>ztree</span>
+          </router-link>
+        </li>
+
 
 
         <li>

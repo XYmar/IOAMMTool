@@ -11,6 +11,7 @@ import addDevice from '@/pages/addDevice'
 import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
 import deploy from '@/pages/deploy'
+import ztree from '@/pages/ztree'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -76,6 +77,11 @@ export default new Router({
                 path: '/deploy',
                 name: 'deploy',
                 component: deploy
+              },
+              {
+                path: '/ztree',
+                name: 'ztree',
+                component: ztree
               }
             ]
         }
