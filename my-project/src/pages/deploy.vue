@@ -31,35 +31,89 @@
                                 <div class="row-fluid form-wrapper">
                                     <div class="span10">
 
-                                        <div class='drag-content span12'>
-                                        	<div class="choice span3" style="min-height: 300px;">
-                                        		<div class="devices">
+                                        <div class="drag-content span12"  style="min-height: 400px;">
+
+                                        	
+
+                                        	 <div class="choice span5" style="min-height: 400px;">
+                                        	 	<div class="tabbable" id="tabs-259071">
+													<ul class="nav nav-tabs">
+														<li class="active">
+															<a href="#panel-173637" data-toggle="tab">设备</a>
+														</li>
+														<li>
+															<a href="#panel-776434" data-toggle="tab">组件</a>
+														</li>
+													</ul>
+													<div class="tab-content" style="margin-left: 2px;">
+														<div class="tab-pane active" id="panel-173637">
+															<input class="search" type="text" placeholder="搜索设备.." />
+															<br/><br/>
+
+															<div class="row-fluid table">
+											                    <table class="table table-hover" id="table_value">
+											                        <thead>
+											                        <tr>
+											                            <th class="span4 sortable">
+											                               设备名称
+											                            </th>
+											                            <th class="span3 sortable">
+											                                <span class="line"></span>设备状态
+											                            </th>
+
+											                        </tr>
+											                        </thead>
+											                        <tbody>
+											                        <!-- row -->
+											                        <!-- <tr class="first" v-for="(device,index) in devices" :key="index">
+											                            <td style="display:none">{{device.id}}</td>
+											                            <td>
+											                                {{device.name}}
+											                            </td>
+											                            <td>
+											                               {{device.state}}     
+											                            </td>
+											                           
+											                        </tr> -->
+											                        <!-- row -->
+											                        <tr>
+											                        	<td>设备1</td>
+											                        	<td>在线</td>
+											                        </tr>
+
+											                        </tbody>
+											                    </table>
+											                </div>
+
+															<p>
+																设备内容.
+															</p>
+														</div>
+														<div class="tab-pane" id="panel-776434">
+															<input class="search" type="text" placeholder="搜索组件.." />
+															<p>
+																组件内容.
+															</p>
+														</div>
+													</div>
+												</div>
+                                        		<!-- <div class="devices">
                                         			<h4>设备</h4>
                                         			<br/>
                                         			<div class='select-device' draggable='true' @dragstart='drag($event)' v-for='device in devices'>{{device.name}}</div>
                                         		</div>
-
+                                        		                                        	
                                         		<br/><br/>
                                         		<div class="component">
                                         			<h4>组件</h4>
                                         			<br/>
                                         			<div class='select-comp' draggable='true' @dragstart='drag($event)' v-for='component in components'>{{component.name}}</div>
-                                        		</div>
+                                        		</div> -->
                                         	</div>
-
-                                        	<div class="move span9" style="min-height: 300px;" @drop='drop($event)' @dragover='allowDrop($event)'>
-
-                                        	</div>
-										  <!-- <div class='project-content'>
-										    <div class='select-item' draggable='true' @dragstart='drag($event)' v-for='pjdt in projectdatas'>{{pjdt.name}}</div>
-										  </div>
-										  <div class='people-content'>
-										    <div class='drag-div' v-for='(ppdt,ppindex) in peopledata' @drop='drop($event)' @dragover='allowDrop($event)'>
-										      <div class='select-project-item'>
-										        <label class='drag-people-label'>{{ppdt.name}}:</label>
-										      </div>
-										    </div>
-										  </div> -->
+                                        	
+                                        	<div class="move span7" style="min-height: 400px;" @drop='drop($event)' @dragover='allowDrop($event)'>
+                                        	
+                                        	</div> 										  
 										</div>
 
                                     </div>
