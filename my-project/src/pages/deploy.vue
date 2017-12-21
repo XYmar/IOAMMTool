@@ -77,7 +77,7 @@
 											                        </tr> -->
 											                        <!-- row -->
 											                        <tr>
-											                        	<td>设备1</td>
+											                        	<td><i class="icon-laptop"></i>&nbsp;设备1</td>
 											                        	<td>在线</td>
 											                        </tr>
 
@@ -91,6 +91,37 @@
 														</div>
 														<div class="tab-pane" id="panel-776434">
 															<input class="search" type="text" placeholder="搜索组件.." />
+															<br/><br/>
+
+															<div class="row-fluid table">
+											                    <table class="table table-hover" id="table_value">
+											                        <thead>
+											                        <tr>
+											                            <th class="span5 sortable">
+											                               组件名称
+											                            </th>
+											                            <th class="span2 sortable">
+											                                <span class="line"></span>大小(MB)
+											                            </th>
+											                            <th class="span2 sortable">
+											                                <span class="line"></span>版本
+											                            </th>
+
+											                        </tr>
+											                        </thead>
+											                        <tbody>
+											                        <tr>
+											                        	<td>
+											                        		<!-- 组件树 -->
+											                        		<ul id="treeDemo" class="ztree"></ul>
+											                        	</td>
+											                        	<td>1024</td>
+											                        	<td>V1.2.1</td>
+											                        </tr>
+
+											                        </tbody>
+											                    </table>
+											                </div>
 															<p>
 																组件内容.
 															</p>
@@ -306,6 +337,22 @@ mounted: function(){
 	    });
 	    $btnNext.on('click', function() {
 	        $wizard.wizard('next');
+	    });
+
+
+	    //树
+	    var zTreeObj;
+	   // zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+		var setting = {};
+	   // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+		var zNodes = [
+	    {name:"test1", open:true, children:[
+	    {name:"test1_1"}, {name:"test1_2"}]},
+	    {name:"test2", open:true, children:[
+	    {name:"test2_1"}, {name:"test2_2"}]}
+	    ];
+	    $(document).ready(function(){
+	    	zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
 	    });
     })
 
