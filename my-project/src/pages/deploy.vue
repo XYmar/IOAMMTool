@@ -6,7 +6,7 @@
 
                 <div class="row-fluid">
                     <div class="span12">
-                        <div id="fuelux-wizard" class="wizard row-fluid">
+                        <div id="fuelux-wizard" class="wizard row-fluid" style="margin-left: -45px;">
                             <ul class="wizard-steps">
                                 <li data-target="#step1" class="active">
                                     <span class="step">1</span>
@@ -20,10 +20,10 @@
                                     <span class="step">3</span>
                                     <span class="title">提交</span>
                                 </li>
-                                <li data-target="#step4">
+                                <!-- <li data-target="#step4">
                                     <span class="step">4</span>
                                     <span class="title">再次 <br /> 部署</span>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="step-content">
@@ -35,7 +35,7 @@
 
                                         	
 
-                                        	 <div class="choice span5" style="min-height: 400px;">
+                                        	<div class="choice span5" style="min-height: 400px;">
                                         	 	<div class="tabbable" id="tabs-259071">
 													<ul class="nav nav-tabs">
 														<li class="active">
@@ -60,26 +60,60 @@
 											                            <th class="span3 sortable">
 											                                <span class="line"></span>设备状态
 											                            </th>
+											                            <th class="span3 sortable">
+											                            	移入
+											                            </th>
 
 											                        </tr>
 											                        </thead>
 											                        <tbody>
 											                        <!-- row -->
-											                        <!-- <tr class="first" v-for="(device,index) in devices" :key="index">
-											                            <td style="display:none">{{device.id}}</td>
+											                        <tr class="first" v-for="(device,index) in devices" :key="index">
+											                        	<td style="display:none" id="id">{{device.id}}</td>
 											                            <td>
-											                                {{device.name}}
+											                               <i class="icon-laptop"></i>&nbsp;{{device.name}} 
+											                            </td>
+											                            <td>    
+											                               <span class="label label-primary" v-if="device.online == false">离线</span>
+											                               <span class="label label-success" v-if="device.online == true">在线</span>
 											                            </td>
 											                            <td>
-											                               {{device.state}}     
-											                            </td>
-											                           
-											                        </tr> -->
-											                        <!-- row -->
-											                        <tr>
-											                        	<td><i class="icon-laptop"></i>&nbsp;设备1</td>
-											                        	<td>在线</td>
+											                        		<div class="btn-group small" style="margin-right: 3px">
+											                        			<button class="btn-glow" @click="move($event)">
+											                        				<i class="icon-random"></i>
+											                        			</button>
+											                        		</div>
+											                        		
+											                        	</td>
 											                        </tr>
+
+											                        <!-- row -->
+											                        <!-- <tr>
+											                         	<td style="display:none" id="id">1001</td>
+											                         	<td><i class="icon-laptop"></i>&nbsp;设备1</td>
+											                         	<td>在线</td>
+											                         	<td>
+											                         		<div class="btn-group small" style="margin-right: 3px">
+											                         			<button class="btn-glow" @click="move($event)">
+											                         				<i class="icon-random"></i>
+											                         			</button>
+											                         		</div>
+											                         		
+											                         	</td>
+											                         </tr> 
+											                         <tr>
+											                         	<td style="display:none" id="id">1002</td>
+											                         	<td><i class="icon-laptop"></i>&nbsp;设备2</td>
+											                         	<td>在线</td>
+											                         	<td>
+											                         		<div class="btn-group small" style="margin-right: 3px">
+											                         			<button class="btn-glow" @click="move($event)">
+											                         				<i class="icon-random"></i>
+											                         			</button>
+											                         		</div>
+											                         		
+											                         	</td>
+											                         </tr> --> 
 
 											                        </tbody>
 											                    </table>
@@ -110,14 +144,27 @@
 											                        </tr>
 											                        </thead>
 											                        <tbody>
-											                        <tr>
+											                        <!-- <tr>
 											                        	<td>
-											                        		<!-- 组件树 -->
+											                        		组件树
 											                        		<ul id="treeDemo" class="ztree"></ul>
 											                        	</td>
 											                        	<td>1024</td>
 											                        	<td>V1.2.1</td>
-											                        </tr>
+											                        </tr> -->
+												                        <tr class="first" v-for="(component,index) in components" :key="index">
+												                            <td style="display:none">{{component.id}}</td>
+												                            <td>
+												                               <i class="icon-folder-close-alt"></i>&nbsp;{{component.name}} 
+												                            </td>
+												                            <td>
+												                               {{component.size}} 
+												                            </td>
+												                            <td>
+												                               {{component.version}} 
+												                            </td>
+												                           
+												                        </tr>
 
 											                        </tbody>
 											                    </table>
@@ -142,8 +189,12 @@
                                         		</div> -->
                                         	</div>
                                         	
-                                        	<div class="move span7" style="min-height: 400px;" @drop='drop($event)' @dragover='allowDrop($event)'>
-                                        	
+                                        	<div class="move span7" id="moveContent" style="min-height: 400px;font-size: 25px;">
+                                        		<div class="moveChild span4" v-for="(name,index) in nameArr" :key="index" style="margin-top: 5px;">
+                                        			<i class="icon-laptop" style="margin-left: 10px;"></i>
+                                        			<br/><br/>
+                                        			{{name}}
+                                        		</div>
                                         	</div> 										  
 										</div>
 
@@ -154,22 +205,15 @@
                                 <div class="row-fluid form-wrapper">
                                     <div class="span8">
                                         <form />
-                                            <div class="field-box">
-                                                <label>Address:</label>
-                                                <input class="span8" type="text" />
+                                        	<div>
+                                        		<h3>请填写路径：</h3>
+                                        	</div>
+                                        	<br/>
+                                            <div class="field-box" style="margin-top: 30px;">
+                                                <label>Path:</label>
+                                                <input class="span8" type="text" id="path" placeholder="路径"/>
                                             </div>
-                                            <div class="field-box">
-                                                <label>City:</label>
-                                                <input class="span8" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Postal/ZIP code:</label>
-                                                <input class="span8" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Country:</label>
-                                                <input class="span8" type="text" />
-                                            </div>
+                                            
                                         </form>
                                     </div>
                                 </div>
@@ -178,39 +222,15 @@
                                 <div class="row-fluid form-wrapper">
                                     <div class="span8">
                                         <form />
-                                            <div class="field-box">
-                                                <label>Username:</label>
-                                                <input class="span8" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Photo:</label>
-                                                <input type="file" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>App name:</label>
-                                                <input class="span8" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Time zone:</label>
-                                                <select>
-                                                    <option value="Hawaii" />(GMT-10:00) Hawaii
-                                                    <option value="Alaska" />(GMT-09:00) Alaska
-                                                    <option value="Pacific Time (US &amp; Canada)" />(GMT-08:00) Pacific Time (US &amp; Canada)
-                                                    <option value="Arizona" />(GMT-07:00) Arizona
-                                                    <option value="Mountain Time (US &amp; Canada)" />(GMT-07:00) Mountain Time (US &amp; Canada)
-                                                    <option value="Central Time (US &amp; Canada)" />(GMT-06:00) Central Time (US &amp; Canada)
-                                                    <option value="Eastern Time (US &amp; Canada)" />(GMT-05:00) Eastern Time (US &amp; Canada)
-                                                    <option value="Indiana (East)" />(GMT-05:00) Indiana (East)<option value="" disabled="disabled" />-------------
-                                                    <option value="American Samoa" />(GMT-11:00) American Samoa
-                                                    <option value="International Date Line West" />(GMT-11:00) International Date Line West
-                                                    <option value="Midway Island" />(GMT-11:00) Midway Island
-                                                </select>
-                                            </div>
+                                            <div class="alert alert-info" style="margin-top: 10%;">
+				                                <i class="icon-exclamation-sign"></i>
+				                                如确认无误，请提交您的部署方案(^_^)
+				                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="step-pane" id="step4">
+                            <!-- <div class="step-pane" id="step4">
                                 <div class="row-fluid form-wrapper payment-info">
                                     <div class="span8">
                                         <form />
@@ -239,7 +259,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="wizard-actions">
                             <button type="button" disabled="" class="btn-glow primary btn-prev">
@@ -249,7 +269,7 @@
                                 Next <i class="icon-chevron-right"></i>
                             </button>
                             <button type="button" class="btn-glow success btn-finish">
-                                Setup your account!
+                                提交
                             </button>
                         </div>
                     </div>
@@ -257,55 +277,83 @@
             </div>
         </div>
 
+<hr/>
+<div>
+	{{nameArr}}
+</div>
+
+<hr/>
+<div>
+	{{idArr}}
+</div>
+
     </div>
+
 </template>
 
 <script>
 /* eslint-disable */
-let dom = null
+let dom = null;
+let nameArr = [];
+let idArr = [];
+let projectId = "aabe46e3-a356-4db9-a978-3db113f04f42";
 export default{
 data(){
 	return{
-	  devices:[{
-	    id:1,
-	    name:'设备1',
-	  },{
-	    id:2,
-	    name:'设备2',
-	  },{
-	    id:3,
-	    name:'设备3',
-	  },{
-	    id:4,
-	    name:'设备4',
-	  }],
-	  components:[{
-	    id:1,
-	    name:'组件1',
-	  },{
-	    id:2,
-	    name:'组件2',
-	  },{
-	    id:3,
-	    name:'组件3',
-	  },{
-	    id:4,
-	    name:'组件4',
-	  }],
-	  peopledata:[{
-	    id:1,
-	    name:'xy1',
-	  },{
-	    id:2,
-	    name:'xy2',
-	  },{
-	    id:3,
-	    name:'xy3 ',
-	  },{
-	    id:3,
-	    name:'xy4',
-	  }]
+		devices:[],
+		nameArr:[],
+		idArr:[]
+	  
     }
+},created(){
+    this.$axios.get('devices',{
+        //设置头
+        headers:{
+            'content-type':'application/x-www-form-urlencoded'
+        },
+        auth: {
+            username: 'admin',
+            password: 'admin'
+        }
+    }).then(res=>{
+        this.devices = res.data.data
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+
+    this.$axios.get('components',{           
+        //设置头
+        headers:{
+            'content-type':'application/x-www-form-urlencoded'
+        },
+        auth: {
+            username: 'admin',
+            password: 'admin'
+        }
+    }).then(res=>{
+        this.components = res.data.data
+    })
+    .catch(err=>{
+        console.log(err);
+    });
+
+    this.$axios.get('deployplan',{           
+        //设置头
+        headers:{
+            'content-type':'application/x-www-form-urlencoded'
+        },
+        auth: {
+            username: 'admin',
+            password: 'admin'
+        }
+    }).then(res=>{
+        this.components = res.data.data
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+
 },
 mounted: function(){
 	this.$nextTick(function () {
@@ -326,7 +374,7 @@ mounted: function(){
 
 	        if (step.step === 1) {
 	            $btnPrev.attr("disabled", "disabled");
-	        } else if (step.step === 4) {
+	        } else if (step.step === 3) {
 	            $btnNext.hide();
 	            $btnFinish.show();
 	        }
@@ -374,68 +422,97 @@ drop:function(event){
 allowDrop:function(event){
   event.preventDefault();
 },
+move: function (event){
+	var e = event || window.event;
+	//var nameArr = [];
+	var name;
+
+    var target = e.target || e.srcElement;
+    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
+        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
+        //alert(rowIndex);
+        
+        name = document.getElementById("table_value").rows[rowIndex].cells[1].innerHTML;
+        alert(name);
+
+        id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+        alert(id);
+
+        //alert(name);
+        
+        alert(nameArr);
+        idArr.push(id);
+        nameArr.push(name.substring(33));
+        //$("#div2").remove(obj);
+        //$("#moveContent").append(name);
+    }
+    this.idArr = idArr;
+    this.nameArr = nameArr;
+    alert(nameArr);
+}
+
 }
 }
 
 </script>
 <style>
-.drag-content {
-    border: 2px solid rgba(204, 204, 204, 1);
-    min-height: 350px;
-}
-.choice {
-    border-right: 2px solid rgba(204, 204, 204, 1);
+	.drag-content {
+	    border: 2px solid rgba(204, 204, 204, 1);
+	    min-height: 350px;
+	}
+	.choice {
+	    border-right: 2px solid rgba(204, 204, 204, 1);
 
-}
-.move{
-	min-height: 350px;
-}
+	}
+	.move{
+		min-height: 350px;
+	}
 
 
-.select-device {
-  background-color: #C4E1E1;
-  display: inline-block;
-  text-align: center;
-  border-radius: 10px;
-  margin: 10px;
-  cursor:pointer;
-  padding: 6px 20px;
-  color: #4F4F4F;
-}
-.select-comp {
-  background-color: #DEFFAC;
-  display: inline-block;
-  text-align: center;
-  border-radius: 10px;
-  margin: 10px;
-  cursor:pointer;
-  padding: 6px 20px;
-  color: #4F4F4F;
-}
+	.select-device {
+	  background-color: #C4E1E1;
+	  display: inline-block;
+	  text-align: center;
+	  border-radius: 10px;
+	  margin: 10px;
+	  cursor:pointer;
+	  padding: 6px 20px;
+	  color: #4F4F4F;
+	}
+	.select-comp {
+	  background-color: #DEFFAC;
+	  display: inline-block;
+	  text-align: center;
+	  border-radius: 10px;
+	  margin: 10px;
+	  cursor:pointer;
+	  padding: 6px 20px;
+	  color: #4F4F4F;
+	}
 
- .cursored{
-  cursor: default;
-}
-.project-content,.people-content {
-    margin: 30px 50px;
-}
-.people-content {
-    margin-top: 30px;
-}
-.drag-div {
-    border: 1px solid #5bc0de;
-    padding:10px;
-    margin-bottom: 10px;
-    width: 800px;
-    cursor: pointer;
-}
-.select-project-item {
-    display: inline-block;
-    text-align: center;
-    border-radius: 3px;
-}
-.drag-people-label{
-  margin-bottom:0;
-  padding-right:10px;
-}
+	 .cursored{
+	  cursor: default;
+	}
+	.project-content,.people-content {
+	    margin: 30px 50px;
+	}
+	.people-content {
+	    margin-top: 30px;
+	}
+	.drag-div {
+	    border: 1px solid #5bc0de;
+	    padding:10px;
+	    margin-bottom: 10px;
+	    width: 800px;
+	    cursor: pointer;
+	}
+	.select-project-item {
+	    display: inline-block;
+	    text-align: center;
+	    border-radius: 3px;
+	}
+	.drag-people-label{
+	  margin-bottom:0;
+	  padding-right:10px;
+	}
 </style>

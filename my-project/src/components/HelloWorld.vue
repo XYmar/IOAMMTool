@@ -180,6 +180,13 @@
           </router-link>
         </li>
 
+        <li>
+          <router-link to="/signin">
+            <i class="icon-move"></i>
+            <span>sign</span>
+          </router-link>
+        </li>
+
 
 
         <li>

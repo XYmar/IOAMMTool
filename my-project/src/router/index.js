@@ -12,6 +12,8 @@ import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
 import deploy from '@/pages/deploy'
 import ztree from '@/pages/ztree'
+import signin from '@/pages/signin'
+import selectProject from '@/pages/selectProject'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -84,6 +86,16 @@ export default new Router({
                 component: ztree
               }
             ]
+        },
+        {
+            path: '/signin',
+            name: 'signin',
+            component: signin
+        },
+        {
+            path: '/selectProject',
+            name: 'selectProject',
+            component: selectProject
         }
     ]
 })

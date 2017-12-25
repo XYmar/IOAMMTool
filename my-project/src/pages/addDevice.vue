@@ -70,7 +70,8 @@
                 this.$axios.post('devices',qs.stringify({
                     "name": $("input[name='add-name']").val(),
                     "ip": $("input[name='add-ip']").val(),
-                    "description": $("input[name='add-des']").val()
+                    "description": $("input[name='add-des']").val(),
+                    "projectId":"1c11746a-d8c0-433b-9f86-03d65f629266"
                 }),{
                     /*params:{  //get请求在第二个位置，post在第三个位置
                      ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'
