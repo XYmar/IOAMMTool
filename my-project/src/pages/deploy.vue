@@ -47,10 +47,11 @@
 													</ul>
 													<div class="tab-content" style="margin-left: 2px;">
 														<div class="tab-pane active" id="panel-173637">
-															<input class="search" type="text" placeholder="搜索设备.." />
-															<br/><br/>
+															
 
 															<div class="row-fluid table">
+																<input class="search" type="text" placeholder="搜索设备.." v-model="searchQuery"/>
+															<br/><br/>
 											                    <table class="table table-hover" id="table_value">
 											                        <thead>
 											                        <tr>
@@ -68,7 +69,7 @@
 											                        </thead>
 											                        <tbody>
 											                        <!-- row -->
-											                        <tr class="first" v-for="(device,index) in devices" :key="index">
+											                        <tr class="first" v-for="(device,index) in devicesA" :key="index">
 											                        	<td style="display:none" id="id">{{device.id}}</td>
 											                            <td>
 											                               <i class="icon-laptop"></i>&nbsp;{{device.name}} 
@@ -124,10 +125,11 @@
 															</p>
 														</div>
 														<div class="tab-pane" id="panel-776434">
-															<input class="search" type="text" placeholder="搜索组件.." />
-															<br/><br/>
+															
 
 															<div class="row-fluid table">
+																<input class="search" type="text" placeholder="搜索组件.."  v-model="searchQuery"/>
+															<br/><br/>
 											                    <table class="table table-hover" id="table_value2">
 											                        <thead>
 											                        <tr>
@@ -155,7 +157,7 @@
 											                        	<td>1024</td>
 											                        	<td>V1.2.1</td>
 											                        </tr> -->
-												                        <tr class="first" v-for="(component,index) in comps" :key="index">
+												                        <tr class="first" v-for="(component,index) in compsA" :key="index">
 												                            <td style="display:none">{{component.id}}</td>
 												                            <td>
 												                               <i class="icon-folder-close-alt"></i>&nbsp;{{component.name}} 
@@ -265,6 +267,11 @@
 
 <hr/>
 <div>
+	设备：{{devices}}
+</div>
+
+<hr/>
+<div>
 	设备名：{{deviceArr}}
 </div>
 
@@ -317,7 +324,9 @@ let projectId = "aabe46e3-a356-4db9-a978-3db113f04f42";
 export default{
 data(){
 	return{
+		searchQuery: '',
 		devices:[],
+		comps:[],
 		deviceArr:[],
 		deviceIdArr:[],
 		compArr:[],
@@ -338,7 +347,7 @@ data(){
             password: 'admin'
         }
     }).then(res=>{
-        this.devices = res.data.data
+        this.devices = res.data.data;
     })
     .catch(err=>{
         console.log(err);
@@ -431,115 +440,143 @@ mounted: function(){
 
 },
 methods: {
-drag:function(event){
-	event=event||window.event;
-	event.dataTransfer.effectAllowed = 'all';
-	dom = event.currentTarget;
-	//alert(dom);
+	drag:function(event){
+		event=event||window.event;
+		event.dataTransfer.effectAllowed = 'all';
+		dom = event.currentTarget;
+		//alert(dom);
+
+	},
+	drop:function(event){
+		event=event||window.event;
+	    event.preventDefault();
+	    event.dataTransfer.dropEffect = "copy";
+	    event.target.appendChild(dom);
+	},
+	allowDrop:function(event){
+	  event.preventDefault();
+	},
+	moveDevice: function (event){
+		var e = event || window.event;
+		//var nameArr = [];
+		var name;
+
+	    var target = e.target || e.srcElement;
+	    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
+	        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
+	        //alert(rowIndex);
+	        
+	        name = document.getElementById("table_value").rows[rowIndex].cells[1].innerHTML;
+	        alert(name);
+
+	        id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
+	        alert(id);
+
+	        //alert(name);
+	        
+	        alert(deviceArr);
+	        deviceIdArr.push(id);
+	        
+	        deviceArr.push(name.substring(33));
+	        nameArr.push(name.substring(33));
+	        //$("#div2").remove(obj);
+	        //$("#moveContent").append(name);
+	    }
+	    this.deviceIdArr = deviceIdArr;
+
+	    this.deviceArr = deviceArr;
+	    this.nameArr = nameArr;
+	    alert(deviceArr);
+	},
+	moveComp: function (event){
+		var e = event || window.event;
+		//var nameArr = [];
+		var name;
+
+	    var target = e.target || e.srcElement;
+	    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
+	        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
+	        //alert(rowIndex);
+	        
+	        name = document.getElementById("table_value2").rows[rowIndex].cells[1].innerHTML;
+	        alert(name);
+
+	        id = document.getElementById("table_value2").rows[rowIndex].cells[0].innerHTML;
+	        alert(id);
+
+	        //alert(name);
+	        
+	        alert(compArr);
+	        compIddArr.push(id);
+
+	        compArr.push(name.substring(43));
+	        nameArr.push(name.substring(43));
+	        //$("#div2").remove(obj);
+	        //$("#moveContent").append(name);
+	    }
+	    this.compIddArr = compIddArr;
+
+	    this.compArr = compArr;
+	    this.nameArr = nameArr;
+	    alert(compArr);
+	},
+	submit: function (){
+		//alert("hh");
+	    var qs = require('qs');
+	    alert("yy");
+	    alert(this.deployplanId);
+	    alert(this.deployplanId[0].id);
+	    alert(deviceIdArr[0]);
+	    this.$axios.put('deployplan/'+ this.deployplanId[0].id + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
+	        "deployPath": $("input[name='deployPath']").val()
+	    }),{
+	        
+	        //设置头
+	        headers:{
+	            'content-type':'application/x-www-form-urlencoded'
+	        },
+	        auth: {
+	            username: 'admin',
+	            password: 'admin'
+	        }
+	    }).then(res=>{
+	        
+	        this.$router.replace({ path: '/deploy'})
+	    })
+	        .catch(err=>{
+	            alert("提交失败！");
+	        })
+	}
 
 },
-drop:function(event){
-	event=event||window.event;
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "copy";
-    event.target.appendChild(dom);
-},
-allowDrop:function(event){
-  event.preventDefault();
-},
-moveDevice: function (event){
-	var e = event || window.event;
-	//var nameArr = [];
-	var name;
-
-    var target = e.target || e.srcElement;
-    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
-        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
-        //alert(rowIndex);
+computed: {  
+    devicesA: function () {  
+        var self = this;  
+        return self.devices.filter(function (item) {  
+            return item.name.toLowerCase().indexOf(self.searchQuery.toLowerCase()) !== -1;  
+        })  
+    },
+    compsA: function () {  
+        var self = this;  
+        return self.comps.filter(function (item) {  
+            return item.name.toLowerCase().indexOf(self.searchQuery.toLowerCase()) !== -1;  
+        })  
+    }  
+} 
+/*computed:{
+    devices: function(){
+    	var self = this
+    	self.devices.filter(function (device){
+    		var searchRegex = new RegExp(self.searchQuery, 'i')
+			return device.isActive && (
+				searchRegex.test(device.name) 
+			)
+    	})
         
-        name = document.getElementById("table_value").rows[rowIndex].cells[1].innerHTML;
-        alert(name);
-
-        id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-        alert(id);
-
-        //alert(name);
-        
-        alert(deviceArr);
-        deviceIdArr.push(id);
-        
-        deviceArr.push(name.substring(33));
-        nameArr.push(name.substring(33));
-        //$("#div2").remove(obj);
-        //$("#moveContent").append(name);
+        return arr;
     }
-    this.deviceIdArr = deviceIdArr;
+ }*/
 
-    this.deviceArr = deviceArr;
-    this.nameArr = nameArr;
-    alert(deviceArr);
-},
-moveComp: function (event){
-	var e = event || window.event;
-	//var nameArr = [];
-	var name;
-
-    var target = e.target || e.srcElement;
-    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
-        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
-        //alert(rowIndex);
-        
-        name = document.getElementById("table_value2").rows[rowIndex].cells[1].innerHTML;
-        alert(name);
-
-        id = document.getElementById("table_value2").rows[rowIndex].cells[0].innerHTML;
-        alert(id);
-
-        //alert(name);
-        
-        alert(compArr);
-        compIddArr.push(id);
-
-        compArr.push(name.substring(43));
-        nameArr.push(name.substring(43));
-        //$("#div2").remove(obj);
-        //$("#moveContent").append(name);
-    }
-    this.compIddArr = compIddArr;
-
-    this.compArr = compArr;
-    this.nameArr = nameArr;
-    alert(compArr);
-},
-submit: function (){
-	//alert("hh");
-    var qs = require('qs');
-    //alert("yy");
-    //alert(this.deployplanId);
-    alert(this.deployplanId[0].id);
-    alert(deviceIdArr[0]);
-    this.$axios.put('deployplan/'+ this.deployplanId[0].id + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
-        "deployPath": $("input[name='deployPath']").val()
-    }),{
-        
-        //设置头
-        headers:{
-            'content-type':'application/x-www-form-urlencoded'
-        },
-        auth: {
-            username: 'admin',
-            password: 'admin'
-        }
-    }).then(res=>{
-        
-        this.$router.replace({ path: '/deploy'})
-    })
-        .catch(err=>{
-            alert("提交失败！");
-        })
-}
-
-}
 }
 
 </script>
