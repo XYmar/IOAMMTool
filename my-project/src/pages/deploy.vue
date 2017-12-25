@@ -79,7 +79,7 @@
 											                            </td>
 											                            <td>
 											                        		<div class="btn-group small" style="margin-right: 3px">
-											                        			<button class="btn-glow" @click="move($event)">
+											                        			<button class="btn-glow" @click="moveDevice($event)">
 											                        				<i class="icon-random"></i>
 											                        			</button>
 											                        		</div>
@@ -128,7 +128,7 @@
 															<br/><br/>
 
 															<div class="row-fluid table">
-											                    <table class="table table-hover" id="table_value">
+											                    <table class="table table-hover" id="table_value2">
 											                        <thead>
 											                        <tr>
 											                            <th class="span5 sortable">
@@ -139,6 +139,9 @@
 											                            </th>
 											                            <th class="span2 sortable">
 											                                <span class="line"></span>版本
+											                            </th>
+											                            <th class="span3 sortable">
+											                            	移入
 											                            </th>
 
 											                        </tr>
@@ -152,7 +155,7 @@
 											                        	<td>1024</td>
 											                        	<td>V1.2.1</td>
 											                        </tr> -->
-												                        <tr class="first" v-for="(component,index) in components" :key="index">
+												                        <tr class="first" v-for="(component,index) in comps" :key="index">
 												                            <td style="display:none">{{component.id}}</td>
 												                            <td>
 												                               <i class="icon-folder-close-alt"></i>&nbsp;{{component.name}} 
@@ -163,6 +166,14 @@
 												                            <td>
 												                               {{component.version}} 
 												                            </td>
+												                            <td>
+											                        		<div class="btn-group small" style="margin-right: 3px">
+											                        			<button class="btn-glow" @click="moveComp($event)">
+											                        				<i class="icon-random"></i>
+											                        			</button>
+											                        		</div>
+											                        		
+											                        	</td>
 												                           
 												                        </tr>
 
@@ -185,12 +196,16 @@
                                         		<div class="component">
                                         			<h4>组件</h4>
                                         			<br/>
-                                        			<div class='select-comp' draggable='true' @dragstart='drag($event)' v-for='component in components'>{{component.name}}</div>
+                                        			<div class='select-comp' draggable='true' @dragstart='drag($event)' v-for='component in comps'>{{component.name}}</div>
                                         		</div> -->
                                         	</div>
                                         	
+                                        	<!-- 部署设计拖动区域 -->
                                         	<div class="move span7" id="moveContent" style="min-height: 400px;font-size: 25px;">
-                                        		<div class="moveChild span4" v-for="(name,index) in nameArr" :key="index" style="margin-top: 5px;">
+                                        		<div style="margin-top:20px;margin-left: 30%;">
+                                        			<h3>部署设计</h3>
+                                        		</div>
+                                        		<div class="moveChild span4" v-for="(name,index) in nameArr" :key="index" style="margin-top: 40px;">
                                         			<i class="icon-laptop" style="margin-left: 10px;"></i>
                                         			<br/><br/>
                                         			{{name}}
@@ -211,7 +226,7 @@
                                         	<br/>
                                             <div class="field-box" style="margin-top: 30px;">
                                                 <label>Path:</label>
-                                                <input class="span8" type="text" id="path" placeholder="路径"/>
+                                                <input class="span8" type="text" id="path" name="deployPath" placeholder="路径"/>
                                             </div>
                                             
                                         </form>
@@ -230,36 +245,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="step-pane" id="step4">
-                                <div class="row-fluid form-wrapper payment-info">
-                                    <div class="span8">
-                                        <form />
-                                            <div class="field-box">
-                                                <label>Subscription Plan:</label>
-                                                <select id="plan" class="span5">
-                                                    <option value="66" />Basic - $2.99/month (USD)
-                                                    <option value="67" />Pro - $9.99/month (USD)
-                                                    <option value="68" />Premium - $49.99/month (USD)
-                                                </select>
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Credit Card Number:</label>
-                                                <input class="span5" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Expiration:</label>
-                                                <input style="width:60px;" placeholder="MM" type="text" />
-                                                &nbsp; / &nbsp;
-                                                <input style="width:85px;" placeholder="YYYY" type="text" />
-                                            </div>
-                                            <div class="field-box">
-                                                <label>Card CVC Number:</label>
-                                                <input class="span4" type="text" />
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> -->
+     
                         </div>
                         <div class="wizard-actions">
                             <button type="button" disabled="" class="btn-glow primary btn-prev">
@@ -268,7 +254,7 @@
                             <button type="button" class="btn-glow primary btn-next" data-last="Finish">
                                 Next <i class="icon-chevron-right"></i>
                             </button>
-                            <button type="button" class="btn-glow success btn-finish">
+                            <button type="button" class="btn-glow success btn-finish" @click="submit()">
                                 提交
                             </button>
                         </div>
@@ -279,12 +265,38 @@
 
 <hr/>
 <div>
-	{{nameArr}}
+	设备名：{{deviceArr}}
 </div>
 
 <hr/>
 <div>
-	{{idArr}}
+	设备id：{{deviceIdArr}}
+</div>
+
+<hr/>
+<div>
+	组件名：{{compArr}}
+</div>
+
+<hr/>
+<div>
+	组件id：{{compIddArr}}
+</div>
+
+<hr/>
+<div>
+	所有名称：{{nameArr}}
+</div>
+
+<hr/>
+<div>
+	所有id：{{idAll}}
+</div>
+
+<hr/>
+<div>
+	{{deployplanId}}
+	<!-- planId: {{deployplanId[0].id}}   -->
 </div>
 
     </div>
@@ -294,15 +306,25 @@
 <script>
 /* eslint-disable */
 let dom = null;
-let nameArr = [];
-let idArr = [];
+let deviceArr = [];   //设备名称
+let deviceIdArr = [];       //设备的ID信息
+let compArr = [];   //组件名称
+let compIddArr = [];       //组件的ID信息
+let nameArr = [];   //设备及组件的名称
+let idAll = [];     //设备及组件的id
+let deployplanId = [];
 let projectId = "aabe46e3-a356-4db9-a978-3db113f04f42";
 export default{
 data(){
 	return{
 		devices:[],
+		deviceArr:[],
+		deviceIdArr:[],
+		compArr:[],
+		compIddArr:[],
 		nameArr:[],
-		idArr:[]
+		idAll:[],
+		deployplanId:[]
 	  
     }
 },created(){
@@ -332,13 +354,16 @@ data(){
             password: 'admin'
         }
     }).then(res=>{
-        this.components = res.data.data
+        this.comps = res.data.data
     })
     .catch(err=>{
         console.log(err);
     });
 
-    this.$axios.get('deployplan',{           
+    this.$axios.get('deployplan',{
+    	params:{  //get请求在第二个位置，post在第三个位置
+			ID:projectId
+		},           
         //设置头
         headers:{
             'content-type':'application/x-www-form-urlencoded'
@@ -348,7 +373,7 @@ data(){
             password: 'admin'
         }
     }).then(res=>{
-        this.components = res.data.data
+        this.deployplanId = res.data.data
     })
     .catch(err=>{
         console.log(err);
@@ -422,7 +447,7 @@ drop:function(event){
 allowDrop:function(event){
   event.preventDefault();
 },
-move: function (event){
+moveDevice: function (event){
 	var e = event || window.event;
 	//var nameArr = [];
 	var name;
@@ -440,15 +465,78 @@ move: function (event){
 
         //alert(name);
         
-        alert(nameArr);
-        idArr.push(id);
+        alert(deviceArr);
+        deviceIdArr.push(id);
+        
+        deviceArr.push(name.substring(33));
         nameArr.push(name.substring(33));
         //$("#div2").remove(obj);
         //$("#moveContent").append(name);
     }
-    this.idArr = idArr;
+    this.deviceIdArr = deviceIdArr;
+
+    this.deviceArr = deviceArr;
     this.nameArr = nameArr;
-    alert(nameArr);
+    alert(deviceArr);
+},
+moveComp: function (event){
+	var e = event || window.event;
+	//var nameArr = [];
+	var name;
+
+    var target = e.target || e.srcElement;
+    if (target.parentNode.parentNode.tagName.toLowerCase() == "td") {
+        var rowIndex = target.parentNode.parentNode.parentNode.rowIndex;
+        //alert(rowIndex);
+        
+        name = document.getElementById("table_value2").rows[rowIndex].cells[1].innerHTML;
+        alert(name);
+
+        id = document.getElementById("table_value2").rows[rowIndex].cells[0].innerHTML;
+        alert(id);
+
+        //alert(name);
+        
+        alert(compArr);
+        compIddArr.push(id);
+
+        compArr.push(name.substring(43));
+        nameArr.push(name.substring(43));
+        //$("#div2").remove(obj);
+        //$("#moveContent").append(name);
+    }
+    this.compIddArr = compIddArr;
+
+    this.compArr = compArr;
+    this.nameArr = nameArr;
+    alert(compArr);
+},
+submit: function (){
+	//alert("hh");
+    var qs = require('qs');
+    //alert("yy");
+    //alert(this.deployplanId);
+    alert(this.deployplanId[0].id);
+    alert(deviceIdArr[0]);
+    this.$axios.put('deployplan/'+ this.deployplanId[0].id + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
+        "deployPath": $("input[name='deployPath']").val()
+    }),{
+        
+        //设置头
+        headers:{
+            'content-type':'application/x-www-form-urlencoded'
+        },
+        auth: {
+            username: 'admin',
+            password: 'admin'
+        }
+    }).then(res=>{
+        
+        this.$router.replace({ path: '/deploy'})
+    })
+        .catch(err=>{
+            alert("提交失败！");
+        })
 }
 
 }
@@ -461,10 +549,11 @@ move: function (event){
 	    min-height: 350px;
 	}
 	.choice {
-	    border-right: 2px solid rgba(204, 204, 204, 1);
+	    /* border-right: 2px solid rgba(204, 204, 204, 1); */
 
 	}
 	.move{
+		border: 1px solid rgba(204, 204, 204, 1);
 		min-height: 350px;
 	}
 
