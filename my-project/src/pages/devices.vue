@@ -88,7 +88,7 @@
                                 {{device.name}}
                             </td>
                             <td>
-                               {{device.ip}}     
+                               {{device.ip}}
                             </td>
                             <td class="description">
                                 {{device.description}}
@@ -107,7 +107,7 @@
                                     </li>
                                 </ul>
                             </td>
-                           
+
                         </tr>
                         <!-- row -->
 
@@ -139,7 +139,6 @@
 /* eslint-disable */
 import modifyDevice from '@/pages/modifyDevice'
 export default{
-        
         data(){
             return{
                 devices:[]
@@ -177,7 +176,7 @@ export default{
                     alert(id);
                     var qs = require('qs');
                     this.$axios.delete('devices/'+id,{
-                        
+
                         //设置头
                         headers:{
                             'content-type':'application/x-www-form-urlencoded'
@@ -194,8 +193,10 @@ export default{
                         alert("删除失败！");
                     })
                 }
-                
-            }/*,
+
+            }
+
+            /*,
 
             modifyDevice: function (event){
                 alert("A");
@@ -226,7 +227,7 @@ export default{
                           console.log(err);
                       })
                 }
-                
+
             }*/
         }
     }

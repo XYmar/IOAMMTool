@@ -9,6 +9,13 @@ function resolve (dir) {
 }
 
 module.exports = {
+  // plugins:[
+  //     new webpack.optimize.CommonsChunkPlugin('my-project/ztree.js'),
+  //     new webpack.ProvidePlugin({
+  //       jQuery:"jquery",
+  //         $:"jquery"
+  //     })
+  // ],
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/IOAMMTool.iml" filepath="$PROJECT_DIR$/IOAMMTool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IOAMMTools.iml" filepath="$PROJECT_DIR$/IOAMMTools.iml" />
     </modules>
   </component>
 </project>

@@ -26,32 +26,34 @@
                                     <label>用户名:</label>
                                     <input class="span9" type="text" name="add-name"/>
                                 </div>
-                                
+
                                 <div class="span12 field-box">
                                     <label>密码:</label>
                                     <input class="span9" type="password" name="add-password"/>
                                 </div>
-                                
+
                                 <div class="span7 field-box actions">
-                                		<input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>                            
+                                		<input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    
+
                 </div>
             </div>
         </div>
 	</div>
 </template>
 
+
+
 <script>
 export default{
         /* eslint-disable */
         data(){
             return{
-                
+
             }
         },
         methods: {
@@ -65,8 +67,8 @@ export default{
                     ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'
                 },*/
                 //设置头
-                headers:{  
-                    'content-type':'application/x-www-form-urlencoded'
+                headers:{
+                   'content-type':'application/x-www-form-urlencoded'
                 },
                 auth: {
                     username: 'admin',
@@ -86,5 +88,5 @@ export default{
     }
 </script>
 <style>
-	
+
 </style>

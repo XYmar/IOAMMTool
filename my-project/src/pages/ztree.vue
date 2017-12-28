@@ -1,19 +1,30 @@
 <template>
-	<div>
-		<ul id="treeDemo" class="ztree"></ul>
-	</div>
-
+	<uploader :options="options" class="uploader-example">
+		<uploader-unsupport></uploader-unsupport>
+		<uploader-drop>
+			<p>Drop files here to upload or</p>
+			<uploader-btn>select files</uploader-btn>
+			<uploader-btn :attrs="attrs">select images</uploader-btn>
+			<uploader-btn :directory="true">select folder</uploader-btn>
+		</uploader-drop>
+		<uploader-list></uploader-list>
+	</uploader>
 </template>
 
-
 <script>
-/* eslint-disable */
-export default{
-data(){
-	return{
-	  
-    }
-},
+    export default {
+        data () {
+            return {
+                options: {
+                    target: '//192.168.0.116:8888/user',
+                    testChunks: false
+                },
+                attrs: {
+                    accept: 'image/*'
+                }
+            }
+        
+    },
 mounted: function(){
 	this.$nextTick(function () {
 		var zTreeObj;
@@ -33,8 +44,7 @@ mounted: function(){
 }
 }
 	
+
 </script>
 
-<style>
-	
-</style>
+
