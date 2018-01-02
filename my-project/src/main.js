@@ -6,11 +6,9 @@ import App from './App'
 //import VueDragTree from 'vue-drag-tree'
 // import TreeView from 'vue-json-tree-view'
 import router from './router'
-import uploader from 'vue-simple-uploader'
 
 //Vue.config.productionTip = false
 // vue.use(TreeView)v
-Vue.use(uploader)
 
 
 new Vue({

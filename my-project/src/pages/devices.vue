@@ -138,13 +138,15 @@
 <script>
 /* eslint-disable */
 import modifyDevice from '@/pages/modifyDevice'
+
+let projectId = "5d0bccf0-1298-4be9-bcfa-2fc5571d9460";
 export default{
         data(){
             return{
                 devices:[]
             }
         },created(){
-            this.$axios.get('devices',{
+            this.$axios.get('project/'+projectId+'/device',{
                 //设置头
                 headers:{
                     'content-type':'application/x-www-form-urlencoded'

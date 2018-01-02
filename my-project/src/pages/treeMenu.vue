@@ -11,6 +11,7 @@
 
 
 <script>
+/* eslint-disable */
 
   var relativePath="";
   function getCurrentRoot(treeNode){
