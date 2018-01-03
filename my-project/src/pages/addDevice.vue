@@ -57,6 +57,7 @@
 </template>
 
 <script>
+let projectId = "5d0bccf0-1298-4be9-bcfa-2fc5571d9460";
     export default{
         /* eslint-disable */
         data(){
@@ -67,11 +68,10 @@
         methods: {
             addUser: function (){
                 var qs = require('qs');
-                this.$axios.post('devices',qs.stringify({
+                this.$axios.post('project/'+projectId+'/device',qs.stringify({
                     "name": $("input[name='add-name']").val(),
                     "ip": $("input[name='add-ip']").val(),
-                    "description": $("input[name='add-des']").val(),
-                    "projectId":"1c11746a-d8c0-433b-9f86-03d65f629266"
+                    "description": $("input[name='add-des']").val()
                 }),{
                     /*params:{  //get请求在第二个位置，post在第三个位置
                      ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'

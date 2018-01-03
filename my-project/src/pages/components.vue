@@ -69,9 +69,9 @@
 							<th class="span3 sortable">
 								<span class="line"></span>版本
 							</th>
-							<!-- <th class="span3">
+							<th class="span3">
 								<span class="line"></span>大小
-							</th> -->
+							</th> 
 							<th class="span3">
 								<span class="line"></span>描述
 							</th>
@@ -87,8 +87,11 @@
 							<td>
 								{{component.name}}
 							</td>
-							<td class="description">
+							<td>
 								{{component.version}}
+							</td>
+							<td>
+								{{component.size}}
 							</td>
 							<td class="description">
 								{{component.description}}

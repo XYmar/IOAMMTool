@@ -40,7 +40,12 @@
 
                             <div class="span12 field-box">
                                 <label>大小:</label>
-                                <input class="span9" type="password" name="add-size"/>
+                                <input class="span9" type="text" name="add-size"/>
+                            </div>
+
+                            <div class="span12 field-box">
+                                <label>上传文件:</label>
+                                <input class="span9" type="textarea" name="add-fold"/>
                             </div>
 
                             <div class="span7 field-box actions">
