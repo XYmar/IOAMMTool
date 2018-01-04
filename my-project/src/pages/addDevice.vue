@@ -57,9 +57,10 @@
 </template>
 
 <script>
+/* eslint-disable */
 let projectId = "5d0bccf0-1298-4be9-bcfa-2fc5571d9460";
     export default{
-        /* eslint-disable */
+
         data(){
             return{
 

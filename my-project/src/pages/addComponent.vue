@@ -45,7 +45,26 @@
 
                             <div class="span12 field-box">
                                 <label>上传文件:</label>
-                                <input class="span9" type="textarea" name="add-fold"/>
+                                <div class="span9 uploadfile" style="margin-left: -1px;">
+                                    <!-- <ul id="example-1">
+                                        <li v-for="(index,item) in items">
+                                            {{ item.message }}
+                                        </li>
+                                    </ul> -->
+                                    <div id="todo-list-example" class="addli">
+                                        <!-- <button v-on:click="ss">保存 </button> -->
+                                        <ul>
+                                            <li is="todo-item" v-for="(file, index) in files"  v-text="sv"></li>
+                                        </ul>
+                                    </div>
+                                    <div class="upbtn">
+                                        <!-- <form method="POST" enctype=multipart/form-data> -->
+                                            <input type='file' name="file" webkitdirectory >
+                                            <input type='file' name="file">
+                                            <button v-on:click="ss">upload</button>
+                                        <!-- </form>  -->
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="span7 field-box actions">
@@ -63,41 +82,75 @@
 </template>
 
 <script>
+/* eslint-disable */
+import Vue from 'vue'
+
+let files = [];
+let sv = null;
+Vue.component('todo-item', {
+  template: `
+            <li v-on:click="$emit('click')">
+                {{ text }}
+            </li>`,
+            props: ['text']
+})
+
     export default{
-        /* eslint-disable */
+
         data(){
             return{
+                files: [
+                    
+                ],
+                sv: ''
             }
         },
         methods: {
             addUser: function (){
                 var qs = require('qs');
-                this.$axios.post('users',qs.stringify({
-                    "username": $("input[name='add-name']").val(),
-                    "password": $("input[name='add-password']").val()
-                }),{
-                    /*params:{  //get请求在第二个位置，post在第三个位置
-                     ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'
-                     },*/
-                    //设置头
-                    headers:{
-                        'content-type':'application/x-www-form-urlencoded'
-                    },
-                    auth: {
-                        username: 'admin',
-                        password: 'admin'
-                    }
-                }).then(res=>{
-                    //this.users = res.data.data
-                    //console.log(res);
-                    this.$router.replace({ path: '/xy1'})
-                })
-                    .catch(err=>{
-                        alert("请重新输入用户名！");
-                    })
+                this.$axios.post('components',qs.stringify({
+                        "componentfile": $("input[name='file']").val()
+                    }),{
+                
+                auth: {
+                    username: 'admin',
+                    password: 'admin'
+                }
+            }).then(res=>{
+                
+            })
+            .catch(err=>{
+                alert("失败！");
+            })
+            },
+            ss: function() {
+                //alert(this.sv);
+                this.sv = $("input[name='file']").val();
+                this.files.push(this.sv)
+                //this.sv=''
             }
         }
+
+
+
+
     }
 </script>
 <style>
+    .uploadfile{
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        height: 200px;
+
+    }
+
+    .upbtn{
+        margin-top: 5px;
+    }
+
+    .addli{
+        
+        max-height: 130px;
+        overflow: auto;
+    }
 </style>
