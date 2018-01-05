@@ -1,9 +1,25 @@
 <template>
-    <div id="areaTree">
-        <div class="tree-box">
-            <div class="zTreeDemoBackground left">
-                <ul id="treeDemo" class="ztree"></ul>
-            </div>
+    <div >
+        <div>  
+            <form>
+                <input type="text" value="" v-model="name" placeholder="请输入组件名"/>
+                <input type="text" value="" v-model="version" placeholder="请输入版本"/>
+                <!-- <input type="text" value="" v-model="age" placeholder="请输入年龄">  -->
+                <!-- <input type="file" @change="getFile($event)"> -->
+                <input type='file' name="folderin" id="folderupload"  @change="getFile($event)" webkitdirectory > 
+                <button @click="submitForm($event)">提交</button>
+            </form>
+            <!-- <form action="" enctype="multipart/form-data">
+                <input type='file' name="folderin" id="folderupload"  @change="getFile($event)" webkitdirectory >
+                <input type='file' name="file">
+                <button @click="addComp($event)">upload</button>
+            </form> -->
+            
+        </div>
+        <br/>
+
+        <div class="span7 field-box actions">
+            <input type="button" class="btn-glow primary" value="添加组件" style="width: 100px;" @click="addComp($event)"/>
         </div>
     </div>
 </template>
@@ -13,192 +29,72 @@
 <script>
 /* eslint-disable */
 
-  var relativePath="";
-  function getCurrentRoot(treeNode){
-    if(treeNode.getParentNode()!=null){
-      var parentNode = treeNode.getParentNode();
-      relativePath=treeNode.getParentNode().name+"/"+relativePath+treeNode.name;
-      return getCurrentRoot(parentNode);
-    }else{
-      return treeNode.id;
-    }
-  }
-
 
     export default {
-        name: 'areaTree',
-        components:{
-        },
+
         data:function() {
             return {
-                setting: {
-                    view: {
-                        addHoverDom: this.addHoverDom,
-                        removeHoverDom: this.removeHoverDom,
-                        selectedMulti: this.true
-                    },
-                    edit: {
-                        enable: true,
-                    },
-                    data: {
-                        simpleData: {
-                            enable: true
-                        }
-                    },
-                    callback: {
-                        beforeDrag: this.beforeDrag,
-                        beforeEditName: this.beforeEditName,
-                        beforeRemove: this.beforeRemove,
-                        beforeRename: this.beforeRename,
-                        onRemove: this.onRemove,
-                        onRename: this.onRename
-                    }
-                },
-                zNodes:[  { name:"父节点1 - 展开", open:true,
-                    children: [
-                        { name:"父节点11 - 折叠",
-                            children: [
-                                { name:"叶子节点111"},
-                                { name:"叶子节点112"},
-                                { name:"叶子节点113"},
-                                { name:"叶子节点114"}
-                            ]},
-                        { name:"父节点12 - 折叠",
-                            children: [
-                                { name:"叶子节点121"},
-                                { name:"叶子节点122"},
-                                { name:"叶子节点123"},
-                                { name:"叶子节点124"}
-                            ]},
-                        { name:"父节点13 - 没有子节点", isParent:true}
-                    ]},
-                { name:"父节点2 - 折叠",
-                    children: [
-                        { name:"父节点21 - 展开", open:true,
-                            children: [
-                                { name:"叶子节点211"},
-                                { name:"叶子节点212"},
-                                { name:"叶子节点213"},
-                                { name:"叶子节点214"}
-                            ]},
-                        { name:"父节点22 - 折叠",
-                            children: [
-                                { name:"叶子节点221"},
-                                { name:"叶子节点222"},
-                                { name:"叶子节点223"},
-                                { name:"叶子节点224"}
-                            ]},
-                        { name:"父节点23 - 折叠",
-                            children: [
-                                { name:"叶子节点231"},
-                                { name:"叶子节点232"},
-                                { name:"叶子节点233"},
-                                { name:"叶子节点234"}
-                            ]}
-                    ]},
-                { name:"父节点3 - 没有子节点", isParent:true}
-            ]
-        }
-        },
-        methods:{
-            beforeDrag: function(treeId, treeNodes) {
-                return false;
-        },
-           beforeEditName: function (treeId, treeNode) {
-             var className= $("dark");
-                 className = (className === "dark" ? "":"dark");
-            this.showLog("[ "+this.getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.selectNode(treeNode);
-            setTimeout(function() {
-                if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
-                    setTimeout(function() {
-                        zTree.editName(treeNode);
-                    }, 0);
-                }
-            }, 0);
-            return false;
-        },
-           beforeRemove: function (treeId, treeNode) {
-               var className= $("dark");
-               className = (className === "dark" ? "":"dark");
-               this.showLog("[ "+this.getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-               var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-               zTree.selectNode(treeNode);
-               return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
-            },
-            onRemove: function (e, treeId, treeNode) {
-                this.showLog("[ "+this.getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-            },
-             beforeRename:function(treeId, treeNode, newName, isCancel) {
-               var className= $("dark");
-                className = (className === "dark" ? "":"dark");
-                 this.showLog((isCancel ? "<span style='color:red'>":"") + "[ "+this.getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-                if (newName.length == 0) {
-                    setTimeout(function() {
-                        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-                        zTree.cancelEditName();
-                        alert("节点名称不能为空.");
-                    }, 0);
-                    return false;
-                }
-                return true;
-            },
-            onRename:function(e, treeId, treeNode, isCancel) {
-                this.showLog((isCancel ? "<span style='color:red'>":"") + "[ "+this.getTime9()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-            },
-            showRemoveBtn:function (treeId, treeNode) {
-                return !treeNode.isFirstNode;
-            },
-            showRenameBtn:function (treeId, treeNode) {
-                return !treeNode.isLastNode;
-            },
-           showLog:function (str) {
-               var className= $("dark");
-               var log=$("dark");
-                if (!log) log = $("#log");
-                log.append("<li class='"+className+"'>"+str+"</li>");
-                if(log.children("li").length > 8) {
-                    log.get(0).removeChild(log.children("li")[0]);
-                }
-            },
-            getTime:function()  {
-                var now= new Date(),
-                    h=now.getHours(),
-                    m=now.getMinutes(),
-                    s=now.getSeconds(),
-                    ms=now.getMilliseconds();
-                return (h+":"+m+":"+s+ " " +ms);
-            },
-
-            addHoverDom: function(treeId, treeNode) {
-
-                var newCount = $("1");
-                var sObj = $("#" + treeNode.tId + "_span");
-                if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-              var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";
-               sObj.after(addStr);
-                var btn = $("#addBtn_"+treeNode.tId);
-                if (btn) btn.bind("click", function(){
-                    relativePath="";
-                    getCurrentRoot(treeNode);
-                  alert(relativePath);
-//                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-//                   zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
-                 //   return false;
-                });
-            },
-            removeHoverDom:function (treeId, treeNode) {
-                $("#addBtn_"+treeNode.tId).unbind().remove();
-            },
-             selectAll:function() {
-                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-                zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
+                name:'',
+                version:'',
+                file:[]
             }
         },
-        mounted(){
-            $.fn.zTree.init($("#treeDemo"), this.setting, this.zNodes);
+        methods: {
+            getFile(event) {
+                this.file = event.target.files[0];
+                console.log(this.file.length);
+                console.log(this.file);
+            },
+            submitForm(event) {
+                alert("A");
+                event.preventDefault();
+                let formData = new FormData();
 
-        }
+                alert("hh");
+                formData.append('name', this.name);
+                formData.append('version', this.version);
+                formData.append('componentfile', this.file);
+                console.log(this.file.length);
+
+                let config = {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+
+                this.$axios.post('components', formData, {
+                    config,
+                    auth: {
+                        username: 'admin',
+                        password: 'admin'
+                    }
+                }).then(function (res) {
+                    if (res.status === 2000) {
+                        /*这里做处理*/
+                    }
+                })
+            }
+            /*folderclick: function (){
+                    var qs = require('qs');
+                    this.$axios.post('components',qs.stringify({
+                            "componentfile": $("input[name='file']").val()
+                        }),{
+
+                        headers:{
+                            'content-type':'multipart/form-data'
+                        },
+                        auth: {
+                            username: 'admin',
+                            password: 'admin'
+                        }
+                }).then(res=>{
+                    
+                })
+                .catch(err=>{
+                    alert("失败！");
+                })
+            }*/
+
     }
+}
 </script>

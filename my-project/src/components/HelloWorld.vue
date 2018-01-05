@@ -162,7 +162,7 @@
         <li>
           <router-link to="/treeMenu">
             <i class="icon-signal"></i>
-            <span>fx</span>
+            <span>treeMenu</span>
           </router-link>
         </li>
 
