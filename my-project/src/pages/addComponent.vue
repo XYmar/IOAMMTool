@@ -24,22 +24,22 @@
                             <form class="new_user_form inline-input" />
                                 <div class="span12 field-box">
                                     <label>组件名:</label>
-                                    <input class="span9" type="text" name="add-name"/>
+                                    <input class="span9" type="text" v-model="name" name="add-name"/>
                                 </div>
 
                                 <div class="span12 field-box">
                                     <label>版本:</label>
-                                    <input class="span9" type="text" name="add-version"/>
+                                    <input class="span9" type="text" v-model="version" name="add-version"/>
                                 </div>
 
                                 <div class="span12 field-box">
                                     <label>大小:</label>
-                                    <input class="span9" type="text" name="add-size"/>
+                                    <input class="span9" type="text" v-model="size" name="add-size"/>
                                 </div>
 
                                 <div class="span12 field-box">
                                     <label>描述信息:</label>
-                                    <input class="span9" type="text" name="add-describle"/>
+                                    <input class="span9" type="text" v-model="describle" name="add-describle"/>
                                 </div>
 
                                 <div class="span12 field-box">
@@ -116,11 +116,12 @@
 /* eslint-disable */
 import Vue from 'vue'
 
-let folders = [];   //上传文件夹的数组
+/*let folders = [];   //上传文件夹的数组
 let files = [];     //上传文件的数组
 let allArr = [];    //上传文件夹和文件的总数组
 let sv = null;
 let sv1 = null;
+let sv2 = null;*/
 /*Vue.component('todo-item', {
   template: `
             <li v-on:click="$emit('click')">
@@ -135,6 +136,8 @@ export default {
             return {
                 name:'',
                 version:'',
+                size: '',
+                describle: '',
                 folders: [
                     
                 ],
@@ -151,7 +154,7 @@ export default {
         methods: {
             getFolder(event) {
                 this.sv1 = event.target.files[0];
-                console.log(this.sv1.length);
+                //console.log(this.sv1.length);
                 console.log(this.sv1);
 
                 /*this.sv1 = $("input[name='file']").val();
@@ -165,11 +168,11 @@ export default {
                     alert("请选择文件夹");
                 }*/
             },
-            /*getFile(event) {
-                this.allArr = event.target.files[0];
-                console.log(this.allArr.length);
-                console.log(this.allArr);
-            },*/
+            getFile(event) {
+                this.sv2 = event.target.files[0];
+                //console.log(this.sv2.length);
+                console.log(this.sv2);
+            },
             folderclick(event) {
                 //alert(this.sv);
                 //this.sv1 = event.target.files[0];;
@@ -179,8 +182,13 @@ export default {
 
                 if(this.sv1.length != 0){
                     this.folders.push(this.sv1);
+                    this.allArr.push(this.sv1);
+
+                    console.log(this.folders);
+                    console.log(this.allArr);
+
                     alert(this.sv1);
-                    var obj = document.getElementById('fileupload') ; 
+                    var obj = document.getElementById('folderupload') ; 
                     obj.outerHTML=obj.outerHTML;
                 }else{
                     alert("请选择文件夹");
@@ -188,14 +196,20 @@ export default {
                 
                 //this.sv=''
             },
-            fileclick: function() {
+            fileclick(event) {
                 //alert(this.sv);
                 //this.sv2 = $("input[name='filein']").val();
+                event.preventDefault();
+                alert(this.sv2);
 
                 if(this.sv2.length != 0){
                     this.files.push(this.sv2);
+                    this.allArr.push(this.sv2);
 
-                    var obj = document.getElementById('fileupload') ; 
+                    console.log(this.files);
+                    console.log(this.allArr);
+
+                    var obj = document.getElementById('fileupload'); 
                     obj.outerHTML=obj.outerHTML;
                 }else{
                     alert("请选择文件");
@@ -212,7 +226,17 @@ export default {
                 formData.append('version', this.version);
                 formData.append('size', this.size);
                 formData.append('describle', this.describle);
-                formData.append('componentfile', this.allArr);
+
+                formData.append('enctype', "multipart/form-data");
+
+                for(var i=0;i<allArr.length;i++)
+                {
+                    formData.append('componentfile', allArr[i]);
+                    //formData.append("componentfile",fileList[i]);
+
+                }
+
+                //formData.append('componentfile', this.allArr);
                 console.log(this.allArr.length);
 
                 let config = {
