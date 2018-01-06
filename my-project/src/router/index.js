@@ -14,6 +14,7 @@ import deploy from '@/pages/deploy'
 import ztree from '@/pages/ztree'
 import signin from '@/pages/signin'
 import selectProject from '@/pages/selectProject'
+import scan from '@/pages/scan'
 import Axios from 'axios'
 
 /* eslint-disable */
@@ -84,7 +85,12 @@ export default new Router({
                 path: '/ztree',
                 name: 'ztree',
                 component: ztree
-              }
+              },
+              {
+                path: '/scan',
+                name: 'scan',
+                component: scan
+              },
             ]
         },
         {

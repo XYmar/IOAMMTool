@@ -186,6 +186,12 @@
             <span>sign</span>
           </router-link>
         </li>
+        <li>
+          <router-link to="/scan">
+            <i class="icon-signal"></i>
+            <span>scan</span>
+          </router-link>
+        </li>
 
 
 
