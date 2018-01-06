@@ -8,13 +8,13 @@
                 <!-- <input type="file" @change="getFile($event)">  -->
                 
                 <br/>
-                <input type='file' name="folderin" id="folderupload"  @change="getFile0($event)" webkitdirectory > 
+                <input type='file' name="folderin" id="folderupload1"  @change="getFile0($event)" webkitdirectory > 
                 
                 <button @click="submitForm0($event)">提交0</button>
 
 
                 <br/>
-                <input type='file' name="folderin" id="folderupload"  multiple="multiple" @change="getFile1($event)" webkitdirectory > 
+                <input type='file' name="folderin" id="folderupload2"  multiple="multiple" @change="getFile1($event)" webkitdirectory > 
                 
                 <button @click="submitForm1($event)">提交List</button>
 
@@ -133,8 +133,16 @@
                 alert("hh");
                 formData.append('name', this.name);
                 formData.append('version', this.version);
-                formData.append('componentfile', this.files);
+                formData.append('enctype', "multipart/form-data");
+                for(var i=0;i<this.files.length;i++)
+                {
+                    formData.append('componentfile', this.files[i]);
+                    //formData.append("componentfile",fileList[i]);
+
+                }
+                //formData.append('componentfile', this.files);
                 console.log(this.files.length);
+                console.log(this.files);
 
                 let config = {
                     headers: {
@@ -161,6 +169,10 @@
 
                 var file22 = document.getElementById("folderupload3");
                 var fieList = file22.files;
+                console.log(fieList);
+                console.log(fieList.length);
+                /*console.log(this.files2);
+                console.log(this.files2.length);*/
 
                 formData.append('name', this.name);
                 formData.append('version', this.version);
