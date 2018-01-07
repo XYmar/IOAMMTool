@@ -63,7 +63,7 @@
                                             <input type='file' name="folderin" id="folderupload" webkitdirectory  @change="getFolder($event)">
                                                 <!-- <input type='file' name="folderin" id="folderupload" webkitdirectory > -->
                                                 <!-- <input type='file' name="file"> -->
-                                                <button v-on:click="folderclick">upload</button>
+                                                <button v-on:click="folderclick($event)">upload</button>
                                                 <!-- <button v-on:click="folderclick">upload</button> -->
                                         </div>
 
@@ -79,7 +79,7 @@
                                         
                                         <div class="upbtn">
                                                 <input type='file' name="filein" id="fileupload"  @change="getFile($event)">
-                                                <button v-on:click="fileclick">upload</button>
+                                                <button v-on:click="fileclick($event)">upload</button>
                                         </div> 
                                     </div>
                                 </div>
@@ -116,12 +116,12 @@
 /* eslint-disable */
 import Vue from 'vue'
 
-/*let folders = [];   //上传文件夹的数组
+let folders = [];   //上传文件夹的数组
 let files = [];     //上传文件的数组
 let allArr = [];    //上传文件夹和文件的总数组
 let sv = null;
-let sv1 = null;
-let sv2 = null;*/
+let sv1 = [];
+let sv2 = '';
 /*Vue.component('todo-item', {
   template: `
             <li v-on:click="$emit('click')">
@@ -147,17 +147,20 @@ export default {
                 allArr: [
 
                 ],
-                sv1: '',
-                sv2: ''
+                sv1: [],
+                sv2: '',
+                fileList2:[]
             }
         },
         methods: {
             getFolder(event) {
-                this.sv1 = event.target.files[0];
+                //debugger;
+                this.sv1 = event.target.files;
                 //console.log(this.sv1.length);
+                console.log("hhhh");
                 console.log(this.sv1);
 
-                /*this.sv1 = $("input[name='file']").val();
+                this.sv1 = $("input[name='file']").val();
                 if(this.sv1.length != 0){
                     this.folders.push(this.sv1);
 
@@ -166,7 +169,7 @@ export default {
                     obj.outerHTML=obj.outerHTML;
                 }else{
                     alert("请选择文件夹");
-                }*/
+                }
             },
             getFile(event) {
                 this.sv2 = event.target.files[0];
@@ -175,47 +178,110 @@ export default {
             },
             folderclick(event) {
                 //alert(this.sv);
-                //this.sv1 = event.target.files[0];;
-                //this.sv1 = $("input[name='folderin']").val();
+                //this.sv1 = event.target.files[0];; 
                 event.preventDefault();
-                alert(this.sv1);
+                //alert(this.sv1);
+                //alert(this.sv1.name);
+                //alert(this.sv1.webkitRelativePath);
+                alert("xy");
+                //this.sv1 = event.target.files;
 
-                if(this.sv1.length != 0){
-                    this.folders.push(this.sv1);
+                var sv11 = document.getElementById("folderupload");
+                var fieList = sv11.files;
+                /*alert(fileList);
+                alert(fileList.length);*/
+
+                if(fieList.length != 0){
+                    //this.sv1.push(this.sv1.files);
+                    /*for(var s1=0; s1<this.sv1.length;s1++){
+                        this.folders.push(this.sv1);
+                        this.allArr.push(this.sv1);
+                    }*/
+                    var foldersNum = fieList.length + "个文件";
+                    this.folders.push(foldersNum);
+                    this.allArr.push(fieList);
+                    console.log(fieList);
+
+                    console.log(Object.prototype.toString.call(fieList));
+                    /*console.log(Object.prototype.toString.call(this.sv1) == "[object FileList]");
+                    console.log(Object.prototype.toString.call(this.sv1) == FileList);*/
+
+                    console.log(this.folders);
+                    console.log(this.allArr);
+
+                    alert(fieList);
+                    var obj = document.getElementById('folderupload') ; 
+                    alert("ffff");
+                    obj.outerHTML=obj.outerHTML;
+                    alert("vvvv");
+                    alert(fieList);
+                    //this.getFolder(event);
+                }else{
+                    alert("请选择文件夹");
+                }
+
+                /*if(this.sv1.length != 0){*/
+                    //this.sv1.push(this.sv1.files);
+                    /*for(var s1=0; s1<this.sv1.length;s1++){
+                        this.folders.push(this.sv1);
+                        this.allArr.push(this.sv1);
+                    }*/
+                    /*var foldersNum = this.sv1.length + "个文件";
+                    this.folders.push(foldersNum);
                     this.allArr.push(this.sv1);
+                    console.log(this.sv1);
+
+                    console.log(Object.prototype.toString.call(this.sv1));
+                    console.log(Object.prototype.toString.call(this.sv1) == "[object FileList]");
+                    console.log(Object.prototype.toString.call(this.sv1) == FileList);
+                    //console.log(typeof(this.sv1));
 
                     console.log(this.folders);
                     console.log(this.allArr);
 
                     alert(this.sv1);
                     var obj = document.getElementById('folderupload') ; 
+                    alert("ffff");
                     obj.outerHTML=obj.outerHTML;
+                    alert("vvvv");
+                    alert(this.sv1);
+                    //this.getFolder(event);
                 }else{
                     alert("请选择文件夹");
-                }
+                }*/
                 
-                //this.sv=''
+                
             },
-            fileclick(event) {
-                //alert(this.sv);
-                //this.sv2 = $("input[name='filein']").val();
-                event.preventDefault();
-                alert(this.sv2);
 
-                if(this.sv2.length != 0){
-                    this.files.push(this.sv2);
-                    this.allArr.push(this.sv2);
+            fileclick(event) {
+                event.preventDefault();
+ 
+                alert("xy");
+
+                var sv12 = document.getElementById("fileupload");
+                var fieList2 = sv12.files;
+
+                if(fieList2.length != 0){
+
+                    this.files.push(fieList2[0].name);
+                    this.allArr.push(fieList2);
+                    //console.log(fieList);
+
+                    /*console.log(Object.prototype.toString.call(fieList));*/
+                    //console.log(typeof(this.sv1));
 
                     console.log(this.files);
                     console.log(this.allArr);
 
-                    var obj = document.getElementById('fileupload'); 
+                    alert(fieList2);
+                    var obj = document.getElementById('fileupload') ; 
+
                     obj.outerHTML=obj.outerHTML;
                 }else{
                     alert("请选择文件");
                 }
-                
             },
+
             addComp(event) {
                 alert("A");
                 event.preventDefault();
@@ -229,15 +295,28 @@ export default {
 
                 formData.append('enctype', "multipart/form-data");
 
-                for(var i=0;i<allArr.length;i++)
-                {
-                    formData.append('componentfile', allArr[i]);
+                for(var i=0;i<this.allArr.length;i++){
+                    //判断数组里是文件夹还是文件
+                    for(var j=0;j<this.allArr[i].length;j++){
+                            formData.append('componentfile', this.allArr[i][j]);
+                        }
+                    /*if(Object.prototype.toString.call(this.allArr[i]) == "[object FileList]"){
+
+                        for(var j=0;j<this.allArr[i].length;j++){
+                            formData.append('componentfile', this.allArr[i][j]);
+                        }
+                    }else{
+                        formData.append('componentfile', this.allArr[i]);
+                    }*/
+
+                    //formData.append('componentfile', this.allArr[i]);
                     //formData.append("componentfile",fileList[i]);
 
                 }
 
                 //formData.append('componentfile', this.allArr);
                 console.log(this.allArr.length);
+                console.log(this.allArr);
 
                 let config = {
                     headers: {
@@ -251,10 +330,12 @@ export default {
                         username: 'admin',
                         password: 'admin'
                     }
-                }).then(function (res) {
-                    if (res.status === 2000) {
-                        /*这里做处理*/
-                    }
+                }).then(res=>{
+                        //this.users = res.data.data
+                        console.log(res);
+                        alert("添加成功");
+                    }).catch(err=>{
+                        alert("添加失败！");
                 })
             }
 

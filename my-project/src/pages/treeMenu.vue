@@ -168,6 +168,7 @@
                 let formData = new FormData();
 
                 var file22 = document.getElementById("folderupload3");
+                console.log(file22);
                 var fieList = file22.files;
                 console.log(fieList);
                 console.log(fieList.length);
