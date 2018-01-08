@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div id="pad-wrapper" class="new-user">
                 <div class="row-fluid header">
-                    <h3>创建一个新设备</h3>
+                    <h3>创建一个新部署设计</h3>
                 </div>
 
                 <div class="row-fluid form-wrapper">
@@ -23,15 +23,8 @@
                         <div class="container">
                             <form class="new_user_form inline-input" />
                             <div class="span12 field-box">
-                                <label>设备名:</label>
+                                <label>名称:</label>
                                 <input class="span9" type="text" name="add-name"/>
-                            </div>
-
-                            <div class="span12 field-box">
-                                <label>IP:</label>
-
-                                <input class="span9" type="text" name="add-ip"/>
-
                             </div>
 
                             <div class="span12 field-box">
@@ -42,7 +35,7 @@
                             </div>
 
                             <div class="span7 field-box actions">
-                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
+                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addDeployPlan"/>
                             </div>
 
                             </form>
@@ -68,11 +61,10 @@ let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";
             }
         },
         methods: {
-            addUser: function (){
+            addDeployPlan: function (){
                 var qs = require('qs');
-                this.$axios.post('project/'+projectId+'/device',qs.stringify({
+                this.$axios.post('project/'+projectId+'/deployplan',qs.stringify({
                     "name": $("input[name='add-name']").val(),
-                    "ip": $("input[name='add-ip']").val(),
                     "description": $("input[name='add-des']").val()
                 }),{
                     /*params:{  //get请求在第二个位置，post在第三个位置
@@ -89,10 +81,10 @@ let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";
                 }).then(res=>{
                     //this.users = res.data.data
                     //console.log(res);
-                    this.$router.replace({ path: '/devices'})
+                    this.$router.replace({ path: '/deployplan'})
                 })
                     .catch(err=>{
-                        alert("请重新输入用户名！");
+                        alert("请重新输入名称！");
                     })
             }
         }

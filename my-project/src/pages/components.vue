@@ -102,8 +102,11 @@
 								<span class="label label-success">Active</span>
 								<ul class="actions">
 									<li>
-                                        <router-link to="/modifyDevice">
-                                         <input type="button" class="btn-glow primary" value="修改" @click="modifyDevice($event)"/>
+                                        <!-- <router-link to="/modifyComponent">
+                                        	<input type="button" class="btn-glow primary" value="修改" @click="modifyComp($event)"/>
+                                        </router-link> -->
+                                        <router-link :to='{name:"modifyComponent",params:{id:component.id}}'>
+                                        	<input type="button" class="btn-glow primary" value="修改"/>
                                         </router-link>
                                     </li>
                                     <li class="last">

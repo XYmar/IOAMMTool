@@ -24,29 +24,29 @@
               <form class="new_user_form inline-input"/>
               <div v-for="(device,index) in devices" :key="index">
 
-                <div class="span12 field-box">
-                <label></label>
-                <input class="span9" type="hidden" name="edit-id" :value="device.id"/>
-                </div>
+                  <div class="span12 field-box">
+                    <label></label>
+                    <input class="span9" type="hidden" name="edit-id" :value="device.id"/>
+                  </div>
 
-                <div class="span12 field-box">
-                <label>设备名:</label>
-                <input class="span9" type="text" name="edit-name" :value="device.name"/>
-                </div>
-                
-                <div class="span12 field-box">
-                  <label>IP:</label>
-                  <input class="span9" type="text" name="edit-ip" :value="device.ip"/>
-                </div>
-                
-                <div class="span12 field-box">
-                  <label>描述:</label>
-                  <input class="span9" type="text" name="edit-des" :value="device.description"/>
-                </div>
-                
-                <div class="span7 field-box actions">
-                <input type="button" class="btn-glow primary" value="保存" style="width: 100px;" @click="editDevice"/>
-                </div>  
+                  <div class="span12 field-box">
+                    <label>设备名:</label>
+                    <input class="span9" type="text" name="edit-name" :value="device.name"/>
+                  </div>
+                  
+                  <div class="span12 field-box">
+                    <label>IP:</label>
+                    <input class="span9" type="text" name="edit-ip" :value="device.ip"/>
+                  </div>
+                  
+                  <div class="span12 field-box">
+                    <label>描述:</label>
+                    <input class="span9" type="text" name="edit-des" :value="device.description"/>
+                  </div>
+                  
+                  <div class="span7 field-box actions">
+                    <input type="button" class="btn-glow primary" value="保存" style="width: 100px;" @click="editDevice"/>
+                  </div>  
               </div>  
 
               </form>

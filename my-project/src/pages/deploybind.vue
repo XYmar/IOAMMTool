@@ -6,18 +6,22 @@
 
                 <div class="row-fluid">
                     <div class="span12">
-                        <div id="fuelux-wizard" class="wizard row-fluid" style="margin-left: -45px;">
+                        <div id="fuelux-wizard" class="wizard row-fluid">
                             <ul class="wizard-steps">
-                                <li data-target="#step1" class="active">
+                            	<li data-target="#step1" class="active">
                                     <span class="step">1</span>
-                                    <span class="title">部署</span>
+                                    <span class="title">选择部署 <br /> 设计</span>
                                 </li>
-                                <li data-target="#step2">
+                                <li data-target="#step2" class="active">
                                     <span class="step">2</span>
-                                    <span class="title">选择 <br /> 路径</span>
+                                    <span class="title">部署</span>
                                 </li>
                                 <li data-target="#step3">
                                     <span class="step">3</span>
+                                    <span class="title">选择 <br /> 路径</span>
+                                </li>
+                                <li data-target="#step4">
+                                    <span class="step">4</span>
                                     <span class="title">提交</span>
                                 </li>
                                 <!-- <li data-target="#step4">
@@ -27,9 +31,32 @@
                             </ul>
                         </div>
                         <div class="step-content">
-                            <div class="step-pane active" id="step1">
+                        	<div class="step-pane active" id="step1">
                                 <div class="row-fluid form-wrapper">
-                                    <div class="span10">
+                                    <div class="span8">
+                                        <form />
+                                        	<div>
+                                        		<h3>请选择要操作的部署设计：</h3>
+                                        	</div>
+                                        	<br/>
+                                            <div class="field-box" style="margin-top: 30px;">
+                                                <label>部署设计:</label>
+					                            <select  style="height:30px;" @change="changeDeployPlan">
+					                            	<!-- v-model="selected" -->
+					                                <option v-for="deployplan in deployplanInfos" v-bind:value="deployplan.id">
+					                                    {{ deployplan.name }}
+					                                </option>
+					                            </select>
+
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="step-pane" id="step2">
+                                <div class="row-fluid form-wrapper">
+                                    <div class="span11">
 
                                         <div class="drag-content span12"  style="min-height: 400px;">
 
@@ -218,7 +245,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="step-pane" id="step2">
+                            <div class="step-pane" id="step3">
                                 <div class="row-fluid form-wrapper">
                                     <div class="span8">
                                         <form />
@@ -235,7 +262,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="step-pane" id="step3">
+                            <div class="step-pane" id="step4">
                                 <div class="row-fluid form-wrapper">
                                     <div class="span8">
                                         <form />
@@ -264,6 +291,11 @@
                 </div>
             </div>
         </div>
+
+<div>
+	部署设计：{{deployplans}}
+	<!-- planId: {{deployplanId[0].id}}   -->
+</div>
 
 <hr/>
 <div>
@@ -320,7 +352,7 @@ let compIddArr = [];       //组件的ID信息
 let nameArr = [];   //设备及组件的名称
 let idAll = [];     //设备及组件的id
 let deployplanId = [];
-let projectId = "aabe46e3-a356-4db9-a978-3db113f04f42";
+let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
 export default{
 data(){
 	return{
@@ -333,7 +365,11 @@ data(){
 		compIddArr:[],
 		nameArr:[],
 		idAll:[],
-		deployplanId:[]
+		deployplanId:[],
+		deployplans:[],
+		deployplanInfos: [
+	        
+	    ]
 	  
     }
 },created(){
@@ -386,7 +422,34 @@ data(){
     })
     .catch(err=>{
         console.log(err);
-    })
+    });
+
+	//获取部署设计的相关信息
+    this.$axios.get('project/'+projectId+'/deployplan',{
+            //设置头
+            headers:{
+                'content-type':'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: 'admin',
+                password: 'admin'
+            }
+        }).then(res=>{
+        	this.deployplans = res.data.data;
+        	console.log(this.deployplans);
+            for (var i = 0; i < this.deployplans.length; i++) {
+	            this.deployplanInfos.push({
+			        id: this.deployplans[i].id,
+			        name: this.deployplans[i].name
+			    })
+            }
+            console.log(this.deployplans);
+            //alert("xydp");
+
+        })
+        .catch(err => {
+          console.log("hhh");
+        });
 
 },
 mounted: function(){
@@ -408,7 +471,7 @@ mounted: function(){
 
 	        if (step.step === 1) {
 	            $btnPrev.attr("disabled", "disabled");
-	        } else if (step.step === 3) {
+	        } else if (step.step === 4) {
 	            $btnNext.hide();
 	            $btnFinish.show();
 	        }
@@ -546,7 +609,14 @@ methods: {
 	        .catch(err=>{
 	            alert("提交失败！");
 	        })
-	}
+	},
+	changeDeployPlan: function() {
+     
+
+      this.componentEntity = [];
+
+        
+    }
 
 },
 computed: {  
