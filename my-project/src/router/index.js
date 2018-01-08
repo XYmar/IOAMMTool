@@ -12,6 +12,7 @@ import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
 import deployplan from '@/pages/deployplan'
 import addDeployPlan from '@/pages/addDeployPlan'
+import deployplanDetail from '@/pages/deployplanDetail'
 import deploybind from '@/pages/deploybind'
 import ztree from '@/pages/ztree'
 import signin from '@/pages/signin'
@@ -87,6 +88,11 @@ export default new Router({
                     path: '/addDeployPlan',
                     name: 'addDeployPlan',
                     component: addDeployPlan
+                },
+                {
+                    path: '/deployplanDetail',
+                    name: 'deployplanDetail',
+                    component: deployplanDetail
                 },
                 {
                     path: '/deploybind',
