@@ -10,7 +10,9 @@ import devices from '@/pages/devices'
 import addDevice from '@/pages/addDevice'
 import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
-import deploy from '@/pages/deploy'
+import deployplan from '@/pages/deployplan'
+import addDeployPlan from '@/pages/addDeployPlan'
+import deploybind from '@/pages/deploybind'
 import ztree from '@/pages/ztree'
 import signin from '@/pages/signin'
 import selectProject from '@/pages/selectProject'
@@ -62,46 +64,56 @@ export default new Router({
                     component: devices
                 },
                 {
-                path: '/addDevice',
-                name: 'addDevice',
-                component: addDevice
-              },
-              {
-                path: '/modifyDevice',
-                name: 'modifyDevice',
-                component: modifyDevice
-              },
-              {
-                path: '/modifyComponent',
-                name: 'modifyComponent',
-                component: modifyComponent
-              },
-              {
-                path: '/deploy',
-                name: 'deploy',
-                component: deploy
-              },
-              {
-                path: '/ztree',
-                name: 'ztree',
-                component: ztree
-              },
-              {
-                path: '/scan',
-                name: 'scan',
-                component: scan
-              },
+                    path: '/addDevice',
+                    name: 'addDevice',
+                    component: addDevice
+                },
+                {
+                    path: '/modifyDevice',
+                    name: 'modifyDevice',
+                    component: modifyDevice
+                },
+                {
+                    path: '/modifyComponent',
+                    name: 'modifyComponent',
+                    component: modifyComponent
+                },
+                {
+                    path: '/deployplan',
+                    name: 'deployplan',
+                    component: deployplan
+                },
+                {
+                    path: '/addDeployPlan',
+                    name: 'addDeployPlan',
+                    component: addDeployPlan
+                },
+                {
+                    path: '/deploybind',
+                    name: 'deploybind',
+                    component: deploybind
+                },
+                {
+                    path: '/ztree',
+                    name: 'ztree',
+                    component: ztree
+                },
+                {
+                    path: '/scan',
+                    name: 'scan',
+                    component: scan
+                },
             ]
         },
-        {
-            path: '/signin',
-            name: 'signin',
-            component: signin
-        },
-        {
-            path: '/selectProject',
-            name: 'selectProject',
-            component: selectProject
-        }
+            {
+                path: '/signin',
+                name: 'signin',
+                component: signin
+            },
+            {
+                path: '/selectProject',
+                name: 'selectProject',
+                component: selectProject
+            }
     ]
 })

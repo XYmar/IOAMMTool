@@ -167,9 +167,16 @@
         </li>
 
         <li>
-          <router-link to="/deploy">
+          <router-link to="/deployplan">
             <i class="icon-move"></i>
-            <span>xy</span>
+            <span>deployplan</span>
+          </router-link>
+        </li>
+
+        <li>
+          <router-link to="/deploybind">
+            <i class="icon-move"></i>
+            <span>deploybind</span>
           </router-link>
         </li>
 
