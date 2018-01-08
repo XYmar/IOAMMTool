@@ -4,103 +4,161 @@
                 <div id="pad-wrapper" class="users-list span12">
                        
                         <div style="float:left;" class="span2">
-                            <input type="text" class="search" placeholder="设备名称" />
-                            <div class="row-fluid table">
-                                <table class="table table-hover" id="table_value">
-                                    <thead>
-                                    <tr>
-                                        <th>
-                                           设备/软件名
-                                        </th>
-                                        <th>
-                                            设备状态
-                                        </th>
-                                        <th>
-                                            软件状态
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                </table>
+                                <div>
+                               <!--  <input class="search" type="text" placeholder="搜索设备.." v-model="searchQuery" @change="change"/> -->
+                                <h3>扫描</h3>
+                       
+                                </div>
+                                    
+                                <br/> 
+                                    <div class="row-fluid table drag-content" style="width:220px">
+                                        <table class="table table-hover" id="table_value">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                   设备/软件名
+                                                </th>
+                                               
+                                                <th>
+                                                    部署路径
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                        </table>
 
-                                <div id="areaTree">
-                                    <div class="tree-box">
-                                        <div class="zTreeDemoBackground left">
-                                            <ul id="treeDemo" class="ztree">
-                                            </ul>
-                                        </div>
+                                        <div id="areaTree">
+                                            <div class="tree-box">
+                                                <div class="zTreeDemoBackground left">
+                                                    <ul id="treeDemo" class="ztree">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                         </div>
+
                                     </div>
-                                 </div>
 
-                            </div>
+                                    <div class="btn-group">
+                                        <button class="btn-glow"  @click="scanAll()"><i class="icon-wrench"></i>全盘扫描</button>  
+                                        <button class="btn-glow"  @click="scanQuick()"><i class="icon-wrench"></i>快速扫描</button>  
+
+                                    </div>
                         </div>
 
-                        <div style="float:right" class="span9">               
+                        <div style="float:right" class="span9">   
+                        <div style="margin-bottom: -5px;">            
                             <label style="float:left">查找:</label>
                             <label style="float:left">文件名</label>
-                               <select v-model="selected" style="float:left">
-                                    <option v-for="option in options" v-bind:value="option.value">
-                                    {{ option.text }}
-                                    </option>
-                                </select>
+                            <input type="text" style="float:left;width:100px;height:15px" class="input-large"/>
+
                                 <!-- <span>Selected: {{ selected }}</span> -->
                             
                             <label style="float:left">后缀名</label>
-                              <select v-model="selected" style="float:left">
-                                  <option v-for="option in options" v-bind:value="option.value">
-                                    {{ option.text }}
+                              <select v-model="selected" style="float:left" @change="changeExtension">
+                                  <option v-for="extension in extensions" v-bind:value="extension.value">
+                                    {{ extension.text }}
                                   </option>
                               </select>
                                 <!-- <span>Selected: {{ selected }}</span> -->
                            
                             <label style="float:left">日期</label>
-                            <input type="text" style="float:left;width:94px;height:14px" value="03/29/2014" class="input-large datepicker" />
+                            <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/>
                             <label style="float:left">到</label>
-                            <input type="text" style="float:left;width:94px;height:15px" value="03/29/2014" class="input-large datepicker" />
+                            <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/>
                       
                             <label style="float:left">设备状态</label>
-                          
-                                <select v-model="selected">
-                                    <option v-for="option in options" v-bind:value="option.value">{{ option.text }}
+                                <select v-model="selected2" @change="changeState">
+                                    <option v-for="state in states" v-bind:value="state.value">
+                                    {{ state.text }}
                                     </option>
                                 </select>
+                            </div>
+
+                            <br/>
+
+
+                            <div class="drag-content">
+                              <div class="row-fluid table">
+                                <table class="table table-hover" id="table_value">
+                                    <thead>
+                                    <tr>
+                                       
+                                        <th class="span4 sortable">
+                                           文件名
+                                        </th>
+                                        <th class="span3 sortable">
+                                            <span class="line"></span>路径
+                                        </th>
+                                        <th class="span3">
+                                            <span class="line"></span>文件类型
+                                        </th>
+                                        <th class="span3">
+                                            <span class="line"></span>日期
+                                        </th>
+                                        <th class="span3">
+                                            <span class="line"></span>文件大小
+                                        </th>
+                                        <th class="span3">
+                                            <span class="line"></span>状态
+                                        </th>
+                                    
+                                    
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- row -->
+                                    <tr class="first" v-for="(component,index) in componentEntity" :key="index">
+                                            <td style="display:none">{{component.id}}</td>
+                                            <td>{{component.name}}</td>
+                                            <td>
+                                                {{component.path}}
+                                            </td>
+                                            <td>
+                                               {{component.type}}
+                                            </td>
+                                            <td>
+                                                {{component.createTime}}
+                                            </td>
+                                            <td>
+                                               {{component.size}}
+                                            </td>
+                                            <td>
+                                               {{component.state}}
+                                            </td>
+                                
+                                        </tr>
+                                    <!-- row -->
+
+                                    </tbody>
+                                </table>
+                           </div>
+                        </div>
+
+                            <br/>
+                              
                         </div>
   
                 </div>
         </div>
 
 
-        <div class="row ctrls span12">
-            <button class="btn-glow span2"><i class="icon-wrench"></i>全部扫描</button>  
-            <button class="btn-glow span2"><i class="icon-wrench"></i>快速扫描</button>  
-            <button class="btn-glow span2">上一页</button>  
-            <button class="btn-glow span2">下一页</button>  
-         
-          <!--   <label for="" class="span2">跳到第</label>
-          <input type="text" class="span2">
-          <label for="" class="span2">页</label>
-          <button class="btn-glow span2">GO</button>  -->
-        </div>
-
-        <div class="pagination pull-right">
-                   
-           
-        </div>
-
-
-        <hr/>
-        <div>
-            {{delpoy}}
-        </div>
-
       <hr/>
       <div>
-          {{deployplanId}}
+          {{componentEntity}}
       </div>
 
+      <hr/>
+      <div>
+          {{entity}}
+      </div>
 
       <hr/>
       <div>
-          {{componentsFile}}
+          {{scanDevice}}
+      </div>
+
+      <hr/>
+      <div>
+          {{scanComponent}}
       </div>
        
     </div>
@@ -108,246 +166,620 @@
 
 
     <script>
-
 /* eslint-disable */
-    var relativePath="";
-  function getCurrentRoot(treeNode){
-    if(treeNode.getParentNode()!=null){
-      var parentNode = treeNode.getParentNode();
-      relativePath=treeNode.getParentNode().name+"/"+relativePath+treeNode.name;
-      return getCurrentRoot(parentNode);
-    }else{
-      return treeNode.id;
+var relativePath = "";
+function getCurrentRoot(treeNode) {
+  if (treeNode.getParentNode() != null) {
+    var parentNode = treeNode.getParentNode();
+    relativePath =
+      treeNode.getParentNode().name + "/" + relativePath + treeNode.name;
+    return getCurrentRoot(parentNode);
+  } else {
+    return treeNode.id;
+  }
+}
+
+let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
+
+let deviceNodeId;
+let deployPlanId;
+let deviceId;
+let componentNodeId;
+
+let zNodes=[];
+let deployplan=[];
+
+export default {
+  name: "areaTree",
+  components: {},
+  /* eslint-disable */
+  data() {
+    return {
+      searchQuery: '',
+      componentEntity: [],
+
+      currentPage: 0,
+      pages: [],
+      jumpPage: 0,
+
+      deviceItem: {},
+      componentItem: {},
+
+      components: [],
+      entity:[],
+
+      scanDevice: [],
+      scanComponent: [],
+
+      selected: "all",
+
+      extensions: [
+        { text: "全部", value: "all" },
+        { text: "exe", value: "exe" },
+        { text: "xml", value: "xml" },
+        { text: "dll", value: "dll" },
+        { text: "ini", value: "ini" },
+        { text: "docx", value: "docx" }
+      ],
+      states: [{ text: "全部" }, { text: "在线" }, { text: "离线" }]
+    };
+  },
+  created() {
+    this.$nextTick(function() {
+      $(document).ready(function() {
+        $(".datepicker")
+          .datepicker()
+          .on("changeDate", function(ev) {
+            $(this).datepicker("hide");
+          });
+      });
+    });
+
+    this.$axios.get("project/" + projectId + "/deployplan", {
+        //设置头
+        headers: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        auth: {
+          username: "admin",
+          password: "admin"
+        }
+      }).then(res => {
+        this.entity=res.data.data;
+
+        deployplan = res.data.data;
+
+        let setting = {
+          view: {
+            addHoverDom: this.addHoverDom,
+            removeHoverDom: this.removeHoverDom,
+            selectedMulti: this.true
+          },
+          edit: {
+            enable: true
+          },
+          data: {
+            simpleData: {
+              enable: true
+            }
+          },
+          callback: {
+            beforeDrag: this.beforeDrag,
+            beforeEditName: this.beforeEditName,
+            beforeRemove: this.beforeRemove,
+            beforeRename: this.beforeRename,
+            onRemove: this.onRemove,
+            onRename: this.onRename,
+            onClick: this.zTreeOnClick
+          }
+        };
+
+
+            let deviceNode = {};
+            let componentNode = {};
+        for (let i = 0; i < res.data.data.length; i++) {
+          for (let j = 0;j < res.data.data[i].deployPlanDetailEntities.length;j++) {
+            
+            deviceNode.length = 0;
+            componentNode.length = 0;
+            
+            deviceNode.id =res.data.data[i].deployPlanDetailEntities[j].deviceEntity.id;
+
+            deviceNode.name =
+              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
+              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
+
+            deviceNode.deployPlanId = res.data.data[i].id;
+
+            componentNode.id =
+              res.data.data[i].deployPlanDetailEntities[j].componentEntity.id;
+            componentNode.name =
+              res.data.data[i].deployPlanDetailEntities[j].componentEntity.name;
+            componentNode.deviceId =
+              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.id; 
+            componentNode.deployPlanId =res.data.data[i].id;
+            componentNode.state = null;
+
+
+            let children = [];
+            children.push(componentNode);
+            deviceNode.children = children;
+
+            zNodes.push(deviceNode);
+
+          }
+        };
+
+        
+       for(let i=0;i<zNodes.length;i++){
+
+          
+         for(let j=1;j<zNodes.length-1;j++){
+
+             console.log(zNodes[i].id);
+             console.log(zNodes[j].id);
+             
+             
+             
+          };
+              
+       };
+
+        console.log(zNodes);
+
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+      }).catch(err => {
+        console.log(err);
+      });
+  },
+
+  methods: {
+
+
+     changeState: function() {
+       alert(this.selected);
+
+       
+    },
+
+
+
+    changeExtension: function() {
+
+      if(this.componentEntity.length>1){
+      this.componentEntity = [];
+
+      this.$axios
+        .get("deployplan/" + deployPlanId + "/devices/" + deviceNodeId, {
+          headers: {
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          auth: {
+            username: "admin",
+            password: "admin"
+          }
+        })
+        .then(res => {
+          for (let i = 0; i < res.data.data.length; i++) {
+            for (
+              let j = 0;
+              j < res.data.data[i].componentEntity.componentFileEntities.length;
+              j++
+            ) {
+              if (
+                res.data.data[i].componentEntity.componentFileEntities[j]
+                  .type == this.selected
+              ) {
+                this.componentEntity.push(
+                  res.data.data[i].componentEntity.componentFileEntities[j]
+                );
+              } else if (this.selected == "all") {
+                this.componentEntity.push(
+                  res.data.data[i].componentEntity.componentFileEntities[j]
+                );
+              } else {
+                this.componentEntity = [];
+              }
+            }
+          }
+        })
+        .catch(err => {
+          console.log("后缀名下拉框事件错误！");
+        });
+
+      }else{
+
+         this.componentEntity = [];
+
+         this.$axios.get("components/" + componentNodeId,{
+          headers: {
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          auth: {
+            username: "admin",
+            password: "admin"
+          }
+        })
+        .then(res => {
+
+         
+            for (let j = 0;j < res.data.data.componentFileEntities.length;j++) {
+              if (res.data.data.componentFileEntities[j].type == this.selected) {
+                this.componentEntity.push(
+                  res.data.data.componentFileEntities[j]
+                );
+              } else if (this.selected == "all") {
+                this.componentEntity.push(res.data.data.componentFileEntities[j]);
+              } else {
+                this.componentEntity = [];
+              }
+            }
+          
+        })
+        .catch(err => {
+          console.log("后缀名下拉框事件错误！");
+        });
+
+      }
+     
+    },
+
+
+
+    zTreeOnClick: function(e, treeId, treeNode) {
+
+      deviceNodeId='';
+      deployPlanId='';
+      componentNodeId='';
+      deviceId='';
+      this.componentEntity = [];
+      let zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      zTree.expandNode(treeNode);
+     
+
+      if(zTree.getSelectedNodes()[0].deviceId){
+          componentNodeId=zTree.getSelectedNodes()[0].id;
+          deviceId=zTree.getSelectedNodes()[0].deviceId;
+          deployPlanId = zTree.getSelectedNodes()[0].deployPlanId;
+          this.$axios.get("components/" + componentNodeId, {
+          headers: {
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          auth: {
+            username: "admin",
+            password: "admin"
+          }
+        })
+        .then(res => {
+          for (let i = 0; i < res.data.data.componentFileEntities.length; i++) {
+              this.componentEntity.push(res.data.data.componentFileEntities[i]);
+            }
+        })
+        .catch(err => {
+          console.log("点击组件请求错误！");
+        });
+      }else{
+          deviceNodeId = zTree.getSelectedNodes()[0].id;
+          deployPlanId = zTree.getSelectedNodes()[0].deployPlanId;
+          this.$axios
+        .get("deployplan/" + deployPlanId + "/devices/" + deviceNodeId, {
+          headers: {
+            "content-type": "application/x-www-form-urlencoded"
+          },
+          auth: {
+            username: "admin",
+            password: "admin"
+          }
+        })
+        .then(res => {
+          for (let i = 0; i < res.data.data.length; i++) {
+            for (
+              let j = 0;
+              j < res.data.data[i].componentEntity.componentFileEntities.length;
+              j++
+            ) {
+              this.componentEntity.push(
+                res.data.data[i].componentEntity.componentFileEntities[j]
+              );
+            }
+          }
+        })
+        .catch(err => {
+          console.log("点击设备请求错误！");
+        });
+      }
+      
+    },
+
+
+    scanAll: function() {
+      console.log(deployPlanId);
+      console.log(deviceNodeId);
+
+      this.$axios
+        .get(
+          "deployplan/" +
+            "scan/" +
+            deployPlanId +
+            "/devices/" +
+            deviceNodeId,
+          {
+            //设置头
+            headers: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            auth: {
+              username: "admin",
+              password: "admin"
+            }
+          }
+
+        )
+        .then(res => {
+          this.scanDevice = res.data.data;
+          let scanState=flase;
+
+
+
+          for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].correctComponentFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                 if(res.data.data[i].correctComponentFiles[j].id==this.componentEntity[k].id){
+                       this.componentEntity.state='√';
+                       scanState=true;
+
+
+                }
+
+               }
+                
+            } 
+          };
+          for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].modifyedComponentFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                if(res.data.data[i].modifyedComponentFiles[j].id==this.componentEntity[k].id){
+                      this.componentEntity.state='×';
+                      scanState=true;
+                }
+
+               }
+                
+            } 
+          };
+          for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].unknownFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                 if(res.data.data[i].unknownFiles[j].id==this.componentEntity[k].id){
+                      this.componentEntity.state='?';
+                      scanState=true;
+                }
+
+               }
+                
+            } 
+          };
+
+          if(scanState==flase){
+             alert("扫描无数据！");
+
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          alert("全盘扫描请求错误！");
+        });
+    },
+
+    scanQuick: function() {
+      console.log(deployPlanId);
+      console.log(deviceId);
+      console.log(componentNodeId);
+
+      this.$axios
+        .get(
+          "deployplan/" +
+            "scan/" +
+            deployPlanId +
+            "/devices/" +
+            deviceId +
+            "/components/" +
+            componentNodeId,
+          {
+            //设置头
+            headers: {
+              "content-type": "application/x-www-form-urlencoded"
+            },
+            auth: {
+              username: "admin",
+              password: "admin"
+            }
+          }
+        )
+        .then(res => {
+          this.scanComponent = res.data.data;
+
+            for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].correctComponentFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                 if(res.data.data[i].correctComponentFiles[j].id==this.componentEntity[k].id){
+                       this.componentEntity.state='√';
+
+                }
+
+               }
+                
+            } 
+          };
+          for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].modifyedComponentFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                if(res.data.data[i].modifyedComponentFiles[j].id==this.componentEntity[k].id){
+                      this.componentEntity.state='×';
+                }
+
+               }
+                
+            } 
+          };
+          for(let i=0;i<res.data.data.length;i++){
+
+            for(let j=0;j<res.data.data[i].unknownFiles.length;j++){
+
+               for(let k=0;k<this.componentEntity.length;k++){
+
+                 if(res.data.data[i].unknownFiles[j].id==this.componentEntity[k].id){
+                      this.componentEntity.state='?';
+                }
+
+               }
+                
+            } 
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          alert("快速扫描请求错误！");
+        });
+    },
+
+    beforeDrag: function(treeId, treeNodes) {
+      return false;
+    },
+
+    beforeEditName: function(treeId, treeNode) {
+      var className = $("dark");
+      className = className === "dark" ? "" : "dark";
+      this.showLog(
+        "[ " +
+          this.getTime() +
+          " beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " +
+          treeNode.name
+      );
+      var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      zTree.selectNode(treeNode);
+      setTimeout(function() {
+        if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
+          setTimeout(function() {
+            zTree.editName(treeNode);
+          }, 0);
+        }
+      }, 0);
+      return false;
+    },
+
+    beforeRemove: function(treeId, treeNode) {
+      var className = $("dark");
+      className = className === "dark" ? "" : "dark";
+      this.showLog(
+        "[ " +
+          this.getTime() +
+          " beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " +
+          treeNode.name
+      );
+      var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+      zTree.selectNode(treeNode);
+      return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+    },
+    onRemove: function(e, treeId, treeNode) {
+      this.showLog(
+        "[ " +
+          this.getTime() +
+          " onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " +
+          treeNode.name
+      );
+    },
+
+    beforeRename: function(treeId, treeNode, newName, isCancel) {
+      var className = $("dark");
+      className = className === "dark" ? "" : "dark";
+      this.showLog(
+        (isCancel ? "<span style='color:red'>" : "") +
+          "[ " +
+          this.getTime() +
+          " beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " +
+          treeNode.name +
+          (isCancel ? "</span>" : "")
+      );
+      if (newName.length == 0) {
+        setTimeout(function() {
+          var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+          zTree.cancelEditName();
+          alert("节点名称不能为空.");
+        }, 0);
+        return false;
+      }
+      return true;
+    },
+    onRename: function(e, treeId, treeNode, isCancel) {
+      this.showLog(
+        (isCancel ? "<span style='color:red'>" : "") +
+          "[ " +
+          this.getTime9() +
+          " onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " +
+          treeNode.name +
+          (isCancel ? "</span>" : "")
+      );
+    },
+    showRemoveBtn: function(treeId, treeNode) {
+      return !treeNode.isFirstNode;
+    },
+    showRenameBtn: function(treeId, treeNode) {
+      return !treeNode.isLastNode;
     }
   }
-
-
-
-
-
-let projectId = "5d0bccf0-1298-4be9-bcfa-2fc5571d9460";
-let deployplanId = [];
-
-    export default{
-            name: 'areaTree',
-                components:{
-                },
-            /* eslint-disable */
-            data(){
-                return{
-                    components:[],
-                    deployplanId:[],
-                    delpoy:[],
-                    componentsFile:[],
-                    selected: 'A',
-                    selected2: 'B',
-                    zNodes:[],
-                    options: [
-                      { text: 'One', value: 'A' },
-                      { text: 'Two', value: 'B' },
-                      { text: 'Three', value: 'C' }
-                    ],
-                    setting: {
-                    view: {
-                        addHoverDom: this.addHoverDom,
-                        removeHoverDom: this.removeHoverDom,
-                        selectedMulti: this.true
-                    },
-                    edit: {
-                        enable: true,
-                    },
-                    data: {
-                        simpleData: {
-                            enable: true
-                        }
-                    },
-                    callback: {
-                        beforeDrag: this.beforeDrag,
-                        beforeEditName: this.beforeEditName,
-                        beforeRemove: this.beforeRemove,
-                        beforeRename: this.beforeRename,
-                        onRemove: this.onRemove,
-                        onRename: this.onRename
-                    }
-                },
-                
-                }
-            },
-            created(){
-                this.$axios.get('project/'  + projectId + '/deployplan',{
-        
-                    //设置头
-                    headers:{
-                        'content-type':'application/x-www-form-urlencoded'
-                    },
-                    auth: {
-                        username: 'admin',
-                        password: 'admin'
-                    }
-                }).then(res=>{
-                    this.deployplanId = res.data.data
-                    alert(this.deployplanId[0].id);
-                })
-                .catch(err=>{
-                    console.log(err);
-                });
-
-                this.$axios.get('deployplan/' + '4a0f3be6-831d-4a99-872f-05578cec973b',{
-
-                    //设置头
-                    headers:{
-                        'content-type':'application/x-www-form-urlencoded'
-                    },
-                    auth: {
-                        username: 'admin',
-                        password: 'admin'
-                    }
-                }).then(res=>{
-                    
-                    this.delpoy= res.data.data.deployPlanDetailEntities[0].deviceEntity;
-
-                    this.componentsFile=res.data.data.deployPlanDetailEntities[0].componentEntity;
-
-                   
-                })
-                .catch(err=>{
-                    console.log(err);
-                    alert("hh");
-                })
-
-            },
-        
-        methods:{
-            beforeDrag: function(treeId, treeNodes) {
-                return false;
-        },
-           beforeEditName: function (treeId, treeNode) {
-             var className= $("dark");
-                 className = (className === "dark" ? "":"dark");
-            this.showLog("[ "+this.getTime()+" beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-            zTree.selectNode(treeNode);
-            setTimeout(function() {
-                if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
-                    setTimeout(function() {
-                        zTree.editName(treeNode);
-                    }, 0);
-                }
-            }, 0);
-            return false;
-        },
-           beforeRemove: function (treeId, treeNode) {
-               var className= $("dark");
-               className = (className === "dark" ? "":"dark");
-               this.showLog("[ "+this.getTime()+" beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-               var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-               zTree.selectNode(treeNode);
-               return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
-            },
-            onRemove: function (e, treeId, treeNode) {
-                this.showLog("[ "+this.getTime()+" onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
-            },
-             beforeRename:function(treeId, treeNode, newName, isCancel) {
-               var className= $("dark");
-                className = (className === "dark" ? "":"dark");
-                 this.showLog((isCancel ? "<span style='color:red'>":"") + "[ "+this.getTime()+" beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-                if (newName.length == 0) {
-                    setTimeout(function() {
-                        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-                        zTree.cancelEditName();
-                        alert("节点名称不能为空.");
-                    }, 0);
-                    return false;
-                }
-                return true;
-            },
-            onRename:function(e, treeId, treeNode, isCancel) {
-                this.showLog((isCancel ? "<span style='color:red'>":"") + "[ "+this.getTime9()+" onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>":""));
-            },
-            showRemoveBtn:function (treeId, treeNode) {
-                return !treeNode.isFirstNode;
-            },
-            showRenameBtn:function (treeId, treeNode) {
-                return !treeNode.isLastNode;
-            },
-           showLog:function (str) {
-               var className= $("dark");
-               var log=$("dark");
-                if (!log) log = $("#log");
-                log.append("<li class='"+className+"'>"+str+"</li>");
-                if(log.children("li").length > 8) {
-                    log.get(0).removeChild(log.children("li")[0]);
-                }
-            },
-            getTime:function()  {
-                var now= new Date(),
-                    h=now.getHours(),
-                    m=now.getMinutes(),
-                    s=now.getSeconds(),
-                    ms=now.getMilliseconds();
-                return (h+":"+m+":"+s+ " " +ms);
-            },
-
-            addHoverDom: function(treeId, treeNode) {
-
-                var newCount = $("1");
-                var sObj = $("#" + treeNode.tId + "_span");
-                if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
-              var addStr = "<span class='button add' id='addBtn_" + treeNode.tId + "' title='add node' onfocus='this.blur();'></span>";
-               sObj.after(addStr);
-                var btn = $("#addBtn_"+treeNode.tId);
-                if (btn) btn.bind("click", function(){
-                    relativePath="";
-                    getCurrentRoot(treeNode);
-                  alert(relativePath);
-//                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-//                   zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
-                 //   return false;
-                });
-            },
-            removeHoverDom:function (treeId, treeNode) {
-                $("#addBtn_"+treeNode.tId).unbind().remove();
-            },
-             selectAll:function() {
-                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-                zTree.setting.edit.editNameSelectAll =  $("#selectAll").attr("checked");
-            }
-        },
-        mounted(){
-            $.fn.zTree.init($("#treeDemo"), this.setting, this.zNodes);
-            this.$nextTick(function () {
-                    $(document).ready(function(){
-                        $('.datepicker').datepicker().on('changeDate', function (ev) {
-                            $(this).datepicker('hide');
-                        });
-                    });
-                    
-                });
-
-
-        }
-
-    }
-      
-        </script>
+};
+</script>
 
      <style type="text/css">
-    .field-box {
-        margin-bottom: 30px;
-        margin-left: 0;
-        float: left;
-        width: 100%;
-    }
+.field-box {
+  margin-bottom: 30px;
+  margin-left: 0;
+  float: left;
+  width: 100%;
+}
 
-    select {
-        width: 105px;
-        border-radius: 4px;
-        color: #555555;
-        height:25px
-    }
-   
+select {
+  width: 105px;
+  border-radius: 4px;
+  color: #555555;
+  height: 25px;
+  font-size: 12px;
+}
 
 
+.row {
+  margin-left: 211px;
+}
 
- 
-    </style>
+button {
+  height: 29px;
+  width: 110px;
+}
+
+.drag-content {
+  border: 2px solid rgba(204, 204, 204, 1);
+  min-height: 350px;
+  width: 736px;
+}
+
+label {
+  font-size: 13px;
+  line-height: 26px;
+}
+</style>

@@ -87,18 +87,38 @@
 	       		<div class="boxed-group">
 	       			<!-- 按钮 -->
 	       			<div class="boxed-group-action">
-	       				<a class="btn-flat success new-product" href="#">+ Add project</a>
+	       			    <router-link to="/addProject" class="btn-flat success pull-right">
+                            <span>&#43;</span>
+                            新增
+                        </router-link>
+	       				<!-- <a class="btn-flat success new-product" href="#">+ Add project</a> -->
 	       			</div>
 	       			<h3>
 	       				Your projects
 	       				<span class="Counter">7</span>
 	       			</h3>
 
-	       			<div class="boxed-group-inner">
+	       			<div class="">
 	       				<div class="filter-pros filter-bar">
 	       					<input class="form-control input-sm input-block search" type="text" placeholder="Find a project.." v-model="searchQuery"/>
 	       				</div>
+
+	       				<div class="list">
+	       				<ul class="mini-repo-list" data-filterable-for="your-repos-filter" data-filterable-type="substring" style="background-color: #fafbfc;">
+	       				   
+	       					<li class="pubic fork" v-for="project in projectInfo">
+		       				    <a class="mini-repo-list-item" href="">
+		       				    	<span class="repo-and-owner css-truncate-target" title=""><span class="repo">{{project.name}}</span></span>
+		       				    </a>
+	       				    </li>
+
+	       			</ul>
+
+	       				</div>
+	       				
 	       			</div>
+
+	       			
 	       		</div>
 	       </div>
 
@@ -126,6 +146,7 @@ export default{
 data(){
 	return {
 		newTodoText: '',
+		projectInfo:[],
 	    todos: [
 	      {
 	        id: 1,
@@ -143,6 +164,23 @@ data(){
 	    nextTodoId: 4
 		}
 },
+created(){
+	this.$axios.get('project/',{
+                //设置头
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    username: 'admin',
+                    password: 'admin'
+                }
+            }).then(res=>{
+                this.projectInfo = res.data.data
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+},
 mounted: function(){
 	this.$nextTick(function () {
 		//背景
@@ -158,7 +196,9 @@ mounted: function(){
         title: this.newTodoText
       })
       this.newTodoText = ''
-    }
+    },
+	
+
   }
 
 
@@ -188,8 +228,8 @@ mounted: function(){
 
 	.boxed-group > h3, .boxed-group .heading {
 	    display: block;
-	    padding: 9px 10px 10px;
-	    margin: 0;
+	    padding: 16px 10px 16px;
+	    margin-top: -26px;
 	    font-size: 14px;
 	    line-height: 17px;
 	    background-color: #f6f8fa;
@@ -199,6 +239,7 @@ mounted: function(){
         border-bottom-color: rgba(27, 31, 35, 0.15);
 	    border-bottom: 0;
 	    border-radius: 3px 3px 0 0;
+	    border-bottom: 1px solid #e5e5e5;
 	}
 
 	h3 {
@@ -245,19 +286,25 @@ mounted: function(){
 	    content: "";
 	}
 
-	.filter-bar {
-	    text-align: center;
-	}
+	
 
 	.filter-pros {
 	    padding-bottom: 0;
 	}
+	.list{
+	padding: 10px;
+    padding-bottom: 10px;
+	padding-bottom: 10px;
+	background-color: #fafbfc;
+	border-bottom: 1px solid #e5e5e5;
+	}
 
 	.filter-bar {
-	    padding: 10px;
-	        padding-bottom: 10px;
+	    padding: 24px;
+	    padding-bottom: 10px;
 	    background-color: #fafbfc;
-	    border-bottom: 1px solid #e5e5e5;
+	    text-align: center;
+
 	}
 
 	.input-block {
@@ -427,4 +474,61 @@ mounted: function(){
 	    width: 86%;
 	    margin: -5px auto;
 	}
+
+	.login-wrapper .box {
+   
+    	background: rgb(255, 255, 255);
+    }
+
+
+	.mini-repo-list {
+    list-style: none;
+    }
+
+    .mini-repo-list>:first-child .mini-repo-list-item {
+    border-top: 0;
+    }
+
+
+    ul, ol {
+    padding: 0;
+    margin: 0 0 10px 0px;
+    background-color: #fff;
+    }
+
+    li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    line-height: 30px;
+    }
+
+    .mini-repo-list-item .repo {
+    font-weight: 600;
+    }
+
+
+    a {
+    color: #0366d6;
+    text-decoration: none;
+    background-color: transparent;
+    }
+
+
+    a.mini-repo-list-item.css-truncate {
+    position: relative;
+    display: block;
+    padding: 6px 64px 6px 30px;
+    font-size: 14px;
+    border-top: 1px solid #d1d5da;
+    }
+
+
+.btn-flat.success {
+    background: #96bf48;
+    margin: 12px;
+    border: 1px solid #7ea13d;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+    font-weight: 600;
+}
+
 </style>
