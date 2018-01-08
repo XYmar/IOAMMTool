@@ -63,10 +63,12 @@
                         <tr>
                             <th class="span4 sortable">
                                名称
-                            </th>
-
+                            </th> 
                             <th class="span3">
                                 <span class="line"></span>描述
+                            </th>
+                            <th class="span3">
+                                <span class="line"></span>绑定详情
                             </th>
                             <th class="span3">
                                 <span class="line"></span>操作
@@ -80,21 +82,28 @@
                             <td>
                                 {{deployplan.name}}
                             </td>
-
                             <td class="description">
                                 {{deployplan.description}}
                             </td>
                             <td>
-                                <span class="label label-success">Active</span>
-                                <ul class="actions">
+                                <ul class="ulactions">
+                                    <li>
+                                        <router-link :to='{name:"deployplanDetail",params:{id:deployplan.id}}'>
+                                            <input type="button" class="btn-flat primary" value="查看"/>
+                                        </router-link>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="ulactions">
                                     <li>
                                         <router-link to="#">
-                                         <input type="button" class="btn-glow primary" value="修改"/>
+                                         <input type="button" class="btn-flat primary" value="修改"/>
                                         </router-link>
                                     </li>
                                     <li class="last">
                                         <!-- <router-link to="/devices" @click="deleteDevice">删除</router-link>  -->
-                                        <input type="button" class="btn-glow primary" value="删除"/>
+                                        <input type="button" class="btn-flat primary" value="删除"/>
                                     </li>
                                 </ul>
                             </td>
@@ -159,5 +168,11 @@ export default{
 }
 </script>
 <style>
+.ulactions{
+    margin: 5px 0 0 0;
+}
 
+.ulactions li{
+    display: inline;
+}
 </style>
