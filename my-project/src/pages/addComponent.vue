@@ -332,8 +332,9 @@ export default {
                     }
                 }).then(res=>{
                         //this.users = res.data.data
-                        console.log(res);
-                        alert("添加成功");
+                        //console.log(res);
+                        //alert("添加成功");
+                        this.$router.replace({ path: '/components'})
                     }).catch(err=>{
                         alert("添加失败！");
                 })
