@@ -76,7 +76,7 @@
                             <br/>
 
 
-                            <div class="drag-content">
+                            <div class="drag-content" >
                               <div class="row-fluid table">
                                 <table class="table table-hover" id="table_value">
                                     <thead>
@@ -189,6 +189,8 @@ let componentNodeId;
 let zNodes=[];
 let deployplan=[];
 
+let map={};
+
 export default {
   name: "areaTree",
   components: {},
@@ -219,7 +221,14 @@ export default {
         { text: "xml", value: "xml" },
         { text: "dll", value: "dll" },
         { text: "ini", value: "ini" },
-        { text: "docx", value: "docx" }
+        { text: "docx", value: "docx" },
+        { text: "chm", value: "chm" },
+        { text: "sql", value: "sql" },
+        { text: "txt", value: "txt" },
+        { text: "PDF", value: "PDF" },
+        { text: "pdf", value: "pdf" },
+        { text: "doc", value: "doc" },
+    
       ],
       states: [{ text: "全部" }, { text: "在线" }, { text: "离线" }]
     };
@@ -274,23 +283,20 @@ export default {
           }
         };
 
+        
+        let count=0;
+            
+        for (let i = 0; i < res.data.data.length; i++) {
 
+          for (let j = 0;j < res.data.data[i].deployPlanDetailEntities.length;j++) {
+
+            count++;
             let deviceNode = {};
             let componentNode = {};
-        for (let i = 0; i < res.data.data.length; i++) {
-          for (let j = 0;j < res.data.data[i].deployPlanDetailEntities.length;j++) {
             
-            deviceNode.length = 0;
-            componentNode.length = 0;
-            
+
             deviceNode.id =res.data.data[i].deployPlanDetailEntities[j].deviceEntity.id;
-
-            deviceNode.name =
-              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
-              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
-
-            deviceNode.deployPlanId = res.data.data[i].id;
-
+           
             componentNode.id =
               res.data.data[i].deployPlanDetailEntities[j].componentEntity.id;
             componentNode.name =
@@ -300,34 +306,95 @@ export default {
             componentNode.deployPlanId =res.data.data[i].id;
             componentNode.state = null;
 
+            console.log(deviceNode);
+            console.log(componentNode);
+            console.log(i);
+            console.log(j);
 
-            let children = [];
-            children.push(componentNode);
-            deviceNode.children = children;
+           
+            if(zNodes.length>0){
 
-            zNodes.push(deviceNode);
 
-          }
-        };
+              let temp={};
+              let flag=true;
 
-        
-       for(let i=0;i<zNodes.length;i++){
+              console.log("进来");
 
-          
-         for(let j=1;j<zNodes.length-1;j++){
+              bbb:
+              for(let k=0;k<zNodes.length;k++){
 
-             console.log(zNodes[i].id);
-             console.log(zNodes[j].id);
-             
-             
-             
-          };
-              
-       };
+                 if(zNodes[k].id==deviceNode.id){
+                    console.log("$$$$$");
+                    console.log(zNodes[k]);
 
-        console.log(zNodes);
+                    for(let l=0;l<zNodes[k].children.length;l++){
+                       if(zNodes[k].children[l].id==componentNode.id){
+                       flag=false;
+                       break bbb;
+
+                       }
+
+                    }
+
+                    zNodes[k].children.push(componentNode);
+
+                    flag=false;
+                    break;
+                 }  
+              }
+
+              console.log(flag);
+
+              if(flag){
+                  deviceNode.name =
+                  res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
+                  res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
+
+                 deviceNode.deployPlanId = res.data.data[i].id;
+                
+                 let children = [];
+                 children.push(componentNode);
+                 deviceNode.children = children;
+
+
+                 console.log(deviceNode);
+                 console.log(componentNode);
+
+                 zNodes.push(deviceNode);
+
+
+              }
+               console.log("第一个");
+               console.log(zNodes);
+               
+            }else{
+             console.log("进来4");
+
+             deviceNode.name =
+              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
+              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
+
+             deviceNode.deployPlanId = res.data.data[i].id;
+            
+             let children = [];
+             children.push(componentNode);
+             deviceNode.children = children;
+
+
+             console.log(deviceNode);
+             console.log(componentNode);
+
+             zNodes.push(deviceNode);
+
+             console.log(zNodes);
+            }
+        }
+    };
+
 
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        console.log(count);
+
       }).catch(err => {
         console.log(err);
       });
@@ -773,9 +840,10 @@ button {
 }
 
 .drag-content {
-  border: 2px solid rgba(204, 204, 204, 1);
-  min-height: 350px;
-  width: 736px;
+    border: 2px solid rgba(204, 204, 204, 1);
+    height: 350px;
+    width: 736px;
+    overflow: auto;
 }
 
 label {
