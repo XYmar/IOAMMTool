@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     login: function() {
-      debugger;
+      //debugger;
       var username = $("input#username").val();
       var password = $("input#password").val();
       if (username.length == 0 || password.length == 0) {

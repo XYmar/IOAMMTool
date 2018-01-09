@@ -12,7 +12,7 @@
                                     <span class="step">1</span>
                                     <span class="title">选择部署 <br /> 设计</span>
                                 </li>
-                                <li data-target="#step2" class="active">
+                                <li data-target="#step2">
                                     <span class="step">2</span>
                                     <span class="title">部署</span>
                                 </li>
@@ -41,7 +41,7 @@
                                         	<br/>
                                             <div class="field-box" style="margin-top: 30px;">
                                                 <label>部署设计:</label>
-					                            <select  style="height:30px;" @change="changeDeployPlan">
+					                            <select v-model="selected" style="height:30px;" @change="changeDeployPlan">
 					                            	<!-- v-model="selected" -->
 					                                <option v-for="deployplan in deployplanInfos" v-bind:value="deployplan.id">
 					                                    {{ deployplan.name }}
@@ -351,7 +351,7 @@ let compArr = [];   //组件名称
 let compIddArr = [];       //组件的ID信息
 let nameArr = [];   //设备及组件的名称
 let idAll = [];     //设备及组件的id
-let deployplanId = [];
+let deployplanId = '';
 let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
 export default{
 data(){
@@ -365,7 +365,7 @@ data(){
 		compIddArr:[],
 		nameArr:[],
 		idAll:[],
-		deployplanId:[],
+		deployplanId: '',
 		deployplans:[],
 		deployplanInfos: [
 	        
@@ -373,7 +373,8 @@ data(){
 	  
     }
 },created(){
-    this.$axios.get('devices',{
+	//获取设备
+    this.$axios.get('project/'+projectId+'/device',{
         //设置头
         headers:{
             'content-type':'application/x-www-form-urlencoded'
@@ -388,7 +389,7 @@ data(){
     .catch(err=>{
         console.log(err);
     });
-
+	//获取组件
     this.$axios.get('components',{           
         //设置头
         headers:{
@@ -405,7 +406,7 @@ data(){
         console.log(err);
     });
 
-    this.$axios.get('deployplan',{
+    /*this.$axios.get('deployplan',{
     	params:{  //get请求在第二个位置，post在第三个位置
 			ID:projectId
 		},           
@@ -422,7 +423,7 @@ data(){
     })
     .catch(err=>{
         console.log(err);
-    });
+    });*/
 
 	//获取部署设计的相关信息
     this.$axios.get('project/'+projectId+'/deployplan',{
@@ -587,10 +588,29 @@ methods: {
 		//alert("hh");
 	    var qs = require('qs');
 	    alert("yy");
-	    alert(this.deployplanId);
-	    alert(this.deployplanId[0].id);
-	    alert(deviceIdArr[0]);
-	    this.$axios.put('deployplan/'+ this.deployplanId[0].id + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
+	    alert(deployplanId);
+	    /*alert(this.deployplanId[0].id);
+	    alert(deviceIdArr[0]);*/
+	    this.$axios.put('deployplan/'+ deployplanId + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
+	        "deployPath": $("input[name='deployPath']").val()
+	    }),{
+	        
+	        //设置头
+	        headers:{
+	            'content-type':'application/x-www-form-urlencoded'
+	        },
+	        auth: {
+	            username: 'admin',
+	            password: 'admin'
+	        }
+	    }).then(res=>{
+	        
+	        this.$router.replace({ path: '/deployplan'})
+	    })
+        .catch(err=>{
+            alert("提交失败！");
+        })
+	    /*this.$axios.put('deployplan/'+ this.deployplanId[0].id + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
 	        "deployPath": $("input[name='deployPath']").val()
 	    }),{
 	        
@@ -606,14 +626,15 @@ methods: {
 	        
 	        this.$router.replace({ path: '/deploy'})
 	    })
-	        .catch(err=>{
-	            alert("提交失败！");
-	        })
+        .catch(err=>{
+            alert("提交失败！");
+        })*/
 	},
 	changeDeployPlan: function() {
-     
+     deployplanId = this.selected;
 
-      this.componentEntity = [];
+     alert(this.selected);
+     alert(deployplanId);
 
         
     }

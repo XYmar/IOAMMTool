@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import main from '@/components/HelloWorld'
 import users from '@/pages/users'
 import components from '@/pages/components'
 import addComponent from '@/pages/addComponent'
@@ -12,10 +12,12 @@ import modifyDevice from '@/pages/modifyDevice'
 import modifyComponent from '@/pages/modifyComponent'
 import deployplan from '@/pages/deployplan'
 import addDeployPlan from '@/pages/addDeployPlan'
+import deployplanDetail from '@/pages/deployplanDetail'
 import deploybind from '@/pages/deploybind'
 import ztree from '@/pages/ztree'
 import signin from '@/pages/signin'
 import selectProject from '@/pages/selectProject'
+import addProject from '@/pages/addProject'
 import scan from '@/pages/scan'
 import Axios from 'axios'
 
@@ -27,10 +29,27 @@ Vue.prototype.$axios = Axios;
 export default new Router({
 
     routes: [
+
         {
             path: '/',
-            name: 'HelloWorld',
-            component: HelloWorld,
+            name: 'signin',
+            component: signin
+        },
+        {
+            path: '/selectProject',
+            name: 'selectProject',
+            component: selectProject
+        },
+        {
+            path: '/addProject',
+            name: 'addProject',
+            component: addProject
+        },
+
+        {
+            path: '/main',
+            name: 'main',
+            component: main,
             children: [
                 {
                     path: '/users',
@@ -89,6 +108,11 @@ export default new Router({
                     component: addDeployPlan
                 },
                 {
+                    path: '/deployplanDetail',
+                    name: 'deployplanDetail',
+                    component: deployplanDetail
+                },
+                {
                     path: '/deploybind',
                     name: 'deploybind',
                     component: deploybind
@@ -104,16 +128,7 @@ export default new Router({
                     component: scan
                 },
             ]
-        },
-            {
-                path: '/signin',
-                name: 'signin',
-                component: signin
-            },
-            {
-                path: '/selectProject',
-                name: 'selectProject',
-                component: selectProject
-            }
+        }
+            
     ]
 })
