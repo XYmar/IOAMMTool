@@ -287,13 +287,20 @@
 </template>
 
 <script>
-  export default {
-    name: 'HelloWorld',
-    data () {
-      return {
-      }
+/* eslint-disable */
+
+export default {
+  data () {
+    return {
     }
+  },
+  created(){
+      var projectId = this.$route.params.id;
+      alert(projectId);
+      console.log(projectId);
   }
+          
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

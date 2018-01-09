@@ -100,19 +100,24 @@
 
 	       			<div class="">
 	       				<div class="filter-pros filter-bar">
-	       					<input class="form-control input-sm input-block search" type="text" placeholder="Find a project.." v-model="searchQuery"/>
+	       					<input class="form-control input-sm input-block search" type="text" placeholder="Find a project.."/>
 	       				</div>
 
 	       				<div class="list">
-	       				<ul class="mini-repo-list" data-filterable-for="your-repos-filter" data-filterable-type="substring" style="background-color: #fafbfc;">
-	       				   
-	       					<li class="pubic fork" v-for="project in projectInfo">
-		       				    <a class="mini-repo-list-item" href="">
-		       				    	<span class="repo-and-owner css-truncate-target" title=""><span class="repo">{{project.name}}</span></span>
-		       				    </a>
-	       				    </li>
+		       				<ul class="mini-repo-list" id="ulId" data-filterable-for="your-repos-filter" data-filterable-type="substring" style="background-color: #fafbfc;">
+		       				   <li class="pubic fork" v-for="project in projectInfo">
+			       				    <!-- <router-link to="/main" class="mini-repo-list-item"> -->
+			       				    <router-link :to='{name:"main",params:{id:project.id}}'>
+			       				    	<span id="spanId" @click="hh">{{project.name}}</span> 
+			       				    </router-link>
+		       				    </li>
+		       					<!-- <li class="pubic fork" v-for="project in projectInfo">
+		       						<router-link to="/main">
+		       								       				    	<span class="repo-and-owner css-truncate-target" title=""><span class="repo">{{project.name}}</span></span>
+		       								       				    </router-link>
+		       							       				    </li> -->
 
-	       			</ul>
+		       				</ul>
 
 	       				</div>
 	       				
@@ -133,6 +138,10 @@
 <script>
 /* eslint-disable */
 import Vue from 'vue'
+
+/*const projectId = project.id;
+alert(projectId);*/
+
 Vue.component('todo-item', {
   template: '\
     <li>\
@@ -165,6 +174,7 @@ data(){
 		}
 },
 created(){
+
 	this.$axios.get('project/',{
                 //设置头
                 headers:{
@@ -197,6 +207,26 @@ mounted: function(){
       })
       this.newTodoText = ''
     },
+    hh: function(){
+    	alert("hh");
+    	var ul = document.getElementById('ulId');
+    	console.log(ul);
+		var lis = ul.getElementsByTagName('li');
+		console.log(lis);
+		var spans = ul.getElementsByTagName('span');
+		console.log(spans);
+		alert(spans.length);
+		for(var i=0;i<spans.length;i++){
+			alert("A");
+		    spans[i].onclick = function(){
+		    	alert("B");
+		        alert(this.innerHTML);
+		        console.log(this.innerHTML);
+		    }
+		    alert("C");
+		}
+
+    }
 	
 
   }
