@@ -295,9 +295,9 @@ export default {
     }
   },
   created(){
-      var projectId = this.$route.params.id;
+      /*var projectId = this.$route.params.id;
       alert(projectId);
-      console.log(projectId);
+      console.log(projectId);*/
   }
           
 }
