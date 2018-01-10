@@ -535,14 +535,14 @@ methods: {
 	        //alert(rowIndex);
 	        
 	        name = document.getElementById("table_value").rows[rowIndex].cells[1].innerHTML;
-	        alert(name);
+	        //alert(name);
 
 	        id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-	        alert(id);
+	        //alert(id);
 
 	        //alert(name);
 	        
-	        alert(deviceArr);
+	        //alert(deviceArr);
 	        deviceIdArr.push(id);
 	        
 	        deviceArr.push(name.substring(33));
@@ -554,7 +554,7 @@ methods: {
 
 	    this.deviceArr = deviceArr;
 	    this.nameArr = nameArr;
-	    alert(deviceArr);
+	    //alert(deviceArr);
 	},
 	moveComp: function (event){
 		var e = event || window.event;
@@ -567,14 +567,14 @@ methods: {
 	        //alert(rowIndex);
 	        
 	        name = document.getElementById("table_value2").rows[rowIndex].cells[1].innerHTML;
-	        alert(name);
+	        //alert(name);
 
 	        id = document.getElementById("table_value2").rows[rowIndex].cells[0].innerHTML;
-	        alert(id);
+	        //alert(id);
 
 	        //alert(name);
 	        
-	        alert(compArr);
+	        //alert(compArr);
 	        compIddArr.push(id);
 
 	        compArr.push(name.substring(43));
@@ -586,11 +586,13 @@ methods: {
 
 	    this.compArr = compArr;
 	    this.nameArr = nameArr;
-	    alert(compArr);
+	    //alert(compArr);
 	},
 	submit: function (){
 		//alert("hh");
 	    var qs = require('qs');
+	    var username = this.getCookie('username');
+    	var password = this.getCookie('password');
 	    //alert("yy");
 	    //alert(deployplanId);
 	    /*alert(this.deployplanId[0].id);
@@ -636,7 +638,7 @@ methods: {
 	},
 	changeDeployPlan: function() {
      deployplanId = this.selected;
-     alert(deployplanId);
+     //alert(deployplanId);
 
         
     }
