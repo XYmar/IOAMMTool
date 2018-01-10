@@ -139,21 +139,25 @@
 /* eslint-disable */
 import modifyDevice from '@/pages/modifyDevice'
 
-let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
+/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";*/
+
 export default{
         data(){
             return{
                 devices:[]
             }
         },created(){
+            var projectId = this.getCookie('projectId');
+            var username = this.getCookie('username');
+            var password = this.getCookie('password');
             this.$axios.get('project/'+projectId+'/device',{
                 //设置头
                 headers:{
                     'content-type':'application/x-www-form-urlencoded'
                 },
                 auth: {
-                    username: 'admin',
-                    password: 'admin'
+                    username: username,
+                    password: password
                 }
             }).then(res=>{
                 this.devices = res.data.data
