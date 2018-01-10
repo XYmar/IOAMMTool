@@ -106,9 +106,9 @@
 	       				<div class="list">
 		       				<ul class="mini-repo-list" id="ulId" data-filterable-for="your-repos-filter" data-filterable-type="substring" style="background-color: #fafbfc;">
 		       				   <li class="pubic fork" v-for="project in projectInfo">
-			       				    <!-- <router-link to="/main" class="mini-repo-list-item"> -->
-			       				    <router-link :to='{name:"main",params:{id:project.id}}'>
-			       				    	<span id="spanId" @click="hh">{{project.name}}</span> 
+			       				    <router-link to="/main" class="mini-repo-list-item"> 
+			       				    <!-- <router-link :to='{name:"main",params:{id:project.id}}'> -->
+			       				    	<span id="spanId" :name='project.id'>{{project.name}}</span> 
 			       				    </router-link>
 		       				    </li>
 		       					<!-- <li class="pubic fork" v-for="project in projectInfo">
@@ -139,8 +139,12 @@
 /* eslint-disable */
 import Vue from 'vue'
 
-/*const projectId = project.id;
-alert(projectId);*/
+
+let projectId = '';
+/*alert(projectId);*/
+let projectInfo = [];
+/*const projectIdc = projectId;*/
+
 
 Vue.component('todo-item', {
   template: '\
@@ -195,41 +199,50 @@ mounted: function(){
 	this.$nextTick(function () {
 		//背景
         $("html").css("background-image", "url('img/bgs/10.jpg')");
-	})
 
-
-},
-  methods: {
-    addNewTodo: function () {
-      this.todos.push({
-        id: this.nextTodoId++,
-        title: this.newTodoText
-      })
-      this.newTodoText = ''
-    },
-    hh: function(){
-    	alert("hh");
-    	var ul = document.getElementById('ulId');
-    	console.log(ul);
+        alert("hh");
+		var ul = document.getElementById('ulId');
+		console.log(ul);
 		var lis = ul.getElementsByTagName('li');
 		console.log(lis);
 		var spans = ul.getElementsByTagName('span');
 		console.log(spans);
 		alert(spans.length);
 		for(var i=0;i<spans.length;i++){
-			alert("A");
+			//alert("A");
+			//var spansv = this.innerHTML;
 		    spans[i].onclick = function(){
 		    	alert("B");
-		        alert(this.innerHTML);
+		        //alert(this.innerHTML);
 		        console.log(this.innerHTML);
+		        console.log(this.getAttribute('name'));
+		        projectId = this.getAttribute('name');
+		        console.log(projectId);
+
+		        //将projectId的值存入cookie中
+		        let expireDays = 1000 * 60 * 60 * 24 * 15;
+      			Vue.prototype.setCookie('projectId', projectId, expireDays);
+      			console.log(Vue.prototype.getCookie('projectId'));
+
 		    }
-		    alert("C");
+		    
+		    
+		    //alert("C");
 		}
+	})
 
-    }
-	
 
-  }
+},
+methods: {
+	addNewTodo: function () {
+	  this.todos.push({
+	    id: this.nextTodoId++,
+	    title: this.newTodoText
+	  })
+	  this.newTodoText = ''
+	}
+
+}
 
 
 
