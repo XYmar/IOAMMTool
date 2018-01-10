@@ -352,10 +352,11 @@ let compIddArr = [];       //组件的ID信息
 let nameArr = [];   //设备及组件的名称
 let idAll = [];     //设备及组件的id
 let deployplanId = '';
-let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
+/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";*/
 export default{
 data(){
 	return{
+		selected: '',
 		searchQuery: '',
 		devices:[],
 		comps:[],
@@ -373,6 +374,9 @@ data(){
 	  
     }
 },created(){
+	var projectId = this.getCookie('projectId');
+    var username = this.getCookie('username');
+    var password = this.getCookie('password');
 	//获取设备
     this.$axios.get('project/'+projectId+'/device',{
         //设置头
@@ -380,8 +384,8 @@ data(){
             'content-type':'application/x-www-form-urlencoded'
         },
         auth: {
-            username: 'admin',
-            password: 'admin'
+            username: username,
+            password: password
         }
     }).then(res=>{
         this.devices = res.data.data;
@@ -396,8 +400,8 @@ data(){
             'content-type':'application/x-www-form-urlencoded'
         },
         auth: {
-            username: 'admin',
-            password: 'admin'
+            username: username,
+            password: password
         }
     }).then(res=>{
         this.comps = res.data.data
@@ -432,8 +436,8 @@ data(){
                 'content-type':'application/x-www-form-urlencoded'
             },
             auth: {
-                username: 'admin',
-                password: 'admin'
+                username: username,
+                password: password
             }
         }).then(res=>{
         	this.deployplans = res.data.data;
@@ -587,8 +591,8 @@ methods: {
 	submit: function (){
 		//alert("hh");
 	    var qs = require('qs');
-	    alert("yy");
-	    alert(deployplanId);
+	    //alert("yy");
+	    //alert(deployplanId);
 	    /*alert(this.deployplanId[0].id);
 	    alert(deviceIdArr[0]);*/
 	    this.$axios.put('deployplan/'+ deployplanId + "/devices/" + deviceIdArr[0] + "/components/" + compIddArr[0],qs.stringify({
@@ -600,8 +604,8 @@ methods: {
 	            'content-type':'application/x-www-form-urlencoded'
 	        },
 	        auth: {
-	            username: 'admin',
-	            password: 'admin'
+	            username: username,
+                password: password
 	        }
 	    }).then(res=>{
 	        
@@ -632,8 +636,6 @@ methods: {
 	},
 	changeDeployPlan: function() {
      deployplanId = this.selected;
-
-     alert(this.selected);
      alert(deployplanId);
 
         
