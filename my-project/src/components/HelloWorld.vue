@@ -160,9 +160,9 @@
         </li>
 
         <li>
-          <router-link to="/treeMenu">
+          <router-link to="/uploadtest">
             <i class="icon-signal"></i>
-            <span>treeMenu</span>
+            <span>uploadtest</span>
           </router-link>
         </li>
 

@@ -179,7 +179,7 @@ function getCurrentRoot(treeNode) {
   }
 }
 
-let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
+/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";*/
 
 let deviceNodeId;
 let deployPlanId;
@@ -234,6 +234,11 @@ export default {
     };
   },
   created() {
+
+    var projectId = this.getCookie('projectId');
+    var username = this.getCookie('username');
+    var password = this.getCookie('password');
+
     this.$nextTick(function() {
       $(document).ready(function() {
         $(".datepicker")
@@ -250,8 +255,8 @@ export default {
           "content-type": "application/x-www-form-urlencoded"
         },
         auth: {
-          username: "admin",
-          password: "admin"
+            username: username,
+            password: password
         }
       }).then(res => {
         this.entity=res.data.data;

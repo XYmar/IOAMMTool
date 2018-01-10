@@ -5,7 +5,7 @@ import users from '@/pages/users'
 import components from '@/pages/components'
 import addComponent from '@/pages/addComponent'
 import addUser from '@/pages/addUser'
-import treeMenu from '@/pages/treeMenu'
+import uploadtest from '@/pages/uploadtest'
 import devices from '@/pages/devices'
 import addDevice from '@/pages/addDevice'
 import modifyDevice from '@/pages/modifyDevice'
@@ -22,7 +22,7 @@ import scan from '@/pages/scan'
 import Axios from 'axios'
 
 /* eslint-disable */
-Axios.defaults.baseURL = 'http://192.168.0.116:8080/'  //路径提取出来，简化代码
+Axios.defaults.baseURL = 'http://192.168.0.103:8080/'  //路径提取出来，简化代码
 Vue.use(Router)
 Vue.prototype.$axios = Axios;
 
@@ -73,9 +73,9 @@ export default new Router({
                 },
 
                 {
-                    path: '/treeMenu',
-                    name: 'treeMenu',
-                    component: treeMenu
+                    path: '/uploadtest',
+                    name: 'uploadtest',
+                    component: uploadtest
                 },
                 {
                     path: '/devices',
