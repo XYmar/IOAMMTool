@@ -41,9 +41,17 @@ export default {
       //debugger;
       var username = $("input#username").val();
       var password = $("input#password").val();
+
+      //将用户名、密码的值存入cookie中
+      let expireDays = 1000 * 60 * 60 * 24 * 15;
+      this.setCookie('username', username, expireDays);
+      this.setCookie('password', password, expireDays);
+      console.log(this.getCookie('username')); 
+
       if (username.length == 0 || password.length == 0) {
-		alert("请输入正确的用户名或密码。");
-		return;
+    		alert("请输入正确的用户名或密码。");
+
+    		return;
       }
       this.$axios
         .post(
