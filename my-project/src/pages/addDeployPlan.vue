@@ -51,8 +51,8 @@
 
 <script>
 /* eslint-disable */
-/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";*/
-let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";
+/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";
+let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";*/
     export default{
 
         data(){
@@ -63,6 +63,9 @@ let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";
         methods: {
             addDeployPlan: function (){
                 var qs = require('qs');
+                var projectId = this.getCookie('projectId');
+                var username = this.getCookie('username');
+                var password = this.getCookie('password');
                 this.$axios.post('project/'+projectId+'/deployplan',qs.stringify({
                     "name": $("input[name='add-name']").val(),
                     "description": $("input[name='add-des']").val()
@@ -75,8 +78,8 @@ let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";
                         'content-type':'application/x-www-form-urlencoded'
                     },
                     auth: {
-                        username: 'admin',
-                        password: 'admin'
+                        username: username,
+                        password: password
                     }
                 }).then(res=>{
                     //this.users = res.data.data
