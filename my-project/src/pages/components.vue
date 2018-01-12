@@ -99,21 +99,20 @@
 							</td>
 							
 							<td>
-								<span class="label label-success">Active</span>
-								<ul class="actions">
+								<ul class="ulactions">
 									<li>
                                         <!-- <router-link to="/modifyComponent">
                                         	<input type="button" class="btn-glow primary" value="修改" @click="modifyComp($event)"/>
                                         </router-link> -->
                                         <router-link :to='{name:"modifyComponent",params:{id:component.id}}'>
-                                        	<input type="button" class="btn-glow primary" value="修改"/>
+                                        	<input type="button" class="btn-flat primary" value="修改"/>
                                         </router-link>
                                     </li>
                                     <li class="last">
-                                        <input type="button" class="btn-glow primary" value="删除" @click="deleteComp($event)"/>
+                                        <input type="button" class="btn-flat primary" value="删除" @click="deleteComp($event)"/>
                                     </li>
                                     <li class="last">
-                                        <input type="button" class="btn-glow primary" value="导出" @click="exportComp($event)"/>
+                                        <input type="button" class="btn-flat primary" value="导出" @click="exportComp($event)"/>
                                     </li>
 								</ul>
 							</td>
@@ -242,5 +241,11 @@ export default{
     }
 </script>
 <style>
+.ulactions{
+    margin: 5px 0 0 0;
+}
 
+.ulactions li{
+    display: inline;
+}
 </style>
