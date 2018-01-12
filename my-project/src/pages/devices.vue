@@ -50,14 +50,6 @@
                             新增
                         </router-link>
 
-                        <router-link to="/modifyDevice" class="btn-flat success pull-right">
-                            <span>&#43;</span>
-                            编辑
-                        </router-link>
-                        <!-- <router-link to="/xy1">
-                            <i class="icon-home"></i>
-                            <span>XY1</span>
-                        </router-link> -->
                     </div>
                 </div>
 
@@ -94,16 +86,15 @@
                                 {{device.description}}
                             </td>
                             <td>
-                                <span class="label label-success">Active</span>
-                                <ul class="actions">
+                                <ul class="ulactions">
                                     <li>
                                         <router-link to="/modifyDevice">
-                                         <input type="button" class="btn-glow primary" value="修改" @click="modifyDevice($event)"/>
+                                         <input type="button" class="btn-flat primary" value="修改" @click="modifyDevice($event)"/>
                                         </router-link>
                                     </li>
                                     <li class="last">
                                         <!-- <router-link to="/devices" @click="deleteDevice">删除</router-link>  -->
-                                        <input type="button" class="btn-glow primary" value="删除" @click="deleteDevice($event)"/>
+                                        <input type="button" class="btn-flat primary" value="删除" @click="deleteDevice($event)"/>
                                     </li>
                                 </ul>
                             </td>
@@ -130,7 +121,7 @@
         </div>
         <hr/>
         <div>
-            {{devices}}
+            <!-- {{devices}} -->
         </div>
     </div>
 </template>
@@ -239,5 +230,11 @@ export default{
     }
 </script>
 <style>
+.ulactions{
+    margin: 5px 0 0 0;
+}
 
+.ulactions li{
+    display: inline;
+}
 </style>
