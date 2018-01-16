@@ -254,7 +254,7 @@
                                         	</div>
                                         	<br/>
                                             <div class="field-box" style="margin-top: 30px;">
-                                                <label>Path:</label>
+                                                <label>路径:</label>
                                                 <input class="span8" type="text" id="path" name="deployPath" placeholder="路径"/>
                                             </div>
                                             
@@ -278,10 +278,10 @@
                         </div>
                         <div class="wizard-actions">
                             <button type="button" disabled="" class="btn-glow primary btn-prev">
-                                <i class="icon-chevron-left"></i> Prev
+                                <i class="icon-chevron-left"></i> 上一步
                             </button>
                             <button type="button" class="btn-glow primary btn-next" data-last="Finish">
-                                Next <i class="icon-chevron-right"></i>
+                                下一步 <i class="icon-chevron-right"></i>
                             </button>
                             <button type="button" class="btn-glow success btn-finish" @click="submit()">
                                 提交
