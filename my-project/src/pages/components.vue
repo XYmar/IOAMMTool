@@ -6,7 +6,7 @@
 				<div class="row-fluid header">
 					<h3>组件</h3>
 					<div class="span10 pull-right">
-						<input type="text" class="span5 search" placeholder="Type a component's name..." />
+						<input class="search" type="text" placeholder="搜索组件.."  v-model="searchQuery"/>
 
 
 						<div class="ui-dropdown">
@@ -50,11 +50,6 @@
 							新增
 						</router-link>
 
-            <router-link to="/modifyComponent" class="btn-flat success pull-right">
-              <span>&#43;</span>
-              编辑
-            </router-link>
-
 					</div>
 				</div>
 
@@ -83,7 +78,7 @@
 						</thead>
 						<tbody>
 						<!-- row -->
-						<tr class="first" v-for="(component,index) in components" :key="index">
+						<tr class="first" v-for="(component,index) in componentsA" :key="index">
 							<td style="display:none">{{component.id}}</td>
 							<td>
 								{{component.name}}
@@ -148,7 +143,8 @@ export default{
         /* eslint-disable */
         data(){
             return{
-                components:[]
+                components:[],
+                searchQuery: '',
             }
         },created(){
             this.$axios.get('components',{
@@ -237,7 +233,15 @@ export default{
                 }
 
             }
-        }
+        },
+		computed: {  
+		    componentsA: function () {  
+		        var self = this;  
+		        return self.components.filter(function (item) {  
+		            return item.name.toLowerCase().indexOf(self.searchQuery.toLowerCase()) !== -1;  
+		        })  
+		    }  
+		} 
     }
 </script>
 <style>
