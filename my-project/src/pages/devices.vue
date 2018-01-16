@@ -6,7 +6,7 @@
                 <div class="row-fluid header">
                     <h3>设备</h3>
                     <div class="span10 pull-right">
-                        <input type="text" class="span5 search" placeholder="Type a device's name..." />
+                        <input class="search" type="text" placeholder="搜索设备.." v-model="searchQuery"/>
 
 
                         <div class="ui-dropdown">
@@ -74,7 +74,7 @@
                         </thead>
                         <tbody>
                         <!-- row -->
-                        <tr class="first" v-for="(device,index) in devices" :key="index">
+                        <tr class="first" v-for="(device,index) in devicesA" :key="index">
                             <td style="display:none">{{device.id}}</td>
                             <td>
                                 {{device.name}}
@@ -135,7 +135,8 @@ import modifyDevice from '@/pages/modifyDevice'
 export default{
         data(){
             return{
-                devices:[]
+                devices:[],
+                searchQuery: ''
             }
         },created(){
             var projectId = this.getCookie('projectId');
@@ -226,7 +227,40 @@ export default{
                 }
 
             }*/
-        }
+        },
+        computed: {  
+            devicesA: function () {  
+                var self = this;  
+                return self.devices.filter(function (item) {  
+                    return item.name.toLowerCase().indexOf(self.searchQuery.toLowerCase()) !== -1;  
+                })
+
+                /*self.devices.filter(function (device) {
+                    var searchRegex = new RegExp(self.searchQuery, 'i');
+                    var arr=[];
+                    for(var i= 0, j = items.length; i < j; i++){
+                        arr[i] = {};
+                        arr[i].contacters = [];
+                        for(var item = 0, len = items[i].contacters.length; item < len; item++){
+                            if(searchRegex.test(items[i].contacters[item].name) || searchRegex.test(items[i].contacters[item].enterpriseName) || searchRegex.test(items[i].contacters[item].phoneNumber) || searchRegex.test(items[i].contacters[item].uniqueID)){
+                                arr[i].firstLetter = items[i].firstLetter;
+                                arr[i].contacters.push(items[i].contacters[item]);
+                            }
+                        }
+                    }
+                    return arr;
+                    alert(device.name);
+                    alert(device.ip);
+                    console.log(device);
+                    alert(searchRegex.test(device.name) );
+                    return device.isActive && (
+                        searchRegex.test(device.name) ||
+                        searchRegex.test(device.ip)
+                    )
+                }) */
+
+            } 
+        } 
     }
 </script>
 <style>
