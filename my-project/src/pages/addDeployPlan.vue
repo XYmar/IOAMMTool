@@ -25,6 +25,7 @@
                             <div class="span12 field-box">
                                 <label>名称:</label>
                                 <input class="span9" type="text" name="add-name"/>
+                                <span class="muststar">*</span>
                             </div>
 
                             <div class="span12 field-box">
@@ -35,7 +36,9 @@
                             </div>
 
                             <div class="span7 field-box actions">
-                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addDeployPlan"/>
+                                <button type="submit" class="btn-glow primary" @click="addDeployPlan">创建</button>
+                                <button type="submit" class="btn-glow primary" @click="formReset">取消</button>
+                                <!-- <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addDeployPlan"/> -->
                             </div>
 
                             </form>
@@ -89,10 +92,18 @@ let projectId = "2ec24245-0f8d-4db5-9d9b-1726ed727057";*/
                     .catch(err=>{
                         alert("请重新输入名称！");
                     })
+            },
+
+            formReset: function(){
+                $("input").val('');
             }
+
         }
     }
 </script>
 <style>
-
+.muststar{
+    margin-left: 10px;
+    color: red;
+}
 </style>
