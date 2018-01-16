@@ -3,8 +3,10 @@
 
 	    <div class="row-fluid login-wrapper">
 	        <a href="index.html">
-	            <img class="logo" src="img/logo-white.png" />
+	            <!-- <img class="logo" src="img/logo-white.png" /> -->
+              <h1 style="color:white;">一体化运维管理平台</h1>
 	        </a>
+          <br/><br/>
 
 	        <div class="span4 box">
 	            <div class="content-wrap">
