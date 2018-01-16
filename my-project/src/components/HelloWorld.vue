@@ -9,7 +9,19 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="brand" href="index.html"><img src="img/logo.png" /></a>
+        <a class="brand" href="index.html">
+          <!-- <img src="img/logo.png" /> -->
+          <div style="float:left;width:30px;">
+            <!-- <img src="img/ico-mail.png" /> -->
+            <i class="icon-leaf" style="color:blue;"></i>
+          </div>
+          
+          <div style="float:right;">
+            
+            <h4 style="color:white;font-weight:700;">一体化运维管理平台</h4>            
+          </div>
+
+        </a>
 
         <ul class="nav pull-right">
           <li class="hidden-phone">
