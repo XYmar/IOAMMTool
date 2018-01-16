@@ -22,7 +22,7 @@ import scan from '@/pages/scan'
 import Axios from 'axios'
 
 /* eslint-disable */
-Axios.defaults.baseURL = 'http://192.168.0.126:8080/'  //路径提取出来，简化代码
+Axios.defaults.baseURL = 'http://192.168.0.116:8080/'  //路径提取出来，简化代码
 Vue.use(Router)
 Vue.prototype.$axios = Axios;
 

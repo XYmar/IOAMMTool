@@ -21,29 +21,35 @@
                     <!-- left column -->
                     <div class="span10 with-sidebar">
                         <div class="container">
-                            <form class="new_user_form inline-input" />
-                            <div class="span12 field-box">
-                                <label>设备名:</label>
-                                <input class="span9" type="text" name="add-name"/>
-                            </div>
+                            <form class="new_user_form inline-input" id="myForm"/>
+                                <div class="span12 field-box">
+                                    <label>设备名:</label>
+                                    <input class="span9" type="text" name="add-name"/>
+                                    <span class="muststar">*</span>
+                                </div>
 
-                            <div class="span12 field-box">
-                                <label>IP:</label>
+                                <div class="span12 field-box">
+                                    <label>IP:</label>
+                                    <input class="span9" type="text" name="add-ip"/>
+                                    <span class="muststar">*</span>
 
-                                <input class="span9" type="text" name="add-ip"/>
+                                </div>
 
-                            </div>
+                                <div class="span12 field-box">
+                                    <label>描述:</label>
 
-                            <div class="span12 field-box">
-                                <label>描述:</label>
+                                    <input class="span9" type="text" name="add-des"/>
 
-                                <input class="span9" type="text" name="add-des"/>
+                                </div>
 
-                            </div>
-
-                            <div class="span7 field-box actions">
-                                <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
-                            </div>
+                                <div class="span7 field-box actions">
+                                    <button type="submit" class="btn-glow primary" @click="addUser">创建</button>
+                                    <button type="submit" class="btn-glow primary" @click="formReset">取消</button>
+                                    <!-- <input type="button" class="btn-glow primary" value="创建" style="width: 100px;" @click="addUser"/>
+                                    <span>或</span>
+                                    <input type="button" class="btn-glow primary" value="取消" style="width: 100px;" @click="formReset"/> -->
+                                    <!-- <input type="reset" value="Cancel" class="reset" /> -->
+                                </div>
 
                             </form>
                         </div>
@@ -97,10 +103,39 @@
                     .catch(err=>{
                         alert("请重新输入用户名！");
                     })
+            },
+
+            formReset: function(){
+                console.log(document.getElementById("myForm"));
+                $("input").val('');
+              /*document.getElementById("myForm").reset()*/
             }
+        },
+        mounted: function(){
+            this.$nextTick(function () {
+                var $buttons = $(".toggle-inputs button");
+                var $form = $("form.new_user_form");
+
+                $buttons.click(function () {
+                    var mode = $(this).data("input");
+                    $buttons.removeClass("active");
+                    $(this).addClass("active");
+
+                    if (mode === "inline") {
+                        $form.addClass("inline-input");
+                    } else {
+                        $form.removeClass("inline-input");
+                    }
+                });
+            })
         }
+
+        
     }
 </script>
 <style>
-
+.muststar{
+    margin-left: 10px;
+    color: red;
+}
 </style>
