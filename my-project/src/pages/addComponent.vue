@@ -24,22 +24,21 @@
                             <form class="new_user_form inline-input" />
                                 <div class="span12 field-box">
                                     <label>组件名:</label>
-                                    <input class="span9" type="text" v-model="name" name="add-name"/>
+                                    <input class="span9" type="text" name="add-name"/>
+                                    <span class="muststar">*</span>
+                                    
                                 </div>
 
                                 <div class="span12 field-box">
+                                    
                                     <label>版本:</label>
-                                    <input class="span9" type="text" v-model="version" name="add-version"/>
-                                </div>
-
-                                <div class="span12 field-box">
-                                    <label>大小:</label>
-                                    <input class="span9" type="text" v-model="size" name="add-size"/>
+                                    <input class="span9" type="text" name="add-version"/>
+                                    <span class="muststar">*</span>
                                 </div>
 
                                 <div class="span12 field-box">
                                     <label>描述信息:</label>
-                                    <input class="span9" type="text" v-model="describle" name="add-describle"/>
+                                    <input class="span9" type="text" name="add-describle"/>
                                 </div>
 
                                 <div class="span12 field-box">
@@ -85,7 +84,9 @@
                                 </div>
 
                                 <div class="span7 field-box actions">
-                                    <input type="button" class="btn-glow primary" value="添加组件" style="width: 100px;" @click="addComp($event)"/>
+                                    <button type="submit" class="btn-glow primary" @click="addComp($event)">创建</button>
+                                    <button type="submit" class="btn-glow primary" @click="formReset">取消</button>
+                                    <!-- <input type="button" class="btn-glow primary" value="添加组件" style="width: 100px;" @click="addComp($event)"/> -->
                                 </div>
                             </form>
                         </div>
@@ -338,6 +339,10 @@ export default {
                     }).catch(err=>{
                         alert("添加失败！");
                 })
+            },
+
+            formReset: function(){
+                $("input").val('');
             }
 
     }
@@ -360,5 +365,10 @@ export default {
         
         max-height: 90px;
         overflow: auto;
+    }
+
+    .muststar{
+        margin-left: 10px;
+        color: red;
     }
 </style>
