@@ -240,12 +240,12 @@ export default {
                     console.log(this.folders);
                     console.log(this.allArr);
 
-                    alert(this.sv1);
+                   // alert(this.sv1);
                     var obj = document.getElementById('folderupload') ; 
-                    alert("ffff");
+                   // alert("ffff");
                     obj.outerHTML=obj.outerHTML;
-                    alert("vvvv");
-                    alert(this.sv1);
+                   // alert("vvvv");
+                   // alert(this.sv1);
                     //this.getFolder(event);
                 }else{
                     alert("请选择文件夹");
@@ -257,7 +257,7 @@ export default {
             fileclick(event) {
                 event.preventDefault();
  
-                alert("xy");
+               // alert("xy");
 
                 var sv12 = document.getElementById("fileupload");
                 var fieList2 = sv12.files;
@@ -284,11 +284,11 @@ export default {
             },
 
             addComp(event) {
-                alert("A");
+               // alert("A");
                 event.preventDefault();
                 let formData = new FormData();
 
-                alert("hh");
+               // alert("hh");
                 
                 this.name = $("input[name='add-name']").val();
                 this.version = $("input[name='add-version']").val();

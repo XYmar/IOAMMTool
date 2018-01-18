@@ -95,7 +95,7 @@ export default{
         methods: {
 
           modifyDevice: function (event){
-                alert("A");
+               // alert("A");
                 var e = event || window.event;
                 //alert("B");
                 var target = e.target || e.srcElement;
@@ -104,7 +104,7 @@ export default{
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.parentNode.rowIndex;
                     //alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                   // alert(id);
                     var qs = require('qs');
                     this.$axios.get('devices/'+id,
                       {
@@ -129,7 +129,7 @@ export default{
 
             editDevice: function (){
                 var id = $("input[name='edit-id']").val();
-                alert(id);
+               // alert(id);
                 var qs = require('qs');
                 this.$axios.patch('devices/'+id ,qs.stringify({
                     "id": $("input[name='edit-id']").val(),

@@ -107,7 +107,7 @@ export default{
         var projectId = this.getCookie('projectId');
         var username = this.getCookie('username');
         var password = this.getCookie('password');
-        alert(deployplanId);
+       // alert(deployplanId);
         this.$axios.get('deployplan/' + deployplanId,{
             //设置头
             headers:{
@@ -121,7 +121,7 @@ export default{
             this.deployplanDetails = res.data.data;
             this.deployPlanDetailEntities = res.data.data.deployPlanDetailEntities;
             console.log(this.deployplanDetails);
-            alert(this.deployPlanDetailEntities.length);
+          //  alert(this.deployPlanDetailEntities.length);
         })
         .catch(err=>{
             console.log(err);

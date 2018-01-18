@@ -186,7 +186,7 @@ function getCurrentRoot(treeNode) {
   }
 }
 
-let projectId = "edf55612-86ab-4dc3-a505-8c418a7e75c3";
+//let projectId = "edf55612-86ab-4dc3-a505-8c418a7e75c3";
 
 let deviceNodeId;
 let deployPlanId;
@@ -250,7 +250,7 @@ export default {
   },
   created() {
 
-    //var projectId = this.getCookie('projectId');
+    var projectId = this.getCookie('projectId');
     var username = this.getCookie('username');
     var password = this.getCookie('password');
 
@@ -293,7 +293,7 @@ export default {
 
 
      changeState: function() {
-       alert(this.selected);
+      // alert(this.selected);
 
     },
     
