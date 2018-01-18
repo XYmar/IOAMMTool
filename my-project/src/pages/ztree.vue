@@ -212,7 +212,7 @@ export default {
             if (btn) btn.bind("click", function(){
                 relativePath="";
                 getCurrentRoot(treeNode);
-              alert(relativePath);
+              //alert(relativePath);
 
             });
         },

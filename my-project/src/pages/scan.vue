@@ -293,7 +293,7 @@ export default {
 
 
      changeState: function() {
-       alert(this.selected);
+       //alert(this.selected);
 
     },
     
