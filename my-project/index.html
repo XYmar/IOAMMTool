@@ -69,32 +69,26 @@
     </div>
 
     <script type="text/javascript">
-        /*// 1. 定义（路由）组件。
-        const Home = { template: '#' };
-        const Charts = { template: '#chart-showcase' };
-
-
-        // 2. 定义路由
-        const routes = [
-             { path: '/', component: Home },
-            
-             { path: '/news', component: Charts}
-        ]
-
-        // 3. 创建 router 实例，然后传 `routes` 配置
-        const router = new VueRouter({
-            routes // （缩写）相当于 routes: routes
-        })
-
-
-        // 4. 创建和挂载根实例。
-        // 记得要通过 router 配置参数注入路由，
-        // 从而让整个应用都有路由功能
-        const app = new Vue({
-          router
-        }).$mount('#sidebar-nav')
-
-        // 现在，应用已经启动了！*/
+        /*import Axios from 'axios'
+        Axios.defaults.baseURL = 'http://' + this.getCookie('ip') + '/';
+        console.log('http://' + this.getCookie('ip') + '/');
+        import axios from 'axios';
+        let protocol = window.location.protocol; //协议
+        let host = window.location.host; //主机
+        let reg = /^localhost+/;
+        if(reg.test(host)) {
+          //若本地项目调试使用
+          axios.defaults.baseURL = 'http://10.0.xx.xxx:xxxx/api/';
+        } else {
+          //动态请求地址
+          axios.defaults.baseURL = protocol + "//" + host + "/api/";
+        }
+        axios.defaults.timeout = 30000;
+        export default {
+          name: 'app',
+          Axios   //这里记得导出，若请求地址永久固定一个，则就按照`普通版`配置一个baserURL就可以了
+        }*/
+        //console.log('http://' + this.getCookie('ip') + '/');
     </script>
 
 
