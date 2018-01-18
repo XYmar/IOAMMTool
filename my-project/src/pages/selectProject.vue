@@ -3,7 +3,7 @@
 
 	   <div class="row-fluid login-wrapper">
 	        <a href="index.html">
-	            <img class="logo" src="img/logo-white.png" />
+	            <img class="logo" src="static/img/logo-white.png" />
 	        </a> 
 
 	       <!--  <div class="span4 box choosePro">
@@ -138,16 +138,10 @@
 <script>
 /* eslint-disable */
 import Vue from 'vue'
-
-
 let projectId = '';
 /*alert(projectId);*/
 let projectInfo = [];
-/*let ul = '';
-let spans = [];*/
 /*const projectIdc = projectId;*/
-
-
 Vue.component('todo-item', {
   template: '\
     <li>\
@@ -180,7 +174,6 @@ data(){
 		}
 },
 created(){
-
 	this.$axios.get('project/',{
                 //设置头
                 headers:{
@@ -200,8 +193,7 @@ created(){
 mounted: function(){
 	this.$nextTick(function () {
 		//背景
-        $("html").css("background-image", "url('img/bgs/10.jpg')");
-
+        $("html").css("background-image", "url('static/img/bgs/10.jpg')");
         //alert("hh");
 		var ul = document.getElementById('ulId');
 		console.log(ul);
@@ -216,24 +208,20 @@ mounted: function(){
 		    spans[i].onclick = function(){
 		    	//alert("B");
 		        //alert(this.innerHTML);
-		      	//console.log(this.innerHTML);
-		        //console.log(this.getAttribute('name'));
+		        console.log(this.innerHTML);
+		        console.log(this.getAttribute('name'));
 		        projectId = this.getAttribute('name');
 		        console.log(projectId);
-
 		        //将projectId的值存入cookie中
 		        let expireDays = 1000 * 60 * 60 * 24 * 15;
       			Vue.prototype.setCookie('projectId', projectId, expireDays);
       			console.log(Vue.prototype.getCookie('projectId'));
-
 		    }
 		    
 		    
 		    //alert("C");
 		}
 	})
-
-
 },
 methods: {
 	addNewTodo: function () {
@@ -243,34 +231,26 @@ methods: {
 	  })
 	  this.newTodoText = ''
 	}
-
 }
-
-
-
 }
 	
 </script>
 
 <style>
-
 	*{
 		box-sizing: border-box;
 	}
-
 	.boxed-group {
 	    position: relative;
 	    margin-bottom: 20px;
 	    border-radius: 3px;
 	}
-
 	.boxed-group-action {
 	    position: relative;
 	    z-index: 2;
 	    float: right;
 	    margin: 5px 10px 0 0;
 	}
-
 	.boxed-group > h3, .boxed-group .heading {
 	    display: block;
 	    padding: 16px 10px 16px;
@@ -286,16 +266,13 @@ methods: {
 	    border-radius: 3px 3px 0 0;
 	    border-bottom: 1px solid #e5e5e5;
 	}
-
 	h3 {
 	    font-weight: 600;
 	}
-
 	.boxed-group .Counter {
 	    color: #fff;
 	    background-color: rgba(47,54,61,0.5);
 	}
-
 	.Counter {
 	    display: inline-block;
 	    padding: 2px 5px;
@@ -306,11 +283,9 @@ methods: {
 	    background-color: rgba(27,31,35,0.08);
 	    border-radius: 20px;
 	}
-
 	.boxed-group.flush .boxed-group-inner {
 	    padding: 0;
 	}
-
 	.boxed-group-inner {
 	    padding: 10px;
 	    color: #586069;
@@ -319,20 +294,16 @@ methods: {
 	    border-bottom-right-radius: 3px;
 	    border-bottom-left-radius: 3px;
 	}
-
 	.filter-bar::after {
 	    display: table;
 	    clear: both;
 	    content: "";
 	}
-
 	.filter-bar::before {
 	    display: table;
 	    content: "";
 	}
-
 	
-
 	.filter-pros {
 	    padding-bottom: 0;
 	}
@@ -343,20 +314,16 @@ methods: {
 	background-color: #fafbfc;
 	border-bottom: 1px solid #e5e5e5;
 	}
-
 	.filter-bar {
 	    padding: 24px;
 	    padding-bottom: 10px;
 	    background-color: #fafbfc;
 	    text-align: center;
-
 	}
-
 	.input-block {
 	    display: block;
 	    width: 100%;
 	}
-
 	.input-sm {
 	    min-height: 28px;
 	    padding-top: 3px;
@@ -364,7 +331,6 @@ methods: {
 	    font-size: 12px;
 	    line-height: 20px;
 	}
-
 	.form-control, .form-select {
 	    min-height: 34px;
 	    padding: 6px 8px;
@@ -382,23 +348,15 @@ methods: {
 	    outline: none;
 	    box-shadow: inset 0 1px 2px rgba(27,31,35,0.075);
 	}
-
 	input{
 		font-family: inherit;
 		overflow: visible;
 		font: inherit;
 		margin: 0;
 	}
-
-
-
-
-
-
 	.choosePro{
 		font-size: 14px;
 	}
-
 	.project-panel {
 	    border: 1px solid #ebeef5;
 	    border-radius: 4px;
@@ -410,7 +368,6 @@ methods: {
 	    box-sizing: border-box;
 	    position: relative;
 	}
-
 	.project-header{
 		height: 40px;
 	    line-height: 40px;
@@ -421,17 +378,14 @@ methods: {
 	    box-sizing: border-box;
 	    color: #000;
 	}
-
 	.project-title{
 		font-size: 18px;
 	    color: #303133;
 	    font-weight: 700;
 	}
-
 	.project-body{
 		height: 260px;
 	}
-
 	.addPro{
 		text-align: center;
 	    margin: 15px;
@@ -440,7 +394,6 @@ methods: {
 	    width: auto;
 	    height: 100%;
 	}
-
 	.addPro .addInput{
 		height: 32px;
 	    width: 100%;
@@ -451,7 +404,6 @@ methods: {
 	    padding-right: 10px;
 	    padding-left: 30px;
 	}
-
 	.addInput{
 		-webkit-appearance: none;
 	    background-color: #fff;
@@ -463,7 +415,6 @@ methods: {
 	    padding: 0 15px;
 	    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
 	}
-
 	.ulPro{
 		margin: 0;
 		padding-top: 0;
@@ -474,18 +425,15 @@ methods: {
 	    box-sizing: border-box;
 	    text-align: left;
 	}
-
 	.labelPro{
 		height: 30px;
 	    line-height: 30px;
 	    padding-left: 15px;
 	    display: block;
 	}
-
 	.labelPro.label2{
 		color: #606266;
 	}
-
 	.label2 {
 	    color: #606266;
 	    font-weight: 500;
@@ -496,7 +444,6 @@ methods: {
 	    white-space: nowrap;
 	    user-select: none;
 	}
-
 	.liPro{
 		width: 100%;
 	    overflow: hidden;
@@ -508,57 +455,42 @@ methods: {
 	    line-height: 30px;
 	    white-space: nowrap;
 	}
-
-
 	.btn-flat, .btn-flat.default {
 	    line-height: 10px;
 	    padding: 7px 12px;
 	}
-
 	.login-wrapper .box .content-wrap {
 	    width: 86%;
 	    margin: -5px auto;
 	}
-
 	.login-wrapper .box {
    
     	background: rgb(255, 255, 255);
     }
-
-
 	.mini-repo-list {
     list-style: none;
     }
-
     .mini-repo-list>:first-child .mini-repo-list-item {
     border-top: 0;
     }
-
-
     ul, ol {
     padding: 0;
     margin: 0 0 10px 0px;
     background-color: #fff;
     }
-
     li {
     display: list-item;
     text-align: -webkit-match-parent;
     line-height: 30px;
     }
-
     .mini-repo-list-item .repo {
     font-weight: 600;
     }
-
-
     a {
     color: #0366d6;
     text-decoration: none;
     background-color: transparent;
     }
-
-
     a.mini-repo-list-item.css-truncate {
     position: relative;
     display: block;
@@ -566,8 +498,6 @@ methods: {
     font-size: 14px;
     border-top: 1px solid #d1d5da;
     }
-
-
 .btn-flat.success {
     background: #96bf48;
     margin: 12px;
@@ -575,5 +505,4 @@ methods: {
     text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
     font-weight: 600;
 }
-
 </style>

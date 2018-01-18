@@ -89,7 +89,7 @@ export default {
   mounted: function() {
     this.$nextTick(function() {
       //背景
-      $("html").css("background-image", "url('img/bgs/10.jpg')");
+      $("html").css("background-image", "url('static/img/bgs/10.jpg')");
     });
   }
 };

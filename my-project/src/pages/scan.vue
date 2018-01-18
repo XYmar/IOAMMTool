@@ -12,6 +12,12 @@
                                     
                                 <br/> 
                                     <div class="row-fluid table drag-content" style="width:220px">
+                                        <select v-model="selected" style="height: 26px;width: 221px;" @change="changeDeployPlan">
+                                                    <!-- v-model="selected" -->
+                                                    <option v-for="deployplan in deployplanInfos" v-bind:value="deployplan.id">
+                                                        {{ deployplan.name }}
+                                                    </option>
+                                                </select>
                                         <table class="table table-hover" id="table_value">
                                             <thead>
                                             <tr>
@@ -20,7 +26,7 @@
                                                 </th>
                                                
                                                 <th>
-                                                    部署路径
+                                                    IP
                                                 </th>
                                             </tr>
                                             </thead>
@@ -60,13 +66,13 @@
                               </select>
                                 <!-- <span>Selected: {{ selected }}</span> -->
                            
-                            <label style="float:left">日期</label>
-                            <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/>
-                            <label style="float:left">到</label>
-                            <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/>
+                           <!--  <label style="float:left">日期</label>
+                           <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/>
+                           <label style="float:left">到</label>
+                           <input type="text" style="float:left;width:94px;height:15px"  class="input-large datepicker" data-date-format="yyyy-mm-dd"/> -->
                       
                             <label style="float:left">设备状态</label>
-                                <select v-model="selected2" @change="changeState">
+                                <select v-model="selected" @change="changeState">
                                     <option v-for="state in states" v-bind:value="state.value">
                                     {{ state.text }}
                                     </option>
@@ -94,6 +100,7 @@
                                         <th class="span3">
                                             <span class="line"></span>日期
                                         </th>
+                                       
                                         <th class="span3">
                                             <span class="line"></span>文件大小
                                         </th>
@@ -141,25 +148,25 @@
         </div>
 
 
-      <hr/>
-      <div>
-          {{componentEntity}}
-      </div>
-
-      <hr/>
-      <div>
-          {{entity}}
-      </div>
-
-      <hr/>
-      <div>
-          {{scanDevice}}
-      </div>
-
-      <hr/>
-      <div>
-          {{scanComponent}}
-      </div>
+   <!--    <hr/>
+   <div>
+       {{componentEntity}}
+   </div>
+   
+   <hr/>
+   <div>
+       {{entity}}
+   </div>
+   
+   <hr/>
+   <div>
+       {{scanDevice}}
+   </div>
+   
+   <hr/>
+   <div>
+       {{scanComponent}}
+   </div> -->
        
     </div>
     </template>
@@ -179,17 +186,21 @@ function getCurrentRoot(treeNode) {
   }
 }
 
-/*let projectId = "5a922835-a587-4dad-b3b7-bb5005ef4c99";*/
+let projectId = "edf55612-86ab-4dc3-a505-8c418a7e75c3";
 
 let deviceNodeId;
 let deployPlanId;
 let deviceId;
 let componentNodeId;
+let deployPlanDetailEntities;
+
+let deployplanZtreeId;
 
 let zNodes=[];
-let deployplan=[];
 
-let map={};
+let setting={};
+
+let childrenInfo=[];
 
 export default {
   name: "areaTree",
@@ -213,7 +224,11 @@ export default {
       scanDevice: [],
       scanComponent: [],
 
-      selected: "all",
+      selected: "",
+     
+      deployplanInfos: [
+            
+        ],
 
       extensions: [
         { text: "全部", value: "all" },
@@ -235,7 +250,7 @@ export default {
   },
   created() {
 
-    var projectId = this.getCookie('projectId');
+    //var projectId = this.getCookie('projectId');
     var username = this.getCookie('username');
     var password = this.getCookie('password');
 
@@ -255,15 +270,69 @@ export default {
           "content-type": "application/x-www-form-urlencoded"
         },
         auth: {
-            username: username,
-            password: password
-        }
+            username: "admin",
+            password: "admin"
+          }
       }).then(res => {
         this.entity=res.data.data;
 
-        deployplan = res.data.data;
 
-        let setting = {
+        for (var i = 0; i < res.data.data.length; i++) {
+            this.deployplanInfos.push({
+                id: res.data.data[i].id,
+                name: res.data.data[i].name
+             })
+        }
+
+      }).catch(err => {
+        console.log(err);
+      });
+  },
+
+  methods: {
+
+
+     changeState: function() {
+       alert(this.selected);
+
+    },
+    
+    handleInfo:function(info){
+
+        for(let i = 0; i<info.length; i++){
+            for(let j = i+1; j<info.length; j++){
+                if(info[i].name==info[j].name){
+                    for(let k = 0; k<info[j].children.length; k++){
+                    info[i].children.push(info[j].children[k]);
+                    };
+                    info[j].children.length=0;
+                }   
+            }
+        };
+
+        let rest=[];
+        for(let i = 0; i<info.length; i++){
+            if(info[i].hasOwnProperty("children")==false){
+                rest.push(info[i]);
+            }else if(info[i].children.length>0){
+                rest.push(info[i]); 
+            }
+        }
+       
+
+        rest.componentEntityId=info.componentEntityId;
+        
+        return rest;
+
+    },
+
+   
+    changeDeployPlan: function() {
+
+      zNodes.length=0;
+      deployplanZtreeId = this.selected;
+
+      setting = {
           view: {
             addHoverDom: this.addHoverDom,
             removeHoverDom: this.removeHoverDom,
@@ -288,54 +357,51 @@ export default {
           }
         };
 
-        
-        let count=0;
+
+     this.$axios.get('deployplan/' + deployplanZtreeId, {
+        //设置头
+        headers: {
+          "content-type": "application/x-www-form-urlencoded"
+        },
+        auth: {
+            username: "admin",
+            password: "admin"
+          }
+      }).then(res => {
+
+         deployPlanDetailEntities=res.data.data.deployPlanDetailEntities;
+
+         for (let j = 0;j < deployPlanDetailEntities.length;j++) {
+           
             
-        for (let i = 0; i < res.data.data.length; i++) {
-
-          for (let j = 0;j < res.data.data[i].deployPlanDetailEntities.length;j++) {
-
-            count++;
             let deviceNode = {};
             let componentNode = {};
+
+            deviceNode.id =deployPlanDetailEntities[j].deviceEntity.id;
             
-
-            deviceNode.id =res.data.data[i].deployPlanDetailEntities[j].deviceEntity.id;
-           
             componentNode.id =
-              res.data.data[i].deployPlanDetailEntities[j].componentEntity.id;
+              deployPlanDetailEntities[j].componentEntity.id;
             componentNode.name =
-              res.data.data[i].deployPlanDetailEntities[j].componentEntity.name;
+              deployPlanDetailEntities[j].componentEntity.name;
             componentNode.deviceId =
-              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.id; 
-            componentNode.deployPlanId =res.data.data[i].id;
-            componentNode.state = null;
+              deployPlanDetailEntities[j].deviceEntity.id; 
+          
+            componentNode.componentNodeInfo=deployPlanDetailEntities[j].componentEntity.componentFileEntities;
 
-            console.log(deviceNode);
-            console.log(componentNode);
-            console.log(i);
-            console.log(j);
+            componentNode.state = "--";
 
-           
             if(zNodes.length>0){
-
-
               let temp={};
               let flag=true;
-
-              console.log("进来");
-
-              bbb:
+              all:
               for(let k=0;k<zNodes.length;k++){
 
                  if(zNodes[k].id==deviceNode.id){
-                    console.log("$$$$$");
-                    console.log(zNodes[k]);
 
                     for(let l=0;l<zNodes[k].children.length;l++){
                        if(zNodes[k].children[l].id==componentNode.id){
                        flag=false;
-                       break bbb;
+                       break all;
 
                        }
 
@@ -348,72 +414,106 @@ export default {
                  }  
               }
 
-              console.log(flag);
-
               if(flag){
                   deviceNode.name =
-                  res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
-                  res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
+                  deployPlanDetailEntities[j].deviceEntity.name +
+                  deployPlanDetailEntities[j].deviceEntity.ip;
 
-                 deviceNode.deployPlanId = res.data.data[i].id;
+                 deviceNode.deployPlanId = deployplanZtreeId;
                 
                  let children = [];
                  children.push(componentNode);
                  deviceNode.children = children;
-
-
-                 console.log(deviceNode);
-                 console.log(componentNode);
-
                  zNodes.push(deviceNode);
-
-
               }
-               console.log("第一个");
-               console.log(zNodes);
                
             }else{
-             console.log("进来4");
-
+            
              deviceNode.name =
-              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.name +
-              res.data.data[i].deployPlanDetailEntities[j].deviceEntity.ip;
+              deployPlanDetailEntities[j].deviceEntity.name +
+              deployPlanDetailEntities[j].deviceEntity.ip;
 
-             deviceNode.deployPlanId = res.data.data[i].id;
+             deviceNode.deployPlanId = deployplanZtreeId;
             
              let children = [];
              children.push(componentNode);
              deviceNode.children = children;
 
-
-             console.log(deviceNode);
-             console.log(componentNode);
-
              zNodes.push(deviceNode);
+            
+            }
 
-             console.log(zNodes);
+    };
+
+      
+      let allInfo=[];
+      let tempName=[];
+      for(let k=0;k<deployPlanDetailEntities.length;k++){
+       
+        allInfo=[];
+        childrenInfo.push(deployPlanDetailEntities[k].componentEntity.componentFileEntities);
+    
+        for (let i = 0; i < deployPlanDetailEntities[k].componentEntity.componentFileEntities.length; i++) {
+
+            let path=(deployPlanDetailEntities[k].componentEntity.componentFileEntities[i].path).split('/');
+
+            let pathInfo=[];
+            allInfo.componentEntityId=deployPlanDetailEntities[k].componentEntity.id;
+
+
+            for(let j=1;j<path.length;j++){
+               let temp={};
+               temp.name=path[j];
+
+               if(pathInfo.length>0){
+
+                 if(pathInfo[0].hasOwnProperty("children")==true){
+                
+                    tempName[0].children=[];
+                    tempName[0].children.push(temp);
+
+                    tempName=tempName[0].children;
+
+                 }else{
+
+                    pathInfo[0].children=[];
+                    pathInfo[0].children.push(temp);
+
+                    tempName=pathInfo[0].children;
+                 }
+
+               }else{
+
+                 pathInfo.push(temp);
+
+               } 
+            }
+
+           allInfo.push(pathInfo[0]);
+           
+        }
+
+     };
+    let restInfo=this.$options.methods.handleInfo(allInfo);
+
+    
+    for(let i = 0; i<zNodes.length; i++){
+        for(let j = 0; j<zNodes[i].children.length; j++){
+            if(zNodes[i].children[j].id==restInfo.componentEntityId){
+                zNodes[i].children[j].children=[];
+                zNodes[i].children[j].children=restInfo;
             }
         }
     };
 
-
-        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
-        console.log(count);
+    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+        
 
       }).catch(err => {
         console.log(err);
       });
-  },
-
-  methods: {
-
-
-     changeState: function() {
-       alert(this.selected);
-
-       
+        
     },
-
 
 
     changeExtension: function() {
@@ -456,7 +556,6 @@ export default {
           }
         })
         .catch(err => {
-          console.log("后缀名下拉框事件错误！");
         });
 
       }else{
@@ -489,7 +588,6 @@ export default {
           
         })
         .catch(err => {
-          console.log("后缀名下拉框事件错误！");
         });
 
       }
@@ -497,22 +595,21 @@ export default {
     },
 
 
-
     zTreeOnClick: function(e, treeId, treeNode) {
+
 
       deviceNodeId='';
       deployPlanId='';
       componentNodeId='';
       deviceId='';
+
       this.componentEntity = [];
       let zTree = $.fn.zTree.getZTreeObj("treeDemo");
-      zTree.expandNode(treeNode);
+      console.log(zTree.getSelectedNodes()[0]);
      
-
       if(zTree.getSelectedNodes()[0].deviceId){
           componentNodeId=zTree.getSelectedNodes()[0].id;
-          deviceId=zTree.getSelectedNodes()[0].deviceId;
-          deployPlanId = zTree.getSelectedNodes()[0].deployPlanId;
+      
           this.$axios.get("components/" + componentNodeId, {
           headers: {
             "content-type": "application/x-www-form-urlencoded"
@@ -521,16 +618,20 @@ export default {
             username: "admin",
             password: "admin"
           }
-        })
-        .then(res => {
+        }).then(res => {
+        
+       
           for (let i = 0; i < res.data.data.componentFileEntities.length; i++) {
+              res.data.data.componentFileEntities[i].state="--";
               this.componentEntity.push(res.data.data.componentFileEntities[i]);
-            }
-        })
-        .catch(err => {
-          console.log("点击组件请求错误！");
+    
+          };
+  
+       
+        }).catch(err => {
+        
         });
-      }else{
+      }else if(zTree.getSelectedNodes()[0].deployPlanId){
           deviceNodeId = zTree.getSelectedNodes()[0].id;
           deployPlanId = zTree.getSelectedNodes()[0].deployPlanId;
           this.$axios
@@ -542,32 +643,68 @@ export default {
             username: "admin",
             password: "admin"
           }
-        })
-        .then(res => {
+        }).then(res => {
+        
           for (let i = 0; i < res.data.data.length; i++) {
             for (
               let j = 0;
               j < res.data.data[i].componentEntity.componentFileEntities.length;
               j++
             ) {
+
+              res.data.data[i].componentEntity.componentFileEntities[j].state="--";
+              
               this.componentEntity.push(
-                res.data.data[i].componentEntity.componentFileEntities[j]
-              );
+                res.data.data[i].componentEntity.componentFileEntities[j]);
+
+              }
             }
-          }
-        })
-        .catch(err => {
-          console.log("点击设备请求错误！");
+        
+        }).catch(err => {
+     
         });
+      }else if(zTree.getSelectedNodes()[0].level>1 && zTree.getSelectedNodes()[0].isLastNode==false && zTree.getSelectedNodes()[0].hasOwnProperty("children")){
+        let count=0; 
+        for(let k=0;k<childrenInfo.length;k++){
+            
+            for (let i = 0; i < childrenInfo[k].length; i++) {
+
+              let temp=(childrenInfo[k][i].path).split('/');
+
+              for(let j = 1; j < temp[k].length; j++){
+                 if(temp[j]==zTree.getSelectedNodes()[0].name){
+                 this.componentEntity.push(childrenInfo[k][i]);
+                 count++;
+                
+              }
+
+              if(count==zTree.getSelectedNodes()[0].children.length){return;}
+              } 
+
+            }
+
+        }
+      }else{
+          
+        for(let i = 0; i < childrenInfo.length; i++){
+           
+            for(let j = 0; j < childrenInfo[i].length; j++){
+
+              if(zTree.getSelectedNodes()[0].name==childrenInfo[i][j].name){
+                 this.componentEntity.push(childrenInfo[i][j]);
+                 return;
+              }
+            }
+  
+        }
+          
       }
-      
+       
     },
 
 
     scanAll: function() {
-      console.log(deployPlanId);
-      console.log(deviceNodeId);
-
+  
       this.$axios
         .get(
           "deployplan/" +
@@ -584,15 +721,10 @@ export default {
               username: "admin",
               password: "admin"
             }
-          }
-
-        )
-        .then(res => {
+          }).then(res => {
           this.scanDevice = res.data.data;
-          let scanState=flase;
 
-
-
+          if(res.data.data.length>0){
           for(let i=0;i<res.data.data.length;i++){
 
             for(let j=0;j<res.data.data[i].correctComponentFiles.length;j++){
@@ -600,10 +732,9 @@ export default {
                for(let k=0;k<this.componentEntity.length;k++){
 
                  if(res.data.data[i].correctComponentFiles[j].id==this.componentEntity[k].id){
-                       this.componentEntity.state='√';
-                       scanState=true;
-
-
+                       this.componentEntity[k].state='√';
+                
+                       break;
                 }
 
                }
@@ -617,8 +748,9 @@ export default {
                for(let k=0;k<this.componentEntity.length;k++){
 
                 if(res.data.data[i].modifyedComponentFiles[j].id==this.componentEntity[k].id){
-                      this.componentEntity.state='×';
-                      scanState=true;
+                      this.componentEntity[k].state='×';
+                     
+                      break;
                 }
 
                }
@@ -631,31 +763,39 @@ export default {
 
                for(let k=0;k<this.componentEntity.length;k++){
 
+
+               
                  if(res.data.data[i].unknownFiles[j].id==this.componentEntity[k].id){
-                      this.componentEntity.state='?';
-                      scanState=true;
+                      this.componentEntity[k].state='?';
+                 
+                      break;
+                      
                 }
 
                }
                 
             } 
           };
-
-          if(scanState==flase){
-             alert("扫描无数据！");
-
+     
           }
-        })
-        .catch(err => {
+
+          
+            for(let k=0;k<this.componentEntity.length;k++){
+
+                if(this.componentEntity[k].state=="--"){
+
+                    this.componentEntity[k].state="不存在";
+                }
+            }
+        
+        }).catch(err => {
           console.log(err);
-          alert("全盘扫描请求错误！");
+         
         });
     },
 
     scanQuick: function() {
-      console.log(deployPlanId);
-      console.log(deviceId);
-      console.log(componentNodeId);
+ 
 
       this.$axios
         .get(
@@ -726,7 +866,7 @@ export default {
         })
         .catch(err => {
           console.log(err);
-          alert("快速扫描请求错误！");
+      
         });
     },
 
