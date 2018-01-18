@@ -193,12 +193,12 @@ created(){
 		console.log(lis);
 		var spans = ul.getElementsByTagName('span');
 		console.log(spans);
-		alert(spans.length);
+		//alert(spans.length);
 		for(var i=0;i<spans.length;i++){
-			alert("A");
+			//alert("A");
 			//var spansv = this.innerHTML;
 		    spans[i].onclick = function(){
-		    	alert("B");
+		    	//alert("B");
 		        //alert(this.innerHTML);
 		        console.log(this.innerHTML);
 		        console.log(this.getAttribute('name'));
