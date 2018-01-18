@@ -596,6 +596,7 @@ export default {
 
 
     zTreeOnClick: function(e, treeId, treeNode) {
+      zTree.expandNode(treeNode);
 
 
       deviceNodeId='';
