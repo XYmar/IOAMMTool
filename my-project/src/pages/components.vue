@@ -131,10 +131,10 @@
 				<!-- end users table -->
 			</div>
 		</div>
-		<hr/>
+		<!-- <hr/>
 		<div>
 			{{components}}
-		</div>
+		</div> -->
 	</div>
 </template>
 
