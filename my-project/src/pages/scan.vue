@@ -3,7 +3,7 @@
         <div class="container-fluid">
                 <div id="pad-wrapper" class="users-list span12">
                        
-                        <div style="float:left;" class="span2">
+                        <div style="float:left;" class="span3">
                                 <div>
                                <!--  <input class="search" type="text" placeholder="搜索设备.." v-model="searchQuery" @change="change"/> -->
                                 <h3>扫描</h3>
@@ -12,7 +12,7 @@
                                     
                                 <br/> 
                                     <div class="row-fluid table drag-content" style="width:220px">
-                                        <select v-model="selected" style="height: 26px;width: 221px;" @change="changeDeployPlan">
+                                        <select v-model="selected" style="height: 26px;width: 199px; margin-top: 5px; margin-left: 9px;" @change="changeDeployPlan">
                                                     <!-- v-model="selected" -->
                                                     <option v-for="deployplan in deployplanInfos" v-bind:value="deployplan.id">
                                                         {{ deployplan.name }}
@@ -32,7 +32,7 @@
                                             </thead>
                                         </table>
 
-                                        <div id="areaTree">
+                                        <div id="areaTree" style="margin-left: 15px;">
                                             <div class="tree-box">
                                                 <div class="zTreeDemoBackground left">
                                                     <ul id="treeDemo" class="ztree">
@@ -50,8 +50,8 @@
                                     </div>
                         </div>
 
-                        <div style="float:right" class="span9">   
-                        <div style="margin-bottom: -5px;">            
+                        <div style="float:right" class="span8">   
+                        <div style="margin-bottom: -5px;margin-left: -40px;">            
                             <label style="float:left">查找:</label>
                             <label style="float:left">文件名</label>
                             <input type="text" style="float:left;width:100px;height:15px" class="input-large"/>
@@ -82,7 +82,7 @@
                             <br/>
 
 
-                            <div class="drag-content" >
+                            <div class="drag-content" style="margin-left: -40px;">
                               <div class="row-fluid table">
                                 <table class="table table-hover" id="table_value">
                                     <thead>
@@ -334,6 +334,7 @@ export default {
 
       setting = {
           view: {
+            dblClickExpand: false,
             addHoverDom: this.addHoverDom,
             removeHoverDom: this.removeHoverDom,
             selectedMulti: this.true
@@ -596,7 +597,6 @@ export default {
 
 
     zTreeOnClick: function(e, treeId, treeNode) {
-      zTree.expandNode(treeNode);
 
 
       deviceNodeId='';
