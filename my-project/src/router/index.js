@@ -19,12 +19,17 @@ import signin from '@/pages/signin'
 import selectProject from '@/pages/selectProject'
 import addProject from '@/pages/addProject'
 import scan from '@/pages/scan'
-import Axios from 'axios'
 
 /* eslint-disable */
-Axios.defaults.baseURL = 'http://192.168.0.116:8080/'  //路径提取出来，简化代码
+import Axios from 'axios'
+
+Axios.defaults.baseURL = 'http://192.168.0.104:8080/'  //路径提取出来，简化代码
+
+//Axios.defaults.baseURL = 'http://' + this.getCookie('ip') + '/'
 Vue.use(Router)
 Vue.prototype.$axios = Axios;
+
+
 
 export default new Router({
 

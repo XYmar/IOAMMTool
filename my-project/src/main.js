@@ -6,6 +6,8 @@ import App from './App'
 //import VueDragTree from 'vue-drag-tree'
 // import TreeView from 'vue-json-tree-view'
 import router from './router'
+//import Axios from 'axios'
+
 
 //Vue.config.productionTip = false
 // vue.use(TreeView)v
@@ -33,6 +35,11 @@ Vue.prototype.delCookie =(name) => {
     if (cval != null)
       document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
+
+
+/*Axios.defaults.baseURL = 'http://' + Vue.prototype.getCookie('ip') + '/';
+console.log('http://' + Vue.prototype.getCookie('ip') + '/');
+Vue.prototype.$axios = Axios;*/
 
 new Vue({
     el: '#app',

@@ -51,7 +51,7 @@
                                         </ul> -->
                                         <!-- 列表1  文件夹 -->
                                         <div id="todo-list-example" class="addli">
-                                            <ul>
+                                            <ul class="addul">
                                                 <li v-for="(folder, index) in folders" :key="index">
                                                     {{folder}}
                                                 </li>
@@ -68,7 +68,7 @@
 
                                         <!-- 列表2 文件 -->
                                         <div id="todo-list-example" class="addli">
-                                            <ul>
+                                            <ul class="addul">
                                                 <li v-for="(file, index) in files" :key="index">
                                                     {{file}}
                                                 </li>
@@ -184,7 +184,7 @@ export default {
                 //alert(this.sv1);
                 //alert(this.sv1.name);
                 //alert(this.sv1.webkitRelativePath);
-                alert("xy");
+                //alert("xy");
                 //this.sv1 = event.target.files;
 
                 var sv11 = document.getElementById("folderupload");
@@ -210,12 +210,12 @@ export default {
                     console.log(this.folders);
                     console.log(this.allArr);
 
-                    alert(fieList);
+                    //alert(fieList);
                     var obj = document.getElementById('folderupload') ; 
-                    alert("ffff");
+                    //alert("ffff");
                     obj.outerHTML=obj.outerHTML;
-                    alert("vvvv");
-                    alert(fieList);
+                    //alert("vvvv");
+                    //alert(fieList);
                     //this.getFolder(event);
                 }else{
                     alert("请选择文件夹");
@@ -274,7 +274,7 @@ export default {
                     console.log(this.files);
                     console.log(this.allArr);
 
-                    alert(fieList2);
+                    //alert(fieList2);
                     var obj = document.getElementById('fileupload') ; 
 
                     obj.outerHTML=obj.outerHTML;
@@ -289,9 +289,15 @@ export default {
                 let formData = new FormData();
 
                 alert("hh");
+                
+                this.name = $("input[name='add-name']").val();
+                this.version = $("input[name='add-version']").val();
+                this.describle = $("input[name='add-describle']").val();
+                //alert(this.name);
+
                 formData.append('name', this.name);
                 formData.append('version', this.version);
-                formData.append('size', this.size);
+                //formData.append('size', this.size);
                 formData.append('describle', this.describle);
 
                 formData.append('enctype', "multipart/form-data");
@@ -365,6 +371,10 @@ export default {
         
         max-height: 90px;
         overflow: auto;
+    }
+
+    .addul{
+        list-style-type: decimal;
     }
 
     .muststar{
