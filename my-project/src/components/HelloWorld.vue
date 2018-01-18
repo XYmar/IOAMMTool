@@ -242,7 +242,7 @@ export default {
   },
   created(){
       /*var projectId = this.$route.params.id;
-      alert(projectId);
+     // alert(projectId);
       console.log(projectId);*/
   }
           
