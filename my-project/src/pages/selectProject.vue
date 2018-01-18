@@ -3,7 +3,7 @@
 
 	   <div class="row-fluid login-wrapper">
 	        <a href="index.html">
-	            <img class="logo" src="static/img/logo-white.png" />
+	            <img class="logo" src="img/logo-white.png" />
 	        </a> 
 
 	       <!--  <div class="span4 box choosePro">
@@ -193,20 +193,20 @@ created(){
 mounted: function(){
 	this.$nextTick(function () {
 		//背景
-        $("html").css("background-image", "url('static/img/bgs/10.jpg')");
-        //alert("hh");
+        $("html").css("background-image", "url('img/bgs/10.jpg')");
+        alert("hh");
 		var ul = document.getElementById('ulId');
 		console.log(ul);
 		var lis = ul.getElementsByTagName('li');
 		console.log(lis);
 		var spans = ul.getElementsByTagName('span');
 		console.log(spans);
-		//alert(spans.length);
+		alert(spans.length);
 		for(var i=0;i<spans.length;i++){
 			//alert("A");
 			//var spansv = this.innerHTML;
 		    spans[i].onclick = function(){
-		    	//alert("B");
+		    	alert("B");
 		        //alert(this.innerHTML);
 		        console.log(this.innerHTML);
 		        console.log(this.getAttribute('name'));
