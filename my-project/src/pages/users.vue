@@ -109,9 +109,9 @@
             </div>
         </div>
         <hr/>
-        <div>
+        <!-- <div>
             {{users}}
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -123,7 +123,7 @@
                 users:[]
             }
         },created(){
-            this.$axios.get('users',{
+            this.$axios.get('users/admin',{
                 /*params:{  //get请求在第二个位置，post在第三个位置
                     ID:'c02da6e9-a334-4e41-b842-c59eb7d0d3f3'
                 },*/
