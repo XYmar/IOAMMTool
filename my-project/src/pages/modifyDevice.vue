@@ -1,15 +1,5 @@
 <template>
   <div id="addUser">
-    <!-- settings changer -->
-    <div class="skins-nav">
-      <a href="#" class="skin first_nav selected">
-        <span class="icon"></span><span class="text">Default</span>
-      </a>
-      <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
-        <span class="icon"></span><span class="text">Dark skin</span>
-      </a>
-    </div>
-
 
     <div class="container-fluid">
       <div id="pad-wrapper" class="new-user">
@@ -95,7 +85,7 @@ export default{
         methods: {
 
           modifyDevice: function (event){
-                alert("A");
+                //alert("A");
                 var e = event || window.event;
                 //alert("B");
                 var target = e.target || e.srcElement;
@@ -104,7 +94,7 @@ export default{
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.parentNode.rowIndex;
                     //alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                    //alert(id);
                     var qs = require('qs');
                     this.$axios.get('devices/'+id,
                       {
@@ -129,7 +119,7 @@ export default{
 
             editDevice: function (){
                 var id = $("input[name='edit-id']").val();
-                alert(id);
+                //alert(id);
                 var qs = require('qs');
                 this.$axios.patch('devices/'+id ,qs.stringify({
                     "id": $("input[name='edit-id']").val(),

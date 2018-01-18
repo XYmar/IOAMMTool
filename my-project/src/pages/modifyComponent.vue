@@ -1,15 +1,6 @@
 <template>
     <div id="addUser">
         <!-- settings changer -->
-        <div class="skins-nav">
-            <a href="#" class="skin first_nav selected">
-                <span class="icon"></span><span class="text">Default</span>
-            </a>
-            <a href="#" class="skin second_nav" data-file="css/skins/dark.css">
-                <span class="icon"></span><span class="text">Dark skin</span>
-            </a>
-        </div>
-
 
         <div class="container-fluid">
             <div id="pad-wrapper" class="new-user">
@@ -76,7 +67,7 @@
             }
         },created(){
             var compId = this.$route.params.id;
-            alert(compId);
+            //alert(compId);
             console.log(compId);
             this.$axios.get('components/' + compId,{
                 
@@ -101,7 +92,7 @@
         methods: {
             editComp: function (){
                 var id = $("input[name='edit-id']").val();
-                alert(id);
+                //alert(id);
                 var qs = require('qs');
                 this.$axios.patch('devices/'+id ,qs.stringify({
                     "id": $("input[name='edit-id']").val(),
