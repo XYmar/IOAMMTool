@@ -128,10 +128,10 @@
                 <!-- end users table -->
             </div>
         </div>
-        <hr/>
+        <!-- <hr/>
         <div>
             {{deployplans}}
-        </div>
+        </div> -->
     </div>
 </template>
 
