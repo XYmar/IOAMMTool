@@ -76,7 +76,7 @@
             }
         },created(){
             var compId = this.$route.params.id;
-            alert(compId);
+           // alert(compId);
             console.log(compId);
             this.$axios.get('components/' + compId,{
                 
@@ -101,7 +101,7 @@
         methods: {
             editComp: function (){
                 var id = $("input[name='edit-id']").val();
-                alert(id);
+               // alert(id);
                 var qs = require('qs');
                 this.$axios.patch('devices/'+id ,qs.stringify({
                     "id": $("input[name='edit-id']").val(),

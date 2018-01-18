@@ -169,9 +169,9 @@ export default{
                 if (target.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
                     //alert("C");
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.rowIndex;
-                    alert(rowIndex);
+                   //alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                   // alert(id);
                     var qs = require('qs');
                     this.$axios.delete('devices/'+id,{
 
@@ -197,7 +197,7 @@ export default{
             /*,
 
             modifyDevice: function (event){
-                alert("A");
+               // alert("A");
                 var e = event || window.event;
                 //alert("B");
                 var target = e.target || e.srcElement;
@@ -206,7 +206,7 @@ export default{
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.parentNode.rowIndex;
                     //alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                   // alert(id);
                     var qs = require('qs');
                     this.$axios.get('devices/'+id,
                       {
@@ -249,10 +249,10 @@ export default{
                         }
                     }
                     return arr;
-                    alert(device.name);
-                    alert(device.ip);
+                   // alert(device.name);
+                   // alert(device.ip);
                     console.log(device);
-                    alert(searchRegex.test(device.name) );
+                   // alert(searchRegex.test(device.name) );
                     return device.isActive && (
                         searchRegex.test(device.name) ||
                         searchRegex.test(device.ip)

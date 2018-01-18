@@ -175,9 +175,9 @@ export default{
                 if (target.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
                     //alert("C");
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.rowIndex;
-                    alert(rowIndex);
+                   // alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                   // alert(id);
                     var qs = require('qs');
                     this.$axios.delete('components/'+id,{
 
@@ -209,9 +209,9 @@ export default{
                 if (target.parentNode.parentNode.parentNode.tagName.toLowerCase() == "td") {
                     //alert("C");
                     var rowIndex = target.parentNode.parentNode.parentNode.parentNode.rowIndex;
-                    alert(rowIndex);
+                   // alert(rowIndex);
                     var id = document.getElementById("table_value").rows[rowIndex].cells[0].innerHTML;
-                    alert(id);
+                   // alert(id);
                     var qs = require('qs');
                     this.$axios.get('components/export/'+id,{
 

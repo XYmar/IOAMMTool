@@ -97,11 +97,11 @@
                 console.log(this.files2);
             },
             submitForm0(event) {
-                alert("A");
+                //alert("A");
                 event.preventDefault();
                 let formData = new FormData();
 
-                alert("hh0");
+               // alert("hh0");
                 formData.append('name', this.name);
                 formData.append('version', this.version);
                 formData.append('componentfile', this.file0);
@@ -126,11 +126,11 @@
                 })
             },
             submitForm1(event) {
-                alert("A");
+               // alert("A");
                 event.preventDefault();
                 let formData = new FormData();
 
-                alert("hh");
+               // alert("hh");
                 formData.append('name', this.name);
                 formData.append('version', this.version);
                 formData.append('enctype', "multipart/form-data");
